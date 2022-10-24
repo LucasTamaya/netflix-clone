@@ -37,7 +37,7 @@ export const Nav: React.FC = () => {
       <img
         src={NETFLIX_LOGO_URL}
         alt="netflix logo"
-        className="w-24 cursor-pointer"
+        className="w-36 cursor-pointer"
         onClick={() => navigate("/")}
       />
       <img
