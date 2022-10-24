@@ -4,12 +4,18 @@ import { getSingleMovie } from "../../api/getSingleMovie";
 import { TMDB_BASE_IMG_URL } from "../../constants/tmdb";
 import { BannerError } from "./BannerError";
 import { BannerFilter } from "./BannerFilter";
+import { BannerLoading } from "./BannerLoading";
 
 export const Banner: React.FC = () => {
-  const { isSuccess, isError, data } = useQuery(["movie"], getSingleMovie);
+  const { isLoading, isError, isSuccess, data } = useQuery(
+    ["movie"],
+    getSingleMovie
+  );
 
   return (
     <>
+      {isLoading && <BannerLoading />}
+
       {isError && <BannerError />}
 
       {isSuccess && (
