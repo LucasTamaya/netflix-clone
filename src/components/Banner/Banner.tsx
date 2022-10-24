@@ -14,18 +14,16 @@ export const Banner: React.FC = () => {
 
   return (
     <>
-      {isLoading && <BannerLoading />}
+      {isLoading ? <BannerLoading /> : null}
 
-      {isError && <BannerError />}
+      {isError ? <BannerError /> : null}
 
-      {isSuccess && (
+      {isSuccess ? (
         <div
           className="relative w-full h-[700px] transition duration-200 bg-cover bg-center object-fit"
-          style={
-            data && {
-              backgroundImage: `url(${TMDB_BASE_IMG_URL}${data.backdrop_path})`,
-            }
-          }
+          style={{
+            backgroundImage: `url(${TMDB_BASE_IMG_URL}${data.backdrop_path})`,
+          }}
         >
           <div className="absolute top-1/3 ml-10 z-10">
             <h1 className="text-white text-5xl font-extrabold">
@@ -41,7 +39,7 @@ export const Banner: React.FC = () => {
           </div>
           <BannerFilter />
         </div>
-      )}
+      ) : null}
     </>
   );
 };
