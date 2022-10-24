@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const NETFLIX_LOGO_URL =
   "https://imgs.search.brave.com/d-5QHv0OKNqEzCa8jz0i5B7D_tka_hq1VpvjawK5yzI/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9wbmdp/bWcuY29tL3VwbG9h/ZHMvbmV0ZmxpeC9u/ZXRmbGl4X1BORzI1/LnBuZw";
@@ -8,6 +9,8 @@ const PROFILE_ICON_URL =
 
 export const Nav: React.FC = () => {
   const [showNavBackground, setShowNavBackground] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const navBackgroundTransition = () => {
     if (window.scrollY > 100) {
@@ -35,11 +38,13 @@ export const Nav: React.FC = () => {
         src={NETFLIX_LOGO_URL}
         alt="netflix logo"
         className="w-24 cursor-pointer"
+        onClick={() => navigate("/")}
       />
       <img
         src={PROFILE_ICON_URL}
         alt="profile icon"
         className="w-12 h-12 cursor-pointer"
+        onClick={() => navigate("/profile")}
       />
     </nav>
   );
