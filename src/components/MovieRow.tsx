@@ -24,13 +24,13 @@ export const MovieRow: React.FC<Props> = ({ category, url }) => {
       {isError && <p>An error happen</p>}
 
       {isSuccess && (
-        <div className="flex flex-row gap-x-5 overflow-x-auto mb-8 scrollbar-hide">
+        <div className="flex flex-row gap-x-3 overflow-x-auto pb-8 scrollbar-hide">
           {data.map((moviePosterUrl) => (
             <LazyLoadImage
               key={uuidv4()}
               src={`${TMDB_BASE_IMG_URL}${moviePosterUrl}`}
               alt="movie poster"
-              className="w-72 h-36 object-contain"
+              className="w-72 h-36 object-cover cursor-pointer transition duration-150 hover:scale-105"
             />
           ))}
         </div>

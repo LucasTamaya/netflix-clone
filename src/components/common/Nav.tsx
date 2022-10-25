@@ -31,8 +31,8 @@ export const Nav: React.FC = () => {
   return (
     <nav
       className={`${
-        showNavBackground && "bg-black"
-      } fixed top-0 left-0 w-full flex justify-between px-10 py-2 transition duration-300 z-20`}
+        showNavBackground && "bg-zinc-900"
+      } fixed top-0 left-0 w-full flex justify-between items-center px-10 py-2 transition duration-300 z-20`}
     >
       <img
         src={NETFLIX_LOGO_URL}
