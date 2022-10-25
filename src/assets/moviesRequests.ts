@@ -12,7 +12,7 @@ export const moviesRequests: IMoviesRequests[] = [
   },
   {
     category: "Netflix Originals",
-    url: `${TMDB_BASE_URL}/discover/tv??api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_networks=213`,
+    url: `${TMDB_BASE_URL}/discover/tv?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_networks=213`,
   },
   {
     category: "Top Rated",

@@ -1,6 +1,3 @@
-import axios from "axios";
-
-import { generateRandomInt } from "../utils/generateRandomNumber";
 import { moviesRequests } from "../assets/moviesRequests";
 import { getRandomMovieData } from "./getRandomMovieData";
 

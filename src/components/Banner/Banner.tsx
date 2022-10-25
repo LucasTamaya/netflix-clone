@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getSingleMovie } from "../../api/getSingleMovie";
+import { getBannerMovieData } from "../../api/getBannerMovieData";
 import { TMDB_BASE_IMG_URL } from "../../constants/tmdb";
 import { BannerError } from "./BannerError";
 import { BannerFilter } from "./BannerFilter";
@@ -8,8 +8,8 @@ import { BannerLoading } from "./BannerLoading";
 
 export const Banner: React.FC = () => {
   const { isLoading, isError, isSuccess, data } = useQuery(
-    ["movie"],
-    getSingleMovie
+    ["bannerMovieData"],
+    getBannerMovieData
   );
 
   return (
