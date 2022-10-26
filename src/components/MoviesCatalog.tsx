@@ -1,6 +1,5 @@
-import { MovieRow } from "./MovieRow";
-
 import { moviesRequests } from "../assets/moviesRequests";
+import { MovieRow } from "./MovieRow/MovieRow";
 
 export const MoviesCatalog: React.FC = () => {
   return (

@@ -2,8 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-import { getMoviesPosters } from "../api/getMoviesPosters";
-import { TMDB_BASE_IMG_URL } from "../constants/tmdb";
+import { getMoviesPosters } from "../../api/getMoviesPosters";
+import { TMDB_BASE_IMG_URL } from "../../constants/tmdb";
+import { MovieRowLoading } from "./MovieRowLoading";
 
 interface Props {
   category: string;
@@ -16,14 +17,18 @@ export const MovieRow: React.FC<Props> = ({ category, url }) => {
   );
 
   return (
-    <div>
-      <h2 className="text-white  text-3xl font-bold mb-3">{category}</h2>
+    <div className="overflow-x-hidden">
+      <h2 className="text-white text-3xl font-bold mb-3">{category}</h2>
 
-      {isLoading && <p>Loading...</p>}
+      {isLoading ? <MovieRowLoading /> : null}
 
-      {isError && <p>An error happen</p>}
+      {isError ? (
+        <p className="text-white text-lg font-semibold">
+          Oops, something went wrong on the server...
+        </p>
+      ) : null}
 
-      {isSuccess && (
+      {isSuccess ? (
         <div className="flex flex-row gap-x-3 overflow-x-auto pb-16 scrollbar-hide">
           {data.map((moviePosterUrl) => (
             <LazyLoadImage
@@ -34,7 +39,7 @@ export const MovieRow: React.FC<Props> = ({ category, url }) => {
             />
           ))}
         </div>
-      )}
+      ) : null}
     </div>
   );
 };
