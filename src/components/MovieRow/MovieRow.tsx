@@ -18,7 +18,9 @@ export const MovieRow: React.FC<Props> = ({ category, url }) => {
 
   return (
     <div className="overflow-x-hidden">
-      <h2 className="text-white text-3xl font-bold mb-3">{category}</h2>
+      <h2 className="text-white text-2xl sm:text-3xl font-bold mb-3">
+        {category}
+      </h2>
 
       {isLoading ? <MovieRowLoading /> : null}
 

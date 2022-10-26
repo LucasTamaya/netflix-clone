@@ -37,13 +37,13 @@ export const Nav: React.FC = () => {
       <img
         src={NETFLIX_LOGO_URL}
         alt="netflix logo"
-        className="w-36 cursor-pointer"
+        className="w-28 sm:w-36 cursor-pointer"
         onClick={() => navigate("/")}
       />
       <img
         src={PROFILE_ICON_URL}
         alt="profile icon"
-        className="w-12 h-12 cursor-pointer"
+        className="w-9 h-9 sm:w-12 sm:h-12 cursor-pointer"
         onClick={() => navigate("/profile")}
       />
     </nav>

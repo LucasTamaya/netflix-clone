@@ -6,7 +6,6 @@ export const MovieRowLoading: React.FC = () => {
 
   const handleWindowResize = () => {
     setWidth(window.innerWidth);
-    console.log(width);
   };
 
   useEffect(() => {
