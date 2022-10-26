@@ -17,14 +17,14 @@ export const MovieRow: React.FC<Props> = ({ category, url }) => {
 
   return (
     <div>
-      <h2 className="text-white text-2xl font-extrabold mb-3">{category}</h2>
+      <h2 className="text-white  text-3xl font-bold mb-3">{category}</h2>
 
       {isLoading && <p>Loading...</p>}
 
       {isError && <p>An error happen</p>}
 
       {isSuccess && (
-        <div className="flex flex-row gap-x-3 overflow-x-auto pb-8 scrollbar-hide">
+        <div className="flex flex-row gap-x-3 overflow-x-auto pb-16 scrollbar-hide">
           {data.map((moviePosterUrl) => (
             <LazyLoadImage
               key={uuidv4()}

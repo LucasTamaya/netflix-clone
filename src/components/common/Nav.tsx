@@ -13,11 +13,11 @@ export const Nav: React.FC = () => {
   const navigate = useNavigate();
 
   const navBackgroundTransition = () => {
-    if (window.scrollY > 600) {
+    if (window.scrollY > 100) {
       setShowNavBackground(true);
     }
 
-    if (window.scrollY < 600) {
+    if (window.scrollY < 100) {
       setShowNavBackground(false);
     }
   };

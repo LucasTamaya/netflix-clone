@@ -26,7 +26,7 @@ export const Banner: React.FC = () => {
           }}
         >
           <div className="absolute top-1/3 ml-10 z-10">
-            <h1 className="text-white text-5xl font-extrabold">
+            <h1 className="text-white text-6xl font-extrabold max-w-5xl">
               {data.title || data.name}
             </h1>
             <button className="text-white py-1 px-6 rounded cursor-pointer bg-gray-200/30 mt-5">
@@ -35,7 +35,7 @@ export const Banner: React.FC = () => {
             <button className="text-white py-1 px-6 rounded cursor-pointer bg-gray-200/30 ml-2">
               My List
             </button>
-            <p className="text-white mt-5">{data.overview}</p>
+            <p className="text-white mt-5 max-w-2xl">{data.overview}</p>
           </div>
           <BannerFilter />
         </div>
