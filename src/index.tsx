@@ -3,9 +3,11 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Provider } from "react-redux";
 
 import App from "./App";
 import "./style/index.css";
+import { store } from "./redux/store";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -19,7 +21,9 @@ root.render(
     <HelmetProvider context={helmetContext}>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <App />
+          <Provider store={store}>
+            <App />
+          </Provider>
         </QueryClientProvider>
       </BrowserRouter>
     </HelmetProvider>
