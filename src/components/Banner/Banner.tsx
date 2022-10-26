@@ -35,7 +35,9 @@ export const Banner: React.FC = () => {
             <button className="text-white py-1 px-6 rounded cursor-pointer bg-gray-200/30 ml-2">
               My List
             </button>
-            <p className="text-white mt-5 max-w-2xl">{data.overview}</p>
+            <p className="text-white text-lg font-semibold mt-5 max-w-2xl">
+              {data.overview}
+            </p>
           </div>
           <BannerFilter />
         </div>
