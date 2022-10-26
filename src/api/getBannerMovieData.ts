@@ -1,9 +1,10 @@
 import { moviesRequests } from "../assets/moviesRequests";
+import { MovieResult } from "../types";
 import { getRandomMovieData } from "./getRandomMovieData";
 
 let trendingMoviesUrl: string;
 
-export const getBannerMovieData = async () => {
+export const getBannerMovieData = async (): Promise<MovieResult> => {
   moviesRequests.every((movie) => {
     if (movie.category === "Trending") {
       trendingMoviesUrl = movie.url;
@@ -11,6 +12,6 @@ export const getBannerMovieData = async () => {
     }
     return false;
   });
-  const moviesData = await getRandomMovieData(trendingMoviesUrl);
-  return moviesData;
+  const bannerMovieData = await getRandomMovieData(trendingMoviesUrl);
+  return bannerMovieData;
 };
