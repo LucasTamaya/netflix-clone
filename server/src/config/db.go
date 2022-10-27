@@ -1,4 +1,4 @@
-package main
+package config
 
 import (
 	"database/sql"
@@ -12,7 +12,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func dbConnection() (*sql.DB, error) {
+func DbConnection() (*sql.DB, error) {
 	envErr := godotenv.Load()
 
 	if envErr != nil {

@@ -10,18 +10,14 @@ import (
 	"github.com/gofiber/fiber/v2"
 
 	"github.com/gofiber/fiber/v2/middleware/cors"
-)
 
-type User struct {
-	Id       int
-	Email    string
-	Password string
-}
+	"netflix-clone/src/config"
+)
 
 var Sql *sql.DB
 
 func main() {
-	db, err := dbConnection()
+	db, err := config.DbConnection()
 
 	if err != nil {
 		fmt.Println("Failed to connect to DB")
@@ -35,6 +31,8 @@ func main() {
 
 	// handle CORS error
 	app.Use(cors.New())
+
+	app.Post("/register", RegisterController)
 
 	log.Fatal(app.Listen(":8080"))
 }
