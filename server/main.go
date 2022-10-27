@@ -27,12 +27,15 @@ func main() {
 
 	Sql = db
 
+	defer Sql.Close()
+
 	app := fiber.New()
 
 	// handle CORS error
 	app.Use(cors.New())
 
 	app.Post("/register", RegisterController)
+	app.Post("/login", LoginController)
 
 	log.Fatal(app.Listen(":8080"))
 }
