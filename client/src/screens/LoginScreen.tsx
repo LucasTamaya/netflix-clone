@@ -1,14 +1,29 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 
 import { useAppSelector } from "../hooks/redux/index";
 import { NetflixBackground } from "../components/common/NetflixBackground";
 import { Nav } from "../components/common/Nav";
+import { handleRegister } from "../api/auth/register";
+import { useMutation } from "@tanstack/react-query";
 
 export const LoginScreen: React.FC = () => {
   const emailAddress = useAppSelector((state) => state.user.email);
 
   const [email, setEmail] = useState<string>(emailAddress || "");
   const [password, setPassword] = useState<string>("");
+
+  const { mutate, isLoading, isError, isSuccess, data } = useMutation(() =>
+    handleRegister(email, password)
+  );
+
+  const navigate = useNavigate();
+
+  if (isSuccess) {
+    console.log(data);
+    navigate("/browse");
+  }
 
   return (
     <NetflixBackground>
@@ -26,22 +41,29 @@ export const LoginScreen: React.FC = () => {
             />
             <input
               className="text-white outline-none rounded w-full bg-zinc-700 px-5 py-3"
-              type="text"
+              type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <button
-            className="w-full text-white font-semibold p-3 rounded bg-[#E50913] mt-10"
+            className="w-full text-white font-semibold h-12 rounded bg-[#E50913] mt-10"
             type="submit"
           >
-            Login
+            {isLoading ? (
+              <ClipLoader color="white" size={20} speedMultiplier={0.7} />
+            ) : (
+              <>Login</>
+            )}
           </button>
           <p className="text-zinc-500 mt-8">
             First visit on Netflix?{" "}
-            <span className="text-white font-semibold cursor-pointer">
-              Sign up
+            <span
+              className="text-white font-semibold cursor-pointer"
+              onClick={() => mutate()}
+            >
+              Register
             </span>
           </p>
         </form>

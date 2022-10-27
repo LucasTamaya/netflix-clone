@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { TmdbApiMovieResponse } from "../types";
+import { TmdbApiMovieResponse } from "../../types";
 
 export const getMoviesPosters = async (url: string): Promise<string[]> => {
   const { data: moviesData } = await axios.get<TmdbApiMovieResponse>(url);

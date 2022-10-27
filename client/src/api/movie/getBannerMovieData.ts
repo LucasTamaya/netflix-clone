@@ -1,5 +1,5 @@
-import { moviesRequests } from "../assets/moviesRequests";
-import { MovieResult } from "../types";
+import { moviesRequests } from "../../assets/moviesRequests";
+import { MovieResult } from "../../types";
 import { getRandomMovieData } from "./getRandomMovieData";
 
 let trendingMoviesUrl: string;

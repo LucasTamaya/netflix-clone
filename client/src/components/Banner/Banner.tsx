@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getBannerMovieData } from "../../api/getBannerMovieData";
+import { getBannerMovieData } from "../../api/movie/getBannerMovieData";
 import { TMDB_BASE_IMG_URL } from "../../constants/tmdb";
 import { BannerError } from "./BannerError";
 import { BannerFilter } from "./BannerFilter";
