@@ -23,3 +23,8 @@ export interface TmdbApiMovieResponse {
   total_pages: number;
   total_results: number;
 }
+
+export interface ServerAuthApiResponse {
+  ok: boolean;
+  error?: string;
+}

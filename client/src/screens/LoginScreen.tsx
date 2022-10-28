@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+import { useMutation } from "@tanstack/react-query";
 
 import { useAppSelector } from "../hooks/redux/index";
 import { NetflixBackground } from "../components/common/NetflixBackground";
 import { Nav } from "../components/common/Nav";
+import { handleLogin } from "../api/auth/login";
 import { handleRegister } from "../api/auth/register";
-import { useMutation } from "@tanstack/react-query";
 
 export const LoginScreen: React.FC = () => {
   const emailAddress = useAppSelector((state) => state.user.email);
@@ -14,16 +15,23 @@ export const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState<string>(emailAddress || "");
   const [password, setPassword] = useState<string>("");
 
-  const { mutate, isLoading, isError, isSuccess, data } = useMutation(() =>
-    handleRegister(email, password)
-  );
-
   const navigate = useNavigate();
 
-  if (isSuccess) {
-    console.log(data);
-    navigate("/browse");
-  }
+  const {
+    mutate: loginMutate,
+    isLoading: loginLoading,
+    isError: loginError,
+    error: loginErrorMessage,
+  } = useMutation<void, string>(() => handleLogin(email, password, navigate));
+
+  const {
+    mutate: registerMutate,
+    isLoading: registerLoading,
+    isError: registerError,
+    error: registerErrorMessage,
+  } = useMutation<void, string>(() =>
+    handleRegister(email, password, navigate)
+  );
 
   return (
     <NetflixBackground>
@@ -49,9 +57,12 @@ export const LoginScreen: React.FC = () => {
           </div>
           <button
             className="w-full text-white font-semibold h-12 rounded bg-[#E50913] mt-10"
-            type="submit"
+            onClick={(e) => {
+              e.preventDefault();
+              loginMutate();
+            }}
           >
-            {isLoading ? (
+            {loginLoading || registerLoading ? (
               <ClipLoader color="white" size={20} speedMultiplier={0.7} />
             ) : (
               <>Login</>
@@ -61,7 +72,7 @@ export const LoginScreen: React.FC = () => {
             First visit on Netflix?{" "}
             <span
               className="text-white font-semibold cursor-pointer"
-              onClick={() => mutate()}
+              onClick={() => registerMutate()}
             >
               Register
             </span>

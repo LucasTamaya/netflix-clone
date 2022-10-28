@@ -4,13 +4,13 @@ import { NavigateFunction } from "react-router-dom";
 import { SERVER_BASE_URL } from "../../constants/server";
 import { ServerAuthApiResponse } from "../../types";
 
-export const handleRegister = async (
+export const handleLogin = async (
   email: string,
   password: string,
   navigate: NavigateFunction
 ) => {
   const { data: auth } = await axios.post<ServerAuthApiResponse>(
-    `${SERVER_BASE_URL}/register`,
+    `${SERVER_BASE_URL}/login`,
     {
       email,
       password,
