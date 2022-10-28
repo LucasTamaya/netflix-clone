@@ -1,4 +1,4 @@
-package main
+package controllers
 
 import (
 	"fmt"
@@ -6,29 +6,30 @@ import (
 	"github.com/gofiber/fiber/v2"
 
 	"golang.org/x/crypto/bcrypt"
+
+	"netflix-clone/src/config"
+
+	"netflix-clone/src/models"
+
+	"netflix-clone/src/services"
 )
 
-type User struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
-}
-
 func RegisterController(c *fiber.Ctx) error {
-	user := User{}
+	user := models.User{}
 
 	if err := c.BodyParser(&user); err != nil {
 		fmt.Println("Failed to parse the body request in the user")
 		return err
 	}
 
-	if existingUser := CheckIfUserExists(&user); existingUser == true {
+	if existingUser := services.CheckIfUserExists(&user); existingUser == true {
 		return c.Status(200).JSON(fiber.Map{
 			"ok":    false,
 			"error": "User already exists",
 		})
 	}
 
-	query, err := Sql.Prepare("INSERT INTO users (email, password) VALUES(?, ?)")
+	query, err := config.Db.Prepare("INSERT INTO users (email, password) VALUES(?, ?)")
 
 	if err != nil {
 		fmt.Println("Failed to prepare the sql query")
@@ -55,15 +56,15 @@ func RegisterController(c *fiber.Ctx) error {
 }
 
 func LoginController(c *fiber.Ctx) error {
-	user := User{}
-	userFromDb := User{}
+	user := models.User{}
+	userFromDb := models.User{}
 
 	if err := c.BodyParser(&user); err != nil {
 		fmt.Println("Failed to parse the body request in the user: ", err)
 		return c.Status(fiber.StatusBadRequest).SendString(err.Error())
 	}
 
-	if err := CheckIfUserExistsAndScanData(&user, &userFromDb); err != nil {
+	if err := services.CheckIfUserExistsAndScanData(&user, &userFromDb); err != nil {
 		fmt.Println("Error during the query: ", err)
 		return c.Status(200).JSON(fiber.Map{
 			"ok":    false,

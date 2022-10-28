@@ -12,7 +12,9 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func DbConnection() (*sql.DB, error) {
+var Db *sql.DB
+
+func DbConnection() error {
 	envErr := godotenv.Load()
 
 	if envErr != nil {
@@ -24,8 +26,9 @@ func DbConnection() (*sql.DB, error) {
 	db, err := sql.Open("mysql", dbConnectionString)
 
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return db, nil
+	Db = db
+	return nil
 }

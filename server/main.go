@@ -1,8 +1,6 @@
 package main
 
 import (
-	"database/sql"
-
 	"fmt"
 
 	"log"
@@ -12,12 +10,12 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 
 	"netflix-clone/src/config"
+
+	"netflix-clone/src/controllers"
 )
 
-var Sql *sql.DB
-
 func main() {
-	db, err := config.DbConnection()
+	err := config.DbConnection()
 
 	if err != nil {
 		fmt.Println("Failed to connect to DB")
@@ -25,17 +23,15 @@ func main() {
 
 	fmt.Println("Connected to DB!")
 
-	Sql = db
-
-	defer Sql.Close()
+	defer config.Db.Close()
 
 	app := fiber.New()
 
 	// handle CORS error
 	app.Use(cors.New())
 
-	app.Post("/register", RegisterController)
-	app.Post("/login", LoginController)
+	app.Post("/register", controllers.RegisterController)
+	app.Post("/login", controllers.LoginController)
 
 	log.Fatal(app.Listen(":8080"))
 }
