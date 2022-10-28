@@ -64,7 +64,7 @@ func LoginController(c *fiber.Ctx) error {
 	}
 
 	if err := CheckIfUserExistsAndScanData(&user, &userFromDb); err != nil {
-		fmt.Println("Error during the query:", err)
+		fmt.Println("Error during the query: ", err)
 		return c.Status(200).JSON(fiber.Map{
 			"ok":    false,
 			"error": err.Error(),
@@ -73,9 +73,13 @@ func LoginController(c *fiber.Ctx) error {
 
 	if err := bcrypt.CompareHashAndPassword([]byte(userFromDb.Password), []byte(user.Password)); err != nil {
 		fmt.Println("Wrong password", err)
-		return c.Status(fiber.StatusOK).SendString("Wrong email or password")
+		return c.Status(200).JSON(fiber.Map{
+			"ok":    false,
+			"error": "Wrong email or password",
+		})
 	}
 
-	fmt.Println("Successfull connection")
-	return c.Status(fiber.StatusOK).SendString("Successfull connection!")
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"ok": true,
+	})
 }
