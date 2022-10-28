@@ -21,6 +21,13 @@ func RegisterController(c *fiber.Ctx) error {
 		return err
 	}
 
+	if existingUser := CheckIfUserExists(&user); existingUser == true {
+		return c.Status(200).JSON(fiber.Map{
+			"ok":    false,
+			"error": "User already exists",
+		})
+	}
+
 	query, err := Sql.Prepare("INSERT INTO users (email, password) VALUES(?, ?)")
 
 	if err != nil {
@@ -38,11 +45,13 @@ func RegisterController(c *fiber.Ctx) error {
 	_, err = query.Exec(user.Email, hashedPassword)
 
 	if err != nil {
-		fmt.Println("Failed to hash the password")
+		fmt.Println("Failed to execute the query")
 		return err
 	}
 
-	return c.Status(fiber.StatusOK).JSON(user)
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"ok": true,
+	})
 }
 
 func LoginController(c *fiber.Ctx) error {
@@ -54,9 +63,12 @@ func LoginController(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).SendString(err.Error())
 	}
 
-	if err := CheckIfUserExists(&user, &userFromDb); err != nil {
-		fmt.Println("Failed during the query:", err)
-		return c.Status(fiber.StatusNoContent).SendString(err.Error())
+	if err := CheckIfUserExistsAndScanData(&user, &userFromDb); err != nil {
+		fmt.Println("Error during the query:", err)
+		return c.Status(200).JSON(fiber.Map{
+			"ok":    false,
+			"error": err.Error(),
+		})
 	}
 
 	if err := bcrypt.CompareHashAndPassword([]byte(userFromDb.Password), []byte(user.Password)); err != nil {
