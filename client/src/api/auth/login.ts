@@ -18,6 +18,10 @@ export const handleLogin = async (
   );
 
   if (!auth.ok) {
+    // if user not found
+    if (auth.error?.includes("sql: no rows in result set")) {
+      throw new Error("Wrong email or password");
+    }
     throw new Error(auth.error);
   }
 
