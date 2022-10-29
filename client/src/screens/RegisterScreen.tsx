@@ -5,10 +5,10 @@ import { useMutation } from "@tanstack/react-query";
 import { useAppSelector } from "../hooks/redux/index";
 import { NetflixBackground } from "../components/common/NetflixBackground";
 import { Nav } from "../components/common/Nav";
-import { handleLogin } from "../api/auth/login";
+import { handleRegister } from "../api/auth/register";
 import { AuthForm } from "../components/common/AuthForm";
 
-export const LoginScreen: React.FC = () => {
+export const RegisterScreen: React.FC = () => {
   const emailAddress = useAppSelector((state) => state.user.email);
 
   const [email, setEmail] = useState<string>(emailAddress || "");
@@ -17,7 +17,7 @@ export const LoginScreen: React.FC = () => {
   const navigate = useNavigate();
 
   const { mutate, isLoading, error } = useMutation<void, Error>(() =>
-    handleLogin(email, password, navigate)
+    handleRegister(email, password, navigate)
   );
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export const LoginScreen: React.FC = () => {
     <NetflixBackground>
       <Nav />
       <AuthForm
-        title="Login"
+        title="Register"
         email={email}
         setEmail={setEmail}
         password={password}
@@ -36,7 +36,7 @@ export const LoginScreen: React.FC = () => {
         handleAuth={mutate}
         isLoading={isLoading}
         authError={error}
-        changeAuthMethodPath="/register"
+        changeAuthMethodPath="/login"
       />
     </NetflixBackground>
   );
