@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../hooks/redux";
 
 const NETFLIX_LOGO_URL =
   "https://imgs.search.brave.com/d-5QHv0OKNqEzCa8jz0i5B7D_tka_hq1VpvjawK5yzI/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9wbmdp/bWcuY29tL3VwbG9h/ZHMvbmV0ZmxpeC9u/ZXRmbGl4X1BORzI1/LnBuZw";
@@ -9,6 +10,10 @@ const PROFILE_ICON_URL =
 
 export const Nav: React.FC = () => {
   const [showNavBackground, setShowNavBackground] = useState<boolean>(false);
+
+  const userIsAuthenticated = useAppSelector(
+    (state) => state.user.isAuthenticated
+  );
 
   const navigate = useNavigate();
 
@@ -40,12 +45,14 @@ export const Nav: React.FC = () => {
         className="w-28 sm:w-36 cursor-pointer"
         onClick={() => navigate("/")}
       />
-      <img
-        src={PROFILE_ICON_URL}
-        alt="profile icon"
-        className="w-9 h-9 sm:w-12 sm:h-12 cursor-pointer"
-        onClick={() => navigate("/profile")}
-      />
+      {userIsAuthenticated ? (
+        <img
+          src={PROFILE_ICON_URL}
+          alt="profile icon"
+          className="w-9 h-9 sm:w-12 sm:h-12 cursor-pointer"
+          onClick={() => navigate("/profile")}
+        />
+      ) : null}
     </nav>
   );
 };
