@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
 
 import { useAppSelector } from "../hooks/redux/index";
 import { NetflixBackground } from "../components/common/NetflixBackground";
 import { Nav } from "../components/common/Nav";
-import { handleLogin } from "../api/auth/login";
 import { AuthForm } from "../components/common/AuthForm";
+import { useLogin } from "../hooks/auth/useLogin";
+import { useAuthUser } from "../hooks/auth/useAuthUser";
 
 export const LoginScreen: React.FC = () => {
   const emailAddress = useAppSelector((state) => state.user.email);
@@ -14,15 +14,18 @@ export const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState<string>(emailAddress || "");
   const [password, setPassword] = useState<string>("");
 
+  const { mutate, isLoading, isSuccess, error } = useLogin(email, password);
+
+  const authenticateUser = useAuthUser();
+
   const navigate = useNavigate();
 
-  const { mutate, isLoading, error } = useMutation<void, Error>(() =>
-    handleLogin(email, password, navigate)
-  );
-
   useEffect(() => {
-    if (error) console.log(error.message);
-  }, [error]);
+    if (isSuccess) {
+      authenticateUser();
+      navigate("/browse");
+    }
+  }, [isSuccess, authenticateUser, navigate]);
 
   return (
     <NetflixBackground>
