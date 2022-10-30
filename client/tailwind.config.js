@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "red-netflix": "#E50913",
+      },
+    },
   },
   plugins: [require("tailwind-scrollbar-hide")],
 };

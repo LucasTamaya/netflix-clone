@@ -41,7 +41,7 @@ export const HomeScreen: React.FC = () => {
             onChange={(e) => setEmailAddress(e.target.value)}
           />
           <button
-            className="text-white text-xs sm:text-base font-bold uppercase rounded sm:rounded-none sm:rounded-tr sm:rounded-br p-4 sm:p-5 bg-[#E50913] transition hover:bg-red-600"
+            className="text-white text-xs sm:text-base font-bold uppercase rounded sm:rounded-none sm:rounded-tr sm:rounded-br p-4 sm:p-5 bg-red-netflix transition hover:bg-red-600"
             type="submit"
             onClick={handleSubmit}
           >

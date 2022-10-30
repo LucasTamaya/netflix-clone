@@ -51,7 +51,7 @@ export const AuthForm: React.FC<Props> = ({
           />
         </div>
         <button
-          className="w-full text-white font-semibold h-12 rounded bg-[#E50913] mt-10"
+          className="w-full text-white font-semibold h-12 rounded bg-red-netflix mt-10"
           onClick={(e) => {
             e.preventDefault();
             handleAuth();
