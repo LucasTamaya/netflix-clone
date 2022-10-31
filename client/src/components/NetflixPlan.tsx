@@ -4,6 +4,7 @@ interface Props {
   resolution: string;
   buttonTitle: string;
   isActive: boolean;
+  handleClick: any;
 }
 
 export const NetflixPlan: React.FC<Props> = ({
@@ -12,6 +13,7 @@ export const NetflixPlan: React.FC<Props> = ({
   resolution,
   buttonTitle,
   isActive,
+  handleClick,
 }) => {
   return (
     <div className="flex justify-between items-center px-7">
@@ -22,6 +24,7 @@ export const NetflixPlan: React.FC<Props> = ({
         <p className="text-white">{resolution}</p>
       </div>
       <button
+        onClick={handleClick}
         className={`text-white font-semibold py-2 px-5 rounded ${
           isActive
             ? "bg-zinc-500 transition hover:bg-zinc-600"

@@ -1,7 +1,19 @@
+import { useState } from "react";
+
 import { Nav } from "../components/common/Nav";
 import { NetflixPlan } from "../components/NetflixPlan";
+import {
+  checkoutOptions,
+  netflixBasicItem,
+  netflixPremiumItem,
+  netflixStandardItem,
+} from "../stripe/assets";
+import { redirectToCheckout } from "../stripe/redirectToCheckout";
 
 export const SelectPlansScreen: React.FC = () => {
+  const [stripeError, setStripeError] = useState<string | undefined>();
+  const [isLoading, setLoading] = useState<boolean>(false);
+
   return (
     <div className="bg-zinc-900 px-14">
       <Nav />
@@ -11,9 +23,15 @@ export const SelectPlansScreen: React.FC = () => {
           <NetflixPlan
             title="Netflix Basic"
             price={9.99}
-            resolution="480p"
+            resolution="780p"
             buttonTitle="Subscribe"
             isActive={false}
+            handleClick={() =>
+              redirectToCheckout({
+                ...checkoutOptions,
+                lineItems: [netflixBasicItem],
+              })
+            }
           />
           <NetflixPlan
             title="Netflix Standard"
@@ -21,6 +39,12 @@ export const SelectPlansScreen: React.FC = () => {
             resolution="1080p"
             buttonTitle="Subscribe"
             isActive={false}
+            handleClick={() =>
+              redirectToCheckout({
+                ...checkoutOptions,
+                lineItems: [netflixStandardItem],
+              })
+            }
           />
           <NetflixPlan
             title="Netflix Premium"
@@ -28,6 +52,12 @@ export const SelectPlansScreen: React.FC = () => {
             resolution="4K"
             buttonTitle="Subscribe"
             isActive={false}
+            handleClick={() =>
+              redirectToCheckout({
+                ...checkoutOptions,
+                lineItems: [netflixPremiumItem],
+              })
+            }
           />
         </div>
       </div>

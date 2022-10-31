@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import "@stripe/stripe-js";
 
 import { HomeScreen } from "./screens/HomeScreen";
 import { BrowseScreen } from "./screens/BrowseScreen";

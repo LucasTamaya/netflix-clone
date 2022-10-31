@@ -26,10 +26,10 @@ export const ProfileScreen: React.FC = () => {
                 Plans (Current Plan: premium)
               </h2>
               <p className="text-white">Renewal date: 10/05/2024</p>
-              <NetflixPlan
+              {/* <NetflixPlan
                 title="Netflix Basic"
                 price={9.99}
-                resolution="480p"
+                resolution="780p"
                 buttonTitle="Subscribe"
                 isActive={false}
               />
@@ -44,9 +44,9 @@ export const ProfileScreen: React.FC = () => {
                 title="Netflix Premium"
                 price={29.99}
                 resolution="4K"
-                buttonTitle="Current Package"
-                isActive={true}
-              />
+                buttonTitle="Subscribe"
+                isActive={false}
+              /> */}
               <button className="text-white font-semibold bg-red-netflix p-2 rounded transition hover:bg-red-600">
                 Logout
               </button>
