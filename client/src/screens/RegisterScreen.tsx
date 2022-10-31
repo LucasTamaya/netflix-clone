@@ -23,7 +23,7 @@ export const RegisterScreen: React.FC = () => {
   useEffect(() => {
     if (isSuccess) {
       authenticateUser();
-      navigate("/browse");
+      navigate("/select-plans");
     }
   }, [isSuccess, authenticateUser, navigate]);
 
