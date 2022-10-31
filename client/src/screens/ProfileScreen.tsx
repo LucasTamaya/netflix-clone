@@ -2,9 +2,28 @@ import { PROFILE_ICON_URL } from "../assets/icons";
 import { Nav } from "../components/common/Nav";
 import { NetflixPlan } from "../components/NetflixPlan";
 import { useAppSelector } from "../hooks/redux/index";
+import {
+  checkoutOptions,
+  netflixBasicItem,
+  netflixPremiumItem,
+  netflixStandardItem,
+} from "../stripe/assets";
+import { redirectToCheckout } from "../stripe/redirectToCheckout";
+import { StripeItem } from "../types";
 
 export const ProfileScreen: React.FC = () => {
   const emailAddress = useAppSelector((state) => state.user.email);
+
+  const handleSubscribe = async (productItem: StripeItem) => {
+    const error = await redirectToCheckout({
+      ...checkoutOptions,
+      lineItems: [productItem],
+    });
+
+    if (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="bg-zinc-900 px-14">
@@ -26,12 +45,13 @@ export const ProfileScreen: React.FC = () => {
                 Plans (Current Plan: premium)
               </h2>
               <p className="text-white">Renewal date: 10/05/2024</p>
-              {/* <NetflixPlan
+              <NetflixPlan
                 title="Netflix Basic"
                 price={9.99}
                 resolution="780p"
                 buttonTitle="Subscribe"
                 isActive={false}
+                handleClick={() => handleSubscribe(netflixBasicItem)}
               />
               <NetflixPlan
                 title="Netflix Standard"
@@ -39,6 +59,7 @@ export const ProfileScreen: React.FC = () => {
                 resolution="1080p"
                 buttonTitle="Subscribe"
                 isActive={false}
+                handleClick={() => handleSubscribe(netflixStandardItem)}
               />
               <NetflixPlan
                 title="Netflix Premium"
@@ -46,7 +67,8 @@ export const ProfileScreen: React.FC = () => {
                 resolution="4K"
                 buttonTitle="Subscribe"
                 isActive={false}
-              /> */}
+                handleClick={() => handleSubscribe(netflixPremiumItem)}
+              />
               <button className="text-white font-semibold bg-red-netflix p-2 rounded transition hover:bg-red-600">
                 Logout
               </button>

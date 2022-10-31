@@ -4,7 +4,7 @@ interface Props {
   resolution: string;
   buttonTitle: string;
   isActive: boolean;
-  handleClick: any;
+  handleClick: () => Promise<void>;
 }
 
 export const NetflixPlan: React.FC<Props> = ({

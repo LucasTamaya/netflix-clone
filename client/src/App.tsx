@@ -7,6 +7,7 @@ import { LoginScreen } from "./screens/LoginScreen";
 import { RegisterScreen } from "./screens/RegisterScreen";
 import { ProfileScreen } from "./screens/ProfileScreen";
 import { SelectPlansScreen } from "./screens/SelectPlansScreen";
+import { CheckoutSuccessScreen } from "./screens/CheckoutSuccessScreen";
 
 const App: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const App: React.FC = () => {
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
       <Route path="/select-plans" element={<SelectPlansScreen />} />
+      <Route path="/checkout-success" element={<CheckoutSuccessScreen />} />
       <Route path="/profile" element={<ProfileScreen />} />
     </Routes>
   );

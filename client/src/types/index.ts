@@ -28,3 +28,8 @@ export interface ServerAuthApiResponse {
   ok: boolean;
   error?: string;
 }
+
+export interface StripeItem {
+  price: string;
+  quantity: number;
+}

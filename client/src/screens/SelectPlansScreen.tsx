@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { Nav } from "../components/common/Nav";
 import { NetflixPlan } from "../components/NetflixPlan";
 import {
@@ -9,10 +7,24 @@ import {
   netflixStandardItem,
 } from "../stripe/assets";
 import { redirectToCheckout } from "../stripe/redirectToCheckout";
+import { StripeItem } from "../types";
 
 export const SelectPlansScreen: React.FC = () => {
-  const [stripeError, setStripeError] = useState<string | undefined>();
-  const [isLoading, setLoading] = useState<boolean>(false);
+  const handleSubscribe = async (
+    productItem: StripeItem,
+    netflixPlan: "Netflix Basic" | "Netflix Standard" | "Netflix Premium"
+  ) => {
+    localStorage.setItem("selectedPlan", netflixPlan);
+
+    const error = await redirectToCheckout({
+      ...checkoutOptions,
+      lineItems: [productItem],
+    });
+
+    if (error) {
+      alert(error.message);
+    }
+  };
 
   return (
     <div className="bg-zinc-900 px-14">
@@ -27,10 +39,7 @@ export const SelectPlansScreen: React.FC = () => {
             buttonTitle="Subscribe"
             isActive={false}
             handleClick={() =>
-              redirectToCheckout({
-                ...checkoutOptions,
-                lineItems: [netflixBasicItem],
-              })
+              handleSubscribe(netflixBasicItem, "Netflix Basic")
             }
           />
           <NetflixPlan
@@ -40,10 +49,7 @@ export const SelectPlansScreen: React.FC = () => {
             buttonTitle="Subscribe"
             isActive={false}
             handleClick={() =>
-              redirectToCheckout({
-                ...checkoutOptions,
-                lineItems: [netflixStandardItem],
-              })
+              handleSubscribe(netflixStandardItem, "Netflix Standard")
             }
           />
           <NetflixPlan
@@ -53,10 +59,7 @@ export const SelectPlansScreen: React.FC = () => {
             buttonTitle="Subscribe"
             isActive={false}
             handleClick={() =>
-              redirectToCheckout({
-                ...checkoutOptions,
-                lineItems: [netflixPremiumItem],
-              })
+              handleSubscribe(netflixPremiumItem, "Netflix Premium")
             }
           />
         </div>

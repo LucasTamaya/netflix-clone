@@ -1,14 +1,11 @@
 import { RedirectToCheckoutOptions } from "@stripe/stripe-js";
 
-interface StripeItem {
-  price: string;
-  quantity: number;
-}
+import { StripeItem } from "../types";
 
 export const checkoutOptions: RedirectToCheckoutOptions = {
   lineItems: [],
   mode: "subscription",
-  successUrl: `${window.location.origin}/browse`,
+  successUrl: `${window.location.origin}/checkout-success`,
   cancelUrl: `${window.location.origin}/select-plans`,
 };
 

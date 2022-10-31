@@ -1,10 +1,5 @@
 import { loadStripe, Stripe } from "@stripe/stripe-js";
 
-interface StripeItem {
-  price: string;
-  quantity: number;
-}
-
 let stripePromise: Promise<Stripe | null>;
 
 export const getStripe = () => {
