@@ -6,7 +6,6 @@ import { NetflixBackground } from "../components/common/NetflixBackground";
 import { Nav } from "../components/common/Nav";
 import { AuthForm } from "../components/common/AuthForm";
 import { useRegister } from "../hooks/auth/useRegister";
-import { useAuthUser } from "../hooks/auth/useAuthUser";
 
 export const RegisterScreen: React.FC = () => {
   const emailAddress = useAppSelector((state) => state.user.email);
@@ -16,17 +15,14 @@ export const RegisterScreen: React.FC = () => {
 
   const { mutate, isLoading, isSuccess, error } = useRegister(email, password);
 
-  const authenticateUser = useAuthUser();
-
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isSuccess) {
-      authenticateUser();
       localStorage.setItem("email", email);
       navigate("/select-plans");
     }
-  }, [isSuccess, authenticateUser, navigate, email]);
+  }, [isSuccess, navigate, email]);
 
   return (
     <NetflixBackground>

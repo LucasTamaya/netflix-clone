@@ -13,6 +13,9 @@ import { StripeItem } from "../types";
 
 export const ProfileScreen: React.FC = () => {
   const emailAddress = useAppSelector((state) => state.user.email);
+  const isAuth = useAppSelector((state) => state.user.isAuthenticated);
+
+  console.log(isAuth);
 
   const handleSubscribe = async (productItem: StripeItem) => {
     const error = await redirectToCheckout({

@@ -3,6 +3,7 @@ import { Nav } from "../components/common/Nav";
 import { useUpdateNetflixPlan } from "../hooks/useUpdateNetflixPlan";
 import { useEffect } from "react";
 import { ClipLoader } from "react-spinners";
+import { useAuthUser } from "../hooks/auth/useAuthUser";
 
 export const CheckoutSuccessScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -15,13 +16,16 @@ export const CheckoutSuccessScreen: React.FC = () => {
     netflixPlan
   );
 
+  const authenticateUser = useAuthUser();
+
   useEffect(() => {
     mutate();
   }, [mutate]);
 
   useEffect(() => {
+    authenticateUser();
     navigate("/browse");
-  }, [isSuccess, navigate]);
+  }, [isSuccess, navigate, authenticateUser]);
 
   return (
     <div className="bg-zinc-900 px-14">
