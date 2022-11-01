@@ -84,3 +84,23 @@ func LoginController(c *fiber.Ctx) error {
 		"ok": true,
 	})
 }
+
+func UpdateNetflixPlan(c *fiber.Ctx) error {
+	user := models.User{}
+
+	if err := c.BodyParser(&user); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": err.Error(),
+		})
+	}
+
+	if err := services.MutateNetflixPlan(user); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": err.Error(),
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"ok": true,
+	})
+}

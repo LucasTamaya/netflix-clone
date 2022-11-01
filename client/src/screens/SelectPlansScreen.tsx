@@ -12,9 +12,9 @@ import { StripeItem } from "../types";
 export const SelectPlansScreen: React.FC = () => {
   const handleSubscribe = async (
     productItem: StripeItem,
-    netflixPlan: "Netflix Basic" | "Netflix Standard" | "Netflix Premium"
+    netflixPlan: "Basic" | "Standard" | "Premium"
   ) => {
-    localStorage.setItem("selectedPlan", netflixPlan);
+    localStorage.setItem("netflixPlan", netflixPlan);
 
     const error = await redirectToCheckout({
       ...checkoutOptions,
@@ -38,9 +38,7 @@ export const SelectPlansScreen: React.FC = () => {
             resolution="780p"
             buttonTitle="Subscribe"
             isActive={false}
-            handleClick={() =>
-              handleSubscribe(netflixBasicItem, "Netflix Basic")
-            }
+            handleClick={() => handleSubscribe(netflixBasicItem, "Basic")}
           />
           <NetflixPlan
             title="Netflix Standard"
@@ -48,9 +46,7 @@ export const SelectPlansScreen: React.FC = () => {
             resolution="1080p"
             buttonTitle="Subscribe"
             isActive={false}
-            handleClick={() =>
-              handleSubscribe(netflixStandardItem, "Netflix Standard")
-            }
+            handleClick={() => handleSubscribe(netflixStandardItem, "Standard")}
           />
           <NetflixPlan
             title="Netflix Premium"
@@ -58,9 +54,7 @@ export const SelectPlansScreen: React.FC = () => {
             resolution="4K"
             buttonTitle="Subscribe"
             isActive={false}
-            handleClick={() =>
-              handleSubscribe(netflixPremiumItem, "Netflix Premium")
-            }
+            handleClick={() => handleSubscribe(netflixPremiumItem, "Premium")}
           />
         </div>
       </div>

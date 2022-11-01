@@ -25,3 +25,19 @@ func CheckIfUserExistsAndScanData(user *models.User, userFromDb *models.User) er
 
 	return nil
 }
+
+func MutateNetflixPlan(user models.User) error {
+	query, err := config.Db.Prepare("UPDATE users SET netflixPlan = ? WHERE email = ?")
+
+	if err != nil {
+		return err
+	}
+
+	_, err = query.Exec(user.NetflixPlan, user.Email)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

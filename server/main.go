@@ -32,6 +32,7 @@ func main() {
 
 	app.Post("/register", controllers.RegisterController)
 	app.Post("/login", controllers.LoginController)
+	app.Post("/netflix-plan", controllers.UpdateNetflixPlan)
 
 	log.Fatal(app.Listen(":8080"))
 }
