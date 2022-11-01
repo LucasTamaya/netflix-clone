@@ -1,7 +1,6 @@
 import { PROFILE_ICON_URL } from "../assets/icons";
 import { Nav } from "../components/common/Nav";
 import { NetflixPlan } from "../components/NetflixPlan";
-import { useAppSelector } from "../hooks/redux/index";
 import {
   checkoutOptions,
   netflixBasicItem,
@@ -12,11 +11,6 @@ import { redirectToCheckout } from "../stripe/redirectToCheckout";
 import { StripeItem } from "../types";
 
 export const ProfileScreen: React.FC = () => {
-  const emailAddress = useAppSelector((state) => state.user.email);
-  const isAuth = useAppSelector((state) => state.user.isAuthenticated);
-
-  console.log(isAuth);
-
   const handleSubscribe = async (productItem: StripeItem) => {
     const error = await redirectToCheckout({
       ...checkoutOptions,
@@ -42,12 +36,11 @@ export const ProfileScreen: React.FC = () => {
             />
             <div className="w-full flex flex-col gap-y-5">
               <p className="text-white font-semibold p-3 rounded bg-zinc-500">
-                {emailAddress || "null"}
+                toto@orange.fr
               </p>
               <h2 className="text-white text-xl font-bold">
                 Plans (Current Plan: premium)
               </h2>
-              <p className="text-white">Renewal date: 10/05/2024</p>
               <NetflixPlan
                 title="Netflix Basic"
                 price={9.99}

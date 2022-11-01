@@ -7,8 +7,9 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
-	"netflix-clone/src/config"
+	// "netflix-clone/src/config"
 
+	"netflix-clone/src/config"
 	"netflix-clone/src/models"
 
 	"netflix-clone/src/services"
@@ -49,6 +50,14 @@ func RegisterController(c *fiber.Ctx) error {
 		fmt.Println("Failed to execute the query")
 		return err
 	}
+
+	tokenStr, err := services.CreateJWT(user.Email)
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	fmt.Printf("token: %v\n", tokenStr)
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"ok": true,
