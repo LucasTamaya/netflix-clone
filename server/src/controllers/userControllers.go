@@ -5,6 +5,8 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
+	"github.com/golang-jwt/jwt/v4"
+
 	"golang.org/x/crypto/bcrypt"
 
 	// "netflix-clone/src/config"
@@ -89,12 +91,26 @@ func LoginController(c *fiber.Ctx) error {
 		})
 	}
 
+	tokenStr, err := services.CreateJWT(user.Email)
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	fmt.Printf("token: %v\n", tokenStr)
+
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"ok": true,
 	})
 }
 
 func UpdateNetflixPlan(c *fiber.Ctx) error {
+	u := c.Locals("user").(*jwt.Token)
+	claims := u.Claims.(jwt.MapClaims)
+	email := claims["email"].(string)
+
+	fmt.Println(email)
+
 	user := models.User{}
 
 	if err := c.BodyParser(&user); err != nil {

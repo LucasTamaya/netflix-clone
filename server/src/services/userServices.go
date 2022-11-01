@@ -1,13 +1,16 @@
 package services
 
 import (
-	"fmt"
 	"netflix-clone/src/config"
+	"os"
+
 	"time"
 
 	"netflix-clone/src/models"
 
 	"github.com/golang-jwt/jwt/v4"
+
+	"github.com/joho/godotenv"
 )
 
 func CheckIfUserExists(user *models.User) bool {
@@ -47,20 +50,23 @@ func MutateNetflixPlan(user models.User) error {
 }
 
 func CreateJWT(email string) (string, error) {
+	envErr := godotenv.Load()
 
-	secret := []byte("abce")
+	if envErr != nil {
+		return "", envErr
+	}
 
-	token := jwt.New(jwt.SigningMethodHS256)
-	claims := token.Claims.(jwt.MapClaims)
-	claims["sub"] = email
-	claims["exp"] = time.Now().Add(time.Hour * 24).Unix() // 1 day
+	claims := jwt.MapClaims{
+		"email": email,
+		"exp":   time.Now().Add(time.Hour * 24).Unix(), // 1 day
+	}
 
-	tokenStr, err := token.SignedString(secret)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
+	encodedToken, err := token.SignedString([]byte(os.Getenv("JWT_SECRET")))
 	if err != nil {
-		fmt.Println(err.Error())
 		return "", err
 	}
 
-	return tokenStr, nil
+	return encodedToken, nil
 }
