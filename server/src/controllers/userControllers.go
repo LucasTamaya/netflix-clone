@@ -90,12 +90,14 @@ func UpdateNetflixPlan(c *fiber.Ctx) error {
 
 	if err := c.BodyParser(&user); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"ok":    false,
 			"error": err.Error(),
 		})
 	}
 
 	if err := services.MutateNetflixPlan(user); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"ok":    false,
 			"error": err.Error(),
 		})
 	}

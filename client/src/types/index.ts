@@ -24,7 +24,7 @@ export interface TmdbApiMovieResponse {
   total_results: number;
 }
 
-export interface ServerAuthApiResponse {
+export interface ApiResponse {
   ok: boolean;
   error?: string;
 }

@@ -23,9 +23,10 @@ export const RegisterScreen: React.FC = () => {
   useEffect(() => {
     if (isSuccess) {
       authenticateUser();
+      localStorage.setItem("email", email);
       navigate("/select-plans");
     }
-  }, [isSuccess, authenticateUser, navigate]);
+  }, [isSuccess, authenticateUser, navigate, email]);
 
   return (
     <NetflixBackground>
