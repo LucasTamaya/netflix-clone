@@ -27,10 +27,8 @@ func main() {
 
 	defer config.Db.Close()
 
-	envErr := godotenv.Load()
-
-	if envErr != nil {
-		fmt.Printf("Error loading db credentials: %v", envErr)
+	if err := godotenv.Load(); err != nil {
+		fmt.Printf("Error loading db credentials: %v", err)
 	}
 
 	app := fiber.New()
