@@ -2,13 +2,10 @@ package main
 
 import (
 	"fmt"
-	"os"
 
 	"log"
 
 	"github.com/gofiber/fiber/v2"
-
-	jwtware "github.com/gofiber/jwt/v3"
 
 	"github.com/joho/godotenv"
 
@@ -45,21 +42,7 @@ func main() {
 
 	app.Post("/register", controllers.Register)
 	app.Post("/login", controllers.Login)
-
-	// JWT Middleware
-	// All routes after will use this middleware
-	app.Use(jwtware.New(jwtware.Config{
-		SigningKey: []byte(os.Getenv("JWT_SECRET")),
-		ErrorHandler: func(c *fiber.Ctx, err error) error {
-			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-				"ok":    false,
-				"error": "Unauthorized",
-			})
-		},
-	}))
-
 	app.Post("/netflix-plan", controllers.UpdateNetflixPlan)
-
 	app.Get("/user-profile", controllers.GetUserProfileData)
 
 	log.Fatal(app.Listen(":8080"))

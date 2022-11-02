@@ -2,13 +2,19 @@ package controllers
 
 import (
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
 
+	"github.com/golang-jwt/jwt/v4"
+
+	"github.com/joho/godotenv"
+
 	"golang.org/x/crypto/bcrypt"
 
 	"netflix-clone/src/config"
+	"netflix-clone/src/middleware"
 
 	"netflix-clone/src/models"
 
@@ -89,17 +95,17 @@ func Login(c *fiber.Ctx) error {
 		})
 	}
 
-	tokenStr, err := services.CreateJWT(user.Email)
+	jwt, err := services.CreateJWT(user.Email)
 
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	fmt.Printf("token: %v\n", tokenStr)
+	fmt.Printf("token: %v\n", jwt)
 
 	// store token in a cookie so the browser can access it
 	c.Cookie(&fiber.Cookie{
 		Name:     "token",
-		Value:    tokenStr,
+		Value:    jwt,
 		Expires:  time.Now().Add(time.Hour * 24), // 1 day
 		HTTPOnly: true,
 		Secure:   true,
@@ -133,10 +139,22 @@ func UpdateNetflixPlan(c *fiber.Ctx) error {
 }
 
 func GetUserProfileData(c *fiber.Ctx) error {
+	if err := godotenv.Load(); err != nil {
+		return err
+	}
+
+	token, err := middleware.IsAuth(c, os.Getenv("JWT_SECRET"))
+
+	if err != nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"error": "unauthorized",
+		})
+	}
+
+	claims := token.Claims.(*jwt.StandardClaims)
+	email := claims.Issuer
 
 	user := models.User{}
-
-	email := services.GetUserDataFromJWT(c, "email")
 
 	if err := services.QueryUserProfileData(email, &user); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -146,7 +164,6 @@ func GetUserProfileData(c *fiber.Ctx) error {
 	}
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"ok":          true,
 		"email":       user.Email,
 		"netflixPlan": user.NetflixPlan,
 	})

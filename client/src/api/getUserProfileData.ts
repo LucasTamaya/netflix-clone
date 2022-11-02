@@ -2,8 +2,18 @@ import axios from "axios";
 
 import { SERVER_BASE_URL } from "./../constants/server";
 
-export const getUserProfileData = async () => {
-  const { data } = await axios.get(`${SERVER_BASE_URL}/user-profile`);
+interface ApiUserProfileDataResponse {
+  email: string;
+  netflixPlan: string;
+}
 
-  console.log(data);
+export const getUserProfileData = async () => {
+  const { data } = await axios.get<ApiUserProfileDataResponse>(
+    `${SERVER_BASE_URL}/user-profile`,
+    {
+      withCredentials: true,
+    }
+  );
+
+  return data;
 };

@@ -9,7 +9,6 @@ import (
 
 	"netflix-clone/src/models"
 
-	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 
 	"github.com/joho/godotenv"
@@ -52,33 +51,21 @@ func MutateNetflixPlan(user models.User) error {
 }
 
 func CreateJWT(email string) (string, error) {
-	envErr := godotenv.Load()
-
-	if envErr != nil {
-		return "", envErr
+	if err := godotenv.Load(); err != nil {
+		return "", err
 	}
 
-	claims := jwt.MapClaims{
-		"email": email,
-		"exp":   time.Now().Add(time.Hour * 24).Unix(), // 1 day
-	}
+	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
+		Issuer:    email,
+		ExpiresAt: time.Now().Add(time.Hour * 24).Unix(), //1 day
+	})
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
-	encodedToken, err := token.SignedString([]byte(os.Getenv("JWT_SECRET")))
+	token, err := claims.SignedString([]byte(os.Getenv("JWT_SECRET")))
 	if err != nil {
 		return "", err
 	}
 
-	return encodedToken, nil
-}
-
-func GetUserDataFromJWT(c *fiber.Ctx, data string) string {
-	user := c.Locals("user").(*jwt.Token)
-	claims := user.Claims.(jwt.MapClaims)
-	userData := claims[data].(string)
-
-	return userData
+	return token, nil
 }
 
 func QueryUserProfileData(email string, user *models.User) error {
