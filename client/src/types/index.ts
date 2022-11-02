@@ -33,3 +33,8 @@ export interface StripeItem {
   price: string;
   quantity: number;
 }
+
+export interface ApiUserProfileDataResponse {
+  email: string;
+  netflixPlan: "Basic" | "Standard" | "Premium";
+}

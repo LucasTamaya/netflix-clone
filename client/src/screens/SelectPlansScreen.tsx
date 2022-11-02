@@ -1,31 +1,13 @@
 import { Nav } from "../components/common/Nav";
 import { NetflixPlan } from "../components/NetflixPlan";
 import {
-  checkoutOptions,
   netflixBasicItem,
   netflixPremiumItem,
   netflixStandardItem,
 } from "../stripe/assets";
-import { redirectToCheckout } from "../stripe/redirectToCheckout";
-import { StripeItem } from "../types";
+import { handleSubscribe } from "../stripe/handleSubscribe";
 
 export const SelectPlansScreen: React.FC = () => {
-  const handleSubscribe = async (
-    productItem: StripeItem,
-    netflixPlan: "Basic" | "Standard" | "Premium"
-  ) => {
-    localStorage.setItem("netflixPlan", netflixPlan);
-
-    const error = await redirectToCheckout({
-      ...checkoutOptions,
-      lineItems: [productItem],
-    });
-
-    if (error) {
-      alert(error.message);
-    }
-  };
-
   return (
     <div className="bg-zinc-900 px-14">
       <Nav />

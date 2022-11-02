@@ -2,9 +2,9 @@ interface Props {
   title: string;
   price: number;
   resolution: string;
-  buttonTitle: string;
+  buttonTitle: "Subscribe" | "Current Package";
   isActive: boolean;
-  handleClick: () => Promise<void>;
+  handleClick: () => void;
 }
 
 export const NetflixPlan: React.FC<Props> = ({

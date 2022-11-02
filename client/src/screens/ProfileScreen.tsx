@@ -8,16 +8,20 @@ import { UnauthorizedError } from "../components/common/UnauthorizedError";
 import { NetflixPlan } from "../components/NetflixPlan";
 import { useUserProfileData } from "../hooks/useUserProfileData";
 import {
-  checkoutOptions,
   netflixBasicItem,
   netflixPremiumItem,
   netflixStandardItem,
 } from "../stripe/assets";
-import { redirectToCheckout } from "../stripe/redirectToCheckout";
-import { StripeItem } from "../types";
+import { handleSubscribe } from "../stripe/handleSubscribe";
 
 export const ProfileScreen: React.FC = () => {
-  const { isLoading, isError, isSuccess, data, error } = useUserProfileData();
+  const {
+    isLoading,
+    isError,
+    isSuccess,
+    data: user,
+    error,
+  } = useUserProfileData();
 
   const navigate = useNavigate();
 
@@ -30,17 +34,6 @@ export const ProfileScreen: React.FC = () => {
 
     return () => clearTimeout(redirectUser);
   }, [isError, error, navigate]);
-
-  const handleSubscribe = async (productItem: StripeItem) => {
-    const error = await redirectToCheckout({
-      ...checkoutOptions,
-      lineItems: [productItem],
-    });
-
-    if (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <div className="bg-zinc-900 px-14">
@@ -63,34 +56,58 @@ export const ProfileScreen: React.FC = () => {
               />
               <div className="w-full flex flex-col gap-y-5">
                 <p className="text-white font-semibold p-3 rounded bg-zinc-500">
-                  toto@orange.fr
+                  {user.email}
                 </p>
                 <h2 className="text-white text-xl font-bold">
-                  Plans (Current Plan: premium)
+                  Plans (Current Plan: {user.netflixPlan})
                 </h2>
                 <NetflixPlan
                   title="Netflix Basic"
                   price={9.99}
                   resolution="780p"
-                  buttonTitle="Subscribe"
-                  isActive={false}
-                  handleClick={() => handleSubscribe(netflixBasicItem)}
+                  buttonTitle={
+                    user.netflixPlan === "Basic"
+                      ? "Current Package"
+                      : "Subscribe"
+                  }
+                  isActive={user.netflixPlan === "Basic" ? true : false}
+                  handleClick={() => {
+                    if (user.netflixPlan !== "Basic") {
+                      handleSubscribe(netflixBasicItem, "Basic");
+                    }
+                  }}
                 />
                 <NetflixPlan
                   title="Netflix Standard"
                   price={19.99}
                   resolution="1080p"
-                  buttonTitle="Subscribe"
-                  isActive={false}
-                  handleClick={() => handleSubscribe(netflixStandardItem)}
+                  buttonTitle={
+                    user.netflixPlan === "Standard"
+                      ? "Current Package"
+                      : "Subscribe"
+                  }
+                  isActive={user.netflixPlan === "Standard" ? true : false}
+                  handleClick={() => {
+                    if (user.netflixPlan !== "Standard") {
+                      handleSubscribe(netflixStandardItem, "Standard");
+                    }
+                  }}
                 />
                 <NetflixPlan
                   title="Netflix Premium"
                   price={29.99}
                   resolution="4K"
-                  buttonTitle="Subscribe"
-                  isActive={false}
-                  handleClick={() => handleSubscribe(netflixPremiumItem)}
+                  buttonTitle={
+                    user.netflixPlan === "Premium"
+                      ? "Current Package"
+                      : "Subscribe"
+                  }
+                  isActive={user.netflixPlan === "Premium" ? true : false}
+                  handleClick={() => {
+                    if (user.netflixPlan !== "Premium") {
+                      handleSubscribe(netflixPremiumItem, "Premium");
+                    }
+                  }}
                 />
                 <button className="text-white font-semibold bg-red-netflix p-2 rounded transition hover:bg-red-600">
                   Logout

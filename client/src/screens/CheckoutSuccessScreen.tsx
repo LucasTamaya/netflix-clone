@@ -23,8 +23,10 @@ export const CheckoutSuccessScreen: React.FC = () => {
   }, [mutate]);
 
   useEffect(() => {
-    authenticateUser();
-    navigate("/browse");
+    if (isSuccess) {
+      authenticateUser();
+      navigate("/browse");
+    }
   }, [isSuccess, navigate, authenticateUser]);
 
   return (
