@@ -5,19 +5,16 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
-	"github.com/golang-jwt/jwt/v4"
-
 	"golang.org/x/crypto/bcrypt"
 
-	// "netflix-clone/src/config"
-
 	"netflix-clone/src/config"
+
 	"netflix-clone/src/models"
 
 	"netflix-clone/src/services"
 )
 
-func RegisterController(c *fiber.Ctx) error {
+func Register(c *fiber.Ctx) error {
 	user := models.User{}
 
 	if err := c.BodyParser(&user); err != nil {
@@ -66,7 +63,7 @@ func RegisterController(c *fiber.Ctx) error {
 	})
 }
 
-func LoginController(c *fiber.Ctx) error {
+func Login(c *fiber.Ctx) error {
 	user := models.User{}
 	userFromDb := models.User{}
 
@@ -105,12 +102,6 @@ func LoginController(c *fiber.Ctx) error {
 }
 
 func UpdateNetflixPlan(c *fiber.Ctx) error {
-	u := c.Locals("user").(*jwt.Token)
-	claims := u.Claims.(jwt.MapClaims)
-	email := claims["email"].(string)
-
-	fmt.Println(email)
-
 	user := models.User{}
 
 	if err := c.BodyParser(&user); err != nil {
@@ -129,5 +120,25 @@ func UpdateNetflixPlan(c *fiber.Ctx) error {
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"ok": true,
+	})
+}
+
+func GetUserProfileData(c *fiber.Ctx) error {
+
+	user := models.User{}
+
+	email := services.GetUserDataFromJWT(c, "email")
+
+	if err := services.QueryUserProfileData(email, &user); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"ok":    false,
+			"error": err.Error(),
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"ok":          true,
+		"email":       user.Email,
+		"netflixPlan": user.NetflixPlan,
 	})
 }

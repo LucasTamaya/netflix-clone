@@ -42,8 +42,8 @@ func main() {
 	// handle CORS error
 	app.Use(cors.New())
 
-	app.Post("/register", controllers.RegisterController)
-	app.Post("/login", controllers.LoginController)
+	app.Post("/register", controllers.Register)
+	app.Post("/login", controllers.Login)
 
 	// JWT Middleware
 	// All routes after will use this middleware
@@ -58,6 +58,8 @@ func main() {
 	}))
 
 	app.Post("/netflix-plan", controllers.UpdateNetflixPlan)
+
+	app.Get("/user-profile", controllers.GetUserProfileData)
 
 	log.Fatal(app.Listen(":8080"))
 }

@@ -2,12 +2,14 @@ package services
 
 import (
 	"netflix-clone/src/config"
+
 	"os"
 
 	"time"
 
 	"netflix-clone/src/models"
 
+	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
 
 	"github.com/joho/godotenv"
@@ -69,4 +71,22 @@ func CreateJWT(email string) (string, error) {
 	}
 
 	return encodedToken, nil
+}
+
+func GetUserDataFromJWT(c *fiber.Ctx, data string) string {
+	user := c.Locals("user").(*jwt.Token)
+	claims := user.Claims.(jwt.MapClaims)
+	userData := claims[data].(string)
+
+	return userData
+}
+
+func QueryUserProfileData(email string, user *models.User) error {
+	err := config.Db.QueryRow("SELECT email, netflixPlan FROM users WHERE email = ?", email).Scan(&user.Email, &user.NetflixPlan)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
