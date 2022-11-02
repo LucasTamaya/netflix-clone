@@ -49,6 +49,12 @@ func main() {
 	// All routes after will use this middleware
 	app.Use(jwtware.New(jwtware.Config{
 		SigningKey: []byte(os.Getenv("JWT_SECRET")),
+		ErrorHandler: func(c *fiber.Ctx, err error) error {
+			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+				"ok":    false,
+				"error": "Unauthorized",
+			})
+		},
 	}))
 
 	app.Post("/netflix-plan", controllers.UpdateNetflixPlan)
