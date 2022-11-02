@@ -1,6 +1,7 @@
 import { PROFILE_ICON_URL } from "../assets/icons";
 import { Nav } from "../components/common/Nav";
 import { NetflixPlan } from "../components/NetflixPlan";
+import { useUserProfileData } from "../hooks/useUserProfileData";
 import {
   checkoutOptions,
   netflixBasicItem,
@@ -11,6 +12,16 @@ import { redirectToCheckout } from "../stripe/redirectToCheckout";
 import { StripeItem } from "../types";
 
 export const ProfileScreen: React.FC = () => {
+  const { isLoading, isError, isSuccess, data } = useUserProfileData();
+
+  const cookie = document.cookie;
+
+  console.log(cookie);
+
+  if (isSuccess) {
+    console.log(data);
+  }
+
   const handleSubscribe = async (productItem: StripeItem) => {
     const error = await redirectToCheckout({
       ...checkoutOptions,

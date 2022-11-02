@@ -2,16 +2,15 @@ package main
 
 import (
 	"fmt"
-
 	"os"
 
 	"log"
 
 	"github.com/gofiber/fiber/v2"
 
-	"github.com/joho/godotenv"
-
 	jwtware "github.com/gofiber/jwt/v3"
+
+	"github.com/joho/godotenv"
 
 	"github.com/gofiber/fiber/v2/middleware/cors"
 
@@ -40,7 +39,9 @@ func main() {
 	app := fiber.New()
 
 	// handle CORS error
-	app.Use(cors.New())
+	app.Use(cors.New(cors.Config{
+		AllowCredentials: true,
+	}))
 
 	app.Post("/register", controllers.Register)
 	app.Post("/login", controllers.Login)

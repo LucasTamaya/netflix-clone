@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 
@@ -93,8 +94,16 @@ func Login(c *fiber.Ctx) error {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-
 	fmt.Printf("token: %v\n", tokenStr)
+
+	// store token in a cookie so the browser can access it
+	c.Cookie(&fiber.Cookie{
+		Name:     "token",
+		Value:    tokenStr,
+		Expires:  time.Now().Add(time.Hour * 24), // 1 day
+		HTTPOnly: true,
+		Secure:   true,
+	})
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"ok": true,
