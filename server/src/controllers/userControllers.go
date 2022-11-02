@@ -57,13 +57,20 @@ func Register(c *fiber.Ctx) error {
 		return err
 	}
 
-	tokenStr, err := services.CreateJWT(user.Email)
+	jwt, err := services.CreateJWT(user.Email)
 
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 
-	fmt.Printf("token: %v\n", tokenStr)
+	// store JWT in a cookie
+	c.Cookie(&fiber.Cookie{
+		Name:     "token",
+		Value:    jwt,
+		Expires:  time.Now().Add(time.Hour * 24), // 1 day
+		HTTPOnly: true,
+		Secure:   true,
+	})
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"ok": true,
@@ -100,9 +107,7 @@ func Login(c *fiber.Ctx) error {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	fmt.Printf("token: %v\n", jwt)
 
-	// store token in a cookie so the browser can access it
 	c.Cookie(&fiber.Cookie{
 		Name:     "token",
 		Value:    jwt,
