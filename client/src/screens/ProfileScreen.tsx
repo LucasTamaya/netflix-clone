@@ -7,6 +7,7 @@ import { Nav } from "../components/common/Nav";
 import { UnauthorizedError } from "../components/common/UnauthorizedError";
 import { UnknownError } from "../components/common/UnknownError";
 import { NetflixPlan } from "../components/NetflixPlan";
+import { useLogout } from "../hooks/auth/useLogout";
 import { useUserProfileData } from "../hooks/useUserProfileData";
 import {
   netflixBasicItem,
@@ -17,40 +18,58 @@ import { handleSubscribe } from "../stripe/handleSubscribe";
 
 export const ProfileScreen: React.FC = () => {
   const {
-    isLoading,
-    isSuccess,
-    isError,
+    isLoading: userProfileDataLoading,
+    isError: userProfileDataError,
+    isSuccess: userProfileDataSuccess,
     error,
     data: user,
   } = useUserProfileData();
 
+  const {
+    refetch,
+    isLoading: logoutLoading,
+    isError: logoutError,
+    isSuccess: logoutSuccess,
+  } = useLogout();
+
   const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await refetch();
+
+    if (logoutSuccess) {
+      navigate("/");
+    }
+  };
 
   useEffect(() => {
     let redirectUser: NodeJS.Timeout;
 
-    if (isError && error.response?.status === 401) {
+    if (userProfileDataError && error.response?.status === 401) {
       redirectUser = setTimeout(() => navigate("/"), 5000);
     }
 
     return () => clearTimeout(redirectUser);
-  }, [isError, error, navigate]);
+  }, [userProfileDataError, error, navigate]);
 
   return (
     <div className="bg-zinc-900 px-14">
       <Nav />
       <div className="w-full max-w-3xl mx-auto h-screen flex justify-center items-center">
-        {isLoading ? (
+        {userProfileDataLoading ? (
           <ClipLoader color="red" size={50} speedMultiplier={0.7} />
         ) : null}
 
-        {isError && error.response?.status === 401 ? (
+        {userProfileDataError && error.response?.status === 401 ? (
           <UnauthorizedError />
         ) : null}
 
-        {isError && error.response?.status !== 401 ? <UnknownError /> : null}
+        {(userProfileDataError && error.response?.status !== 401) ||
+        logoutError ? (
+          <UnknownError />
+        ) : null}
 
-        {isSuccess ? (
+        {userProfileDataSuccess ? (
           <div className="flex-1">
             <h1 className="text-white text-5xl mb-7">Edit Profile</h1>
             <div className="flex">
@@ -114,8 +133,15 @@ export const ProfileScreen: React.FC = () => {
                     }
                   }}
                 />
-                <button className="text-white font-semibold bg-red-netflix p-2 rounded transition hover:bg-red-600">
-                  Logout
+                <button
+                  className="flex justify-center items-center h-11 text-white font-semibold bg-red-netflix  rounded transition hover:bg-red-600"
+                  onClick={handleLogout}
+                >
+                  {logoutLoading ? (
+                    <ClipLoader color="white" size={20} speedMultiplier={0.7} />
+                  ) : (
+                    <>Logout</>
+                  )}
                 </button>
               </div>
             </div>
