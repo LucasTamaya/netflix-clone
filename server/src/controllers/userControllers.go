@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"fmt"
+
 	"os"
-	"time"
 
 	"github.com/gofiber/fiber/v2"
 
@@ -14,6 +14,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 
 	"netflix-clone/src/config"
+
 	"netflix-clone/src/middleware"
 
 	"netflix-clone/src/models"
@@ -57,20 +58,13 @@ func Register(c *fiber.Ctx) error {
 		return err
 	}
 
-	jwt, err := services.CreateJWT(user.Email)
+	token, err := services.CreateJWT(user.Email)
 
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 
-	// store JWT in a cookie
-	c.Cookie(&fiber.Cookie{
-		Name:     "token",
-		Value:    jwt,
-		Expires:  time.Now().Add(time.Hour * 24), // 1 day
-		HTTPOnly: true,
-		Secure:   true,
-	})
+	services.SendCookiesOnAuth(c, token)
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"ok": true,
@@ -102,19 +96,13 @@ func Login(c *fiber.Ctx) error {
 		})
 	}
 
-	jwt, err := services.CreateJWT(user.Email)
+	token, err := services.CreateJWT(user.Email)
 
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 
-	c.Cookie(&fiber.Cookie{
-		Name:     "token",
-		Value:    jwt,
-		Expires:  time.Now().Add(time.Hour * 24), // 1 day
-		HTTPOnly: true,
-		Secure:   true,
-	})
+	services.SendCookiesOnAuth(c, token)
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"ok": true,
