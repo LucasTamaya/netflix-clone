@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"fmt"
+
 	"github.com/gofiber/fiber/v2"
 
 	"golang.org/x/crypto/bcrypt"
@@ -16,6 +18,7 @@ func Register(c *fiber.Ctx) error {
 	user := models.User{}
 
 	if err := c.BodyParser(&user); err != nil {
+		fmt.Println("Error with BodyParser")
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"ok":    false,
 			"error": err.Error(),
@@ -32,6 +35,7 @@ func Register(c *fiber.Ctx) error {
 	query, err := config.Db.Prepare("INSERT INTO users (email, password) VALUES(?, ?)")
 
 	if err != nil {
+		fmt.Println("Error when preparing the query")
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"ok":    false,
 			"error": err.Error(),
@@ -41,6 +45,7 @@ func Register(c *fiber.Ctx) error {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 
 	if err != nil {
+		fmt.Println("Error when hashing the password")
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"ok":    false,
 			"error": err.Error(),
@@ -50,6 +55,7 @@ func Register(c *fiber.Ctx) error {
 	_, err = query.Exec(user.Email, hashedPassword)
 
 	if err != nil {
+		fmt.Println("Error when executing the query")
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"ok":    false,
 			"error": err.Error(),
@@ -59,6 +65,7 @@ func Register(c *fiber.Ctx) error {
 	token, err := services.CreateJWT(user.Email)
 
 	if err != nil {
+		fmt.Println("Error when creating JWT")
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"ok":    false,
 			"error": err.Error(),
@@ -77,6 +84,7 @@ func Login(c *fiber.Ctx) error {
 	userFromDb := models.User{}
 
 	if err := c.BodyParser(&user); err != nil {
+		fmt.Println("Error with BodyParser")
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"ok":    false,
 			"error": err.Error(),
@@ -100,6 +108,8 @@ func Login(c *fiber.Ctx) error {
 	token, err := services.CreateJWT(user.Email)
 
 	if err != nil {
+		fmt.Println("Error when creating JWT")
+
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"ok":    false,
 			"error": err.Error(),

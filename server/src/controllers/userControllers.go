@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/gofiber/fiber/v2"
@@ -18,6 +19,7 @@ func UpdateUserNetflixPlan(c *fiber.Ctx) error {
 	user := models.User{}
 
 	if err := c.BodyParser(&user); err != nil {
+		fmt.Println("Error with BodyParser")
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"ok":    false,
 			"error": err.Error(),
@@ -25,6 +27,7 @@ func UpdateUserNetflixPlan(c *fiber.Ctx) error {
 	}
 
 	if err := services.MutateNetflixPlan(user); err != nil {
+		fmt.Println("Error when mutating netflix plan")
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"ok":    false,
 			"error": err.Error(),
@@ -40,6 +43,7 @@ func GetUserProfileData(c *fiber.Ctx) error {
 	token, err := middleware.IsAuth(c, os.Getenv("JWT_SECRET"))
 
 	if err != nil {
+		fmt.Println("Unauthorized access")
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 			"error": "unauthorized",
 		})
@@ -51,6 +55,7 @@ func GetUserProfileData(c *fiber.Ctx) error {
 	user := models.User{}
 
 	if err := services.QueryUserProfileData(email, &user); err != nil {
+		fmt.Println("Error during QueryUserProfileData")
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"ok":    false,
 			"error": err.Error(),
