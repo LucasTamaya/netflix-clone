@@ -1,17 +1,21 @@
-# React Starter Template
+# Netflix Clone
 
+## Description
 
+A Netflix Clone build with React JS, Typescript, Tailwind CSS, and much more! </br>
+You can logged in, subscribe to a Netflix Plan with the [Stripe API](https://stripe.com/fr-us) and access to movies catalog. Try it now!
 
-## Technologies
+## Technologies on frontend
 
 - React
 - TypeScript
 - Tailwind CSS
+- [Stripe-JS](https://www.npmjs.com/package/@stripe/stripe-js)
 - ESLint 
 - Prettier
 
-## How to use it
+## Technologies on backend
 
-```
-git clone https://github.com/LucasTamaya/react-starter-template.git
-```
+- Golang
+- [Fiber](https://docs.gofiber.io/)
+- JWT
