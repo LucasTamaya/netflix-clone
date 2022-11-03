@@ -3,19 +3,15 @@ import { useNavigate } from "react-router-dom";
 
 import { NetflixBackground } from "../components/common/NetflixBackground";
 import { Nav } from "../components/common/Nav";
-import { useAppDispatch } from "../hooks/redux/index";
-import { setEmail } from "../redux/slices/userSlice";
 
 export const HomeScreen: React.FC = () => {
-  const [emailAddress, setEmailAddress] = useState<string>("");
-
-  const dispatch = useAppDispatch();
+  const [email, setEmail] = useState<string>("");
 
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    dispatch(setEmail(emailAddress));
+    localStorage.setItem("email", email);
     navigate("/login");
   };
 
@@ -37,8 +33,8 @@ export const HomeScreen: React.FC = () => {
             className="flex-1 outline-none rounded sm:rounded-none sm:rounded-tl sm:rounded-bl p-3 sm:p-5"
             type="email"
             placeholder="Email address"
-            value={emailAddress}
-            onChange={(e) => setEmailAddress(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <button
             className="text-white text-xs sm:text-base font-bold uppercase rounded sm:rounded-none sm:rounded-tr sm:rounded-br p-4 sm:p-5 bg-red-netflix transition hover:bg-red-600"

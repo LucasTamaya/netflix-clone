@@ -3,7 +3,6 @@ import { Nav } from "../components/common/Nav";
 import { useUpdateNetflixPlan } from "../hooks/useUpdateNetflixPlan";
 import { useEffect } from "react";
 import { ClipLoader } from "react-spinners";
-import { useAuthUser } from "../hooks/auth/useAuthUser";
 import { UnknownError } from "../components/common/UnknownError";
 
 export const CheckoutSuccessScreen: React.FC = () => {
@@ -17,18 +16,15 @@ export const CheckoutSuccessScreen: React.FC = () => {
     netflixPlan
   );
 
-  const authenticateUser = useAuthUser();
-
   useEffect(() => {
     mutate();
   }, [mutate]);
 
   useEffect(() => {
     if (isSuccess) {
-      authenticateUser();
       navigate("/browse");
     }
-  }, [isSuccess, navigate, authenticateUser]);
+  }, [isSuccess, navigate]);
 
   return (
     <div className="bg-zinc-900 px-14">

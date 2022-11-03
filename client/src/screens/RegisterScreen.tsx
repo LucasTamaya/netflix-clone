@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useAppSelector } from "../hooks/redux/index";
 import { NetflixBackground } from "../components/common/NetflixBackground";
 import { Nav } from "../components/common/Nav";
 import { AuthForm } from "../components/common/AuthForm";
 import { useRegister } from "../hooks/auth/useRegister";
 
 export const RegisterScreen: React.FC = () => {
-  const emailAddress = useAppSelector((state) => state.user.email);
-
-  const [email, setEmail] = useState<string>(emailAddress || "");
+  const [email, setEmail] = useState<string>(
+    localStorage.getItem("email") || ""
+  );
   const [password, setPassword] = useState<string>("");
 
   const { mutate, isLoading, isSuccess, error } = useRegister(email, password);
@@ -19,7 +18,6 @@ export const RegisterScreen: React.FC = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      localStorage.setItem("email", email);
       navigate("/select-plans");
     }
   }, [isSuccess, navigate, email]);
