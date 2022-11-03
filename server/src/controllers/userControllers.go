@@ -109,6 +109,13 @@ func Login(c *fiber.Ctx) error {
 	})
 }
 
+func Logout(c *fiber.Ctx) error {
+	c.ClearCookie()
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"ok": true,
+	})
+}
+
 func UpdateNetflixPlan(c *fiber.Ctx) error {
 	user := models.User{}
 
