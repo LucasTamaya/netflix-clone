@@ -4,6 +4,7 @@ import { useUpdateNetflixPlan } from "../hooks/useUpdateNetflixPlan";
 import { useEffect } from "react";
 import { ClipLoader } from "react-spinners";
 import { useAuthUser } from "../hooks/auth/useAuthUser";
+import { UnknownError } from "../components/common/UnknownError";
 
 export const CheckoutSuccessScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -42,14 +43,7 @@ export const CheckoutSuccessScreen: React.FC = () => {
           </>
         ) : null}
 
-        {isError ? (
-          <>
-            <h1 className="text-white text-5xl text-center font-bold mb-10">
-              Oops, something went wrong...
-            </h1>
-            <h2 className="text-white text-2xl">Try to reload the page</h2>
-          </>
-        ) : null}
+        {isError ? <UnknownError /> : null}
       </div>
     </div>
   );

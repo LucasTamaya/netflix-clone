@@ -5,6 +5,7 @@ import { ClipLoader } from "react-spinners";
 import { PROFILE_ICON_URL } from "../assets/icons";
 import { Nav } from "../components/common/Nav";
 import { UnauthorizedError } from "../components/common/UnauthorizedError";
+import { UnknownError } from "../components/common/UnknownError";
 import { NetflixPlan } from "../components/NetflixPlan";
 import { useUserProfileData } from "../hooks/useUserProfileData";
 import {
@@ -17,10 +18,10 @@ import { handleSubscribe } from "../stripe/handleSubscribe";
 export const ProfileScreen: React.FC = () => {
   const {
     isLoading,
-    isError,
     isSuccess,
-    data: user,
+    isError,
     error,
+    data: user,
   } = useUserProfileData();
 
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export const ProfileScreen: React.FC = () => {
   useEffect(() => {
     let redirectUser: NodeJS.Timeout;
 
-    if (isError) {
+    if (isError && error.response?.status === 401) {
       redirectUser = setTimeout(() => navigate("/"), 5000);
     }
 
@@ -43,7 +44,11 @@ export const ProfileScreen: React.FC = () => {
           <ClipLoader color="red" size={50} speedMultiplier={0.7} />
         ) : null}
 
-        {isError ? <UnauthorizedError /> : null}
+        {isError && error.response?.status === 401 ? (
+          <UnauthorizedError />
+        ) : null}
+
+        {isError && error.response?.status !== 401 ? <UnknownError /> : null}
 
         {isSuccess ? (
           <div className="flex-1">
