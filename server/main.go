@@ -12,18 +12,15 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 
 	"netflix-clone/src/config"
-
-	"netflix-clone/src/controllers"
+	"netflix-clone/src/routes"
 )
 
 func main() {
 	err := config.DbConnection()
 
 	if err != nil {
-		fmt.Println("Failed to connect to DB")
+		log.Fatal("Failed to connect to DB")
 	}
-
-	fmt.Println("Connected to DB!")
 
 	defer config.Db.Close()
 
@@ -33,16 +30,12 @@ func main() {
 
 	app := fiber.New()
 
-	// handle CORS error
+	// middleware to handle CORS error + enable cookies sending to the client
 	app.Use(cors.New(cors.Config{
 		AllowCredentials: true,
 	}))
 
-	app.Post("/register", controllers.Register)
-	app.Post("/login", controllers.Login)
-	app.Get("/logout", controllers.Logout)
-	app.Post("/netflix-plan", controllers.UpdateNetflixPlan)
-	app.Get("/user-profile", controllers.GetUserProfileData)
+	routes.Setup(app)
 
 	log.Fatal(app.Listen(":8080"))
 }
