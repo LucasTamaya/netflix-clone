@@ -1,10 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-import { getMoviesPosters } from "../../api/movie/getMoviesPosters";
 import { TMDB_BASE_IMG_URL } from "../../constants/tmdb";
 import { MovieRowLoading } from "./MovieRowLoading";
+import { useMoviesPosters } from "../../hooks/movie/useMoviesPosters";
 
 interface Props {
   category: string;
@@ -12,8 +11,9 @@ interface Props {
 }
 
 export const MovieRow: React.FC<Props> = ({ category, url }) => {
-  const { isLoading, isError, isSuccess, data } = useQuery([category], () =>
-    getMoviesPosters(url)
+  const { isLoading, isError, isSuccess, data } = useMoviesPosters(
+    category,
+    url
   );
 
   return (

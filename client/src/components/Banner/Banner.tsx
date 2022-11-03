@@ -1,16 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-
-import { getBannerMovieData } from "../../api/movie/getBannerMovieData";
 import { TMDB_BASE_IMG_URL } from "../../constants/tmdb";
+import { useBannerMovieData } from "../../hooks/movie/useBannerMovieData";
 import { BannerError } from "./BannerError";
 import { BannerFilter } from "./BannerFilter";
 import { BannerLoading } from "./BannerLoading";
 
 export const Banner: React.FC = () => {
-  const { isLoading, isError, isSuccess, data } = useQuery(
-    ["bannerMovieData"],
-    getBannerMovieData
-  );
+  const { isLoading, isError, isSuccess, data } = useBannerMovieData();
 
   return (
     <>
