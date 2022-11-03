@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/gofiber/fiber/v2"
 
@@ -40,7 +39,7 @@ func UpdateUserNetflixPlan(c *fiber.Ctx) error {
 }
 
 func GetUserProfileData(c *fiber.Ctx) error {
-	token, err := middleware.IsAuth(c, os.Getenv("JWT_SECRET"))
+	token, err := middleware.IsAuth(c)
 
 	if err != nil {
 		fmt.Println("Unauthorized access")
@@ -67,4 +66,18 @@ func GetUserProfileData(c *fiber.Ctx) error {
 		"email":       user.Email,
 		"netflixPlan": user.NetflixPlan,
 	})
+}
+
+func IsAuthenticated(c *fiber.Ctx) error {
+	_, err := middleware.IsAuth(c)
+
+	if err != nil {
+		fmt.Println("Unauthorized access")
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"isSuccess": false,
+			"error":     "unauthorized",
+		})
+	}
+
+	return c.SendStatus(fiber.StatusOK)
 }

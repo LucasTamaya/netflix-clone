@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 
 import { PROFILE_ICON_URL } from "../assets/icons";
-import { ProfileWrapper } from "../components/common/ProfileWrapper";
+import { AppWrapper } from "../components/ui/AppWrapper";
 import { UnauthorizedError } from "../components/common/UnauthorizedError";
 import { UnknownError } from "../components/common/UnknownError";
 import { NetflixPlan } from "../components/NetflixPlan";
@@ -54,14 +54,14 @@ export const ProfileScreen: React.FC = () => {
 
   if (logoutError) {
     return (
-      <ProfileWrapper>
+      <AppWrapper>
         <UnknownError />
-      </ProfileWrapper>
+      </AppWrapper>
     );
   }
 
   return (
-    <ProfileWrapper>
+    <AppWrapper>
       {userProfileDataLoading ? (
         <ClipLoader color="red" size={50} speedMultiplier={0.7} />
       ) : null}
@@ -150,6 +150,6 @@ export const ProfileScreen: React.FC = () => {
           </div>
         </div>
       ) : null}
-    </ProfileWrapper>
+    </AppWrapper>
   );
 };

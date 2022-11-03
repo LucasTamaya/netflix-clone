@@ -1,10 +1,8 @@
 import { ReactNode } from "react";
 
-import { Nav } from "./Nav";
+import { Nav } from "../common/Nav";
 
-export const ProfileWrapper: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const AppWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <div className="bg-zinc-900 px-14">
       <Nav />

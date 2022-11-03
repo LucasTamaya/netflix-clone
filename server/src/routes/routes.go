@@ -11,5 +11,6 @@ func Setup(app *fiber.App) {
 	app.Post("/login", controllers.Login)
 	app.Get("/logout", controllers.Logout)
 	app.Post("/netflix-plan", controllers.UpdateUserNetflixPlan)
+	app.Get("/browse", controllers.IsAuthenticated)
 	app.Get("/user-profile", controllers.GetUserProfileData)
 }
