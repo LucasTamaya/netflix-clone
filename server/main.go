@@ -1,21 +1,23 @@
 package main
 
 import (
-	"fmt"
-
 	"log"
 
 	"github.com/gofiber/fiber/v2"
 
-	"github.com/joho/godotenv"
-
 	"github.com/gofiber/fiber/v2/middleware/cors"
 
 	"netflix-clone/src/config"
+
 	"netflix-clone/src/routes"
+
+	"netflix-clone/src/utils"
 )
 
 func main() {
+	// loads env variables just once here, so that the whole app can access it
+	utils.LoadEnvVariables()
+
 	err := config.DbConnection()
 
 	if err != nil {
@@ -23,10 +25,6 @@ func main() {
 	}
 
 	defer config.Db.Close()
-
-	if err := godotenv.Load(); err != nil {
-		fmt.Printf("Error loading db credentials: %v", err)
-	}
 
 	app := fiber.New()
 

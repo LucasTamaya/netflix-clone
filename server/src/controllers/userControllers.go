@@ -7,8 +7,6 @@ import (
 
 	"github.com/golang-jwt/jwt/v4"
 
-	"github.com/joho/godotenv"
-
 	"netflix-clone/src/middleware"
 
 	"netflix-clone/src/models"
@@ -39,10 +37,6 @@ func UpdateUserNetflixPlan(c *fiber.Ctx) error {
 }
 
 func GetUserProfileData(c *fiber.Ctx) error {
-	if err := godotenv.Load(); err != nil {
-		return err
-	}
-
 	token, err := middleware.IsAuth(c, os.Getenv("JWT_SECRET"))
 
 	if err != nil {

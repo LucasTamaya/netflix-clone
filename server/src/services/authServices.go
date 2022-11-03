@@ -8,15 +8,9 @@ import (
 	"github.com/gofiber/fiber/v2"
 
 	"github.com/golang-jwt/jwt/v4"
-
-	"github.com/joho/godotenv"
 )
 
 func CreateJWT(email string) (string, error) {
-	if err := godotenv.Load(); err != nil {
-		return "", err
-	}
-
 	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
 		Issuer:    email,
 		ExpiresAt: time.Now().Add(time.Hour * 24).Unix(), //1 day

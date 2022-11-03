@@ -8,17 +8,11 @@ import (
 	"os"
 
 	_ "github.com/go-sql-driver/mysql"
-
-	"github.com/joho/godotenv"
 )
 
 var Db *sql.DB
 
 func DbConnection() error {
-	if err := godotenv.Load(); err != nil {
-		fmt.Printf("Error loading db credentials: %v", err)
-	}
-
 	dbConnectionString := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v", os.Getenv("MYSQL_DB_USER"), os.Getenv("MYSQL_DB_PWD"), os.Getenv("MYSQL_DB_HOST"), os.Getenv("MYSQL_DB_PORT"), os.Getenv("MYSQL_DB_NAME"))
 
 	db, err := sql.Open("mysql", dbConnectionString)
