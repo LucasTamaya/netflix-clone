@@ -21,21 +21,21 @@ func UpdateUserNetflixPlan(c *fiber.Ctx) error {
 	if err := c.BodyParser(&user); err != nil {
 		fmt.Println("Error with BodyParser")
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"ok":    false,
-			"error": err.Error(),
+			"isSuccess": false,
+			"error":     err.Error(),
 		})
 	}
 
 	if err := services.MutateNetflixPlan(user); err != nil {
 		fmt.Println("Error when mutating netflix plan")
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"ok":    false,
-			"error": err.Error(),
+			"isSuccess": false,
+			"error":     err.Error(),
 		})
 	}
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"ok": true,
+		"isSuccess": true,
 	})
 }
 
@@ -45,7 +45,8 @@ func GetUserProfileData(c *fiber.Ctx) error {
 	if err != nil {
 		fmt.Println("Unauthorized access")
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-			"error": "unauthorized",
+			"isSuccess": false,
+			"error":     "unauthorized",
 		})
 	}
 
@@ -57,8 +58,8 @@ func GetUserProfileData(c *fiber.Ctx) error {
 	if err := services.QueryUserProfileData(email, &user); err != nil {
 		fmt.Println("Error during QueryUserProfileData")
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"ok":    false,
-			"error": err.Error(),
+			"isSuccess": false,
+			"error":     err.Error(),
 		})
 	}
 

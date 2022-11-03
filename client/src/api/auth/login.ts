@@ -13,7 +13,7 @@ export const handleLogin = async (email: string, password: string) => {
     { withCredentials: true }
   );
 
-  if (!auth.ok) {
+  if (!auth.isSuccess) {
     // if user not found
     if (auth.error?.includes("sql: no rows in result set")) {
       throw new Error("Wrong email or password");

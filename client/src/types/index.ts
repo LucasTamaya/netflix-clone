@@ -25,7 +25,7 @@ export interface TmdbApiMovieResponse {
 }
 
 export interface ApiResponse {
-  ok: boolean;
+  isSuccess: boolean;
   error?: string;
 }
 

@@ -15,7 +15,7 @@ export const handleUpdateNetflixPlan = async (
     }
   );
 
-  if (!update.ok) {
+  if (!update.isSuccess) {
     throw new Error(update.error);
   }
 };

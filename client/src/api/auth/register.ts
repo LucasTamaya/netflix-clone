@@ -12,7 +12,7 @@ export const handleRegister = async (email: string, password: string) => {
     }
   );
 
-  if (!auth.ok) {
+  if (!auth.isSuccess) {
     throw new Error(auth.error);
   }
 };
