@@ -1,10 +1,9 @@
-import axios from "axios";
-
 import { SERVER_BASE_URL } from "../../constants/server";
 import { ApiResponse } from "../../types";
+import { axiosInstance } from "../axios";
 
 export const handleRegister = async (email: string, password: string) => {
-  const { data: auth } = await axios.post<ApiResponse>(
+  const { data: auth } = await axiosInstance.post<ApiResponse>(
     `${SERVER_BASE_URL}/register`,
     {
       email,

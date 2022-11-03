@@ -9,7 +9,7 @@ import { AppWrapper } from "../components/ui/AppWrapper";
 import { useIsAuth } from "../hooks/auth/useIsAuth";
 
 export const BrowseScreen: React.FC = () => {
-  const { isLoading, isError, isSuccess } = useIsAuth();
+  const { isError, isSuccess } = useIsAuth();
 
   const navigate = useNavigate();
 
