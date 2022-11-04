@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+
 	"log"
+
 	"os"
 
 	"github.com/gofiber/fiber/v2"
@@ -35,5 +37,6 @@ func main() {
 	routes.Setup(app)
 
 	url := fmt.Sprintf("0.0.0.0:%v", os.Getenv("PORT"))
+
 	log.Fatal(app.Listen(url))
 }
