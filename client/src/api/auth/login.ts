@@ -8,8 +8,7 @@ export const handleLogin = async (email: string, password: string) => {
     {
       email,
       password,
-    },
-    { withCredentials: true }
+    }
   );
 
   if (!auth.isSuccess) {
