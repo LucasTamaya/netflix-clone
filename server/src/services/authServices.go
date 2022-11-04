@@ -32,6 +32,7 @@ func SendCookiesOnAuth(c *fiber.Ctx, token string) {
 		Expires:  time.Now().Add(time.Hour * 24), // 1 day
 		HTTPOnly: true,
 		Secure:   true,
+		SameSite: "None",
 	})
 
 	// to keep track if the user is auth on the client
