@@ -10,13 +10,10 @@ import (
 	"netflix-clone/src/config"
 
 	"netflix-clone/src/routes"
-
-	"netflix-clone/src/utils"
 )
 
 func main() {
 	// loads env variables just once here, so that the whole app can access it
-	utils.LoadEnvVariables()
 
 	err := config.DbConnection()
 
