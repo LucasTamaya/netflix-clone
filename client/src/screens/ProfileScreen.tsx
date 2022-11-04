@@ -98,7 +98,7 @@ export const ProfileScreen: React.FC = () => {
                   user.netflixPlan === "Basic" ? "Current Package" : "Subscribe"
                 }
                 isActive={user.netflixPlan === "Basic" ? true : false}
-                handleClick={() => {
+                subscribe={() => {
                   if (user.netflixPlan !== "Basic") {
                     handleSubscribe(netflixBasicItem, "Basic");
                   }
@@ -114,7 +114,7 @@ export const ProfileScreen: React.FC = () => {
                     : "Subscribe"
                 }
                 isActive={user.netflixPlan === "Standard" ? true : false}
-                handleClick={() => {
+                subscribe={() => {
                   if (user.netflixPlan !== "Standard") {
                     handleSubscribe(netflixStandardItem, "Standard");
                   }
@@ -130,7 +130,7 @@ export const ProfileScreen: React.FC = () => {
                     : "Subscribe"
                 }
                 isActive={user.netflixPlan === "Premium" ? true : false}
-                handleClick={() => {
+                subscribe={() => {
                   if (user.netflixPlan !== "Premium") {
                     handleSubscribe(netflixPremiumItem, "Premium");
                   }

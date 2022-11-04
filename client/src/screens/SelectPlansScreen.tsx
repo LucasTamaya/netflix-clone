@@ -20,7 +20,7 @@ export const SelectPlansScreen: React.FC = () => {
             resolution="780p"
             buttonTitle="Subscribe"
             isActive={false}
-            handleClick={() => handleSubscribe(netflixBasicItem, "Basic")}
+            subscribe={() => handleSubscribe(netflixBasicItem, "Basic")}
           />
           <NetflixPlan
             title="Netflix Standard"
@@ -28,7 +28,7 @@ export const SelectPlansScreen: React.FC = () => {
             resolution="1080p"
             buttonTitle="Subscribe"
             isActive={false}
-            handleClick={() => handleSubscribe(netflixStandardItem, "Standard")}
+            subscribe={() => handleSubscribe(netflixStandardItem, "Standard")}
           />
           <NetflixPlan
             title="Netflix Premium"
@@ -36,7 +36,7 @@ export const SelectPlansScreen: React.FC = () => {
             resolution="4K"
             buttonTitle="Subscribe"
             isActive={false}
-            handleClick={() => handleSubscribe(netflixPremiumItem, "Premium")}
+            subscribe={() => handleSubscribe(netflixPremiumItem, "Premium")}
           />
         </div>
       </div>
