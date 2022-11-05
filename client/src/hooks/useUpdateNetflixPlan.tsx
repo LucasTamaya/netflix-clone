@@ -6,7 +6,5 @@ export const useUpdateNetflixPlan = (
   email: string | null,
   netflixPlan: string | null
 ) => {
-  return useMutation<void, Error>(() =>
-    handleUpdateNetflixPlan(email, netflixPlan)
-  );
+  return useMutation(() => handleUpdateNetflixPlan(email, netflixPlan));
 };

@@ -13,7 +13,7 @@ import (
 func Setup(app *fiber.App) {
 	app.Post("/auth/register", controllers.Register)
 	app.Post("/auth/login", controllers.Login)
-	app.Post("/user/netflix-plan", controllers.UpdateUserNetflixPlan)
+	app.Patch("/user/netflix-plan", controllers.UpdateUserNetflixPlan)
 
 	// All routes below will use this JWT auth middleware
 	app.Use(jwtware.New(jwtware.Config{

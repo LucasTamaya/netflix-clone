@@ -18,16 +18,16 @@ func UpdateUserNetflixPlan(c *fiber.Ctx) error {
 	if err := c.BodyParser(&user); err != nil {
 		fmt.Println("Error with BodyParser")
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"isSuccess": false,
-			"error":     err.Error(),
+			"isError": true,
+			"error":   err.Error(),
 		})
 	}
 
 	if err := services.MutateNetflixPlan(user); err != nil {
 		fmt.Println("Error when mutating netflix plan")
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"isSuccess": false,
-			"error":     err.Error(),
+			"isError": true,
+			"error":   err.Error(),
 		})
 	}
 
@@ -43,12 +43,13 @@ func GetUserProfileData(c *fiber.Ctx) error {
 	if err := services.QueryUserProfileData(email, &user); err != nil {
 		fmt.Println("Error during QueryUserProfileData")
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"isSuccess": false,
-			"error":     err.Error(),
+			"isError": true,
+			"error":   err.Error(),
 		})
 	}
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"isSuccess":   true,
 		"email":       user.Email,
 		"netflixPlan": user.NetflixPlan,
 	})

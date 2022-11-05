@@ -37,6 +37,8 @@ export interface StripeItem {
 }
 
 export interface ApiUserProfileDataResponse {
+  isSuccess: boolean;
+  isError: boolean;
   email: string;
   netflixPlan: "Basic" | "Standard" | "Premium";
 }
