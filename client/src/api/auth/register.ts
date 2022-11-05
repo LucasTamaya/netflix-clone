@@ -5,7 +5,7 @@ import { ApiResponse } from "../../types";
 
 export const handleRegister = async (email: string, password: string) => {
   const { data: auth } = await axios.post<ApiResponse>(
-    `${SERVER_BASE_URL}/register`,
+    `${SERVER_BASE_URL}/auth/register`,
     {
       email,
       password,

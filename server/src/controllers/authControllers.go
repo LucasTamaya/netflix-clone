@@ -127,3 +127,9 @@ func Logout(c *fiber.Ctx) error {
 		"isSuccess": true,
 	})
 }
+
+func ValidUserAuthentification(c *fiber.Ctx) error {
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"isSucces": true,
+	})
+}

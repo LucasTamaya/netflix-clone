@@ -6,10 +6,10 @@ import { Nav } from "../components/common/Nav";
 import { UnauthorizedError } from "../components/common/UnauthorizedError";
 import { MoviesCatalog } from "../components/MoviesCatalog";
 import { AppWrapper } from "../components/ui/AppWrapper";
-import { useIsAuth } from "../hooks/auth/useIsAuth";
+import { useValidAuth } from "../hooks/auth/useValidAuth";
 
 export const BrowseScreen: React.FC = () => {
-  const { isError, isSuccess } = useIsAuth();
+  const { isError, isSuccess } = useValidAuth();
 
   const navigate = useNavigate();
 

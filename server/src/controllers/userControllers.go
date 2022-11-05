@@ -67,17 +67,3 @@ func GetUserProfileData(c *fiber.Ctx) error {
 		"netflixPlan": user.NetflixPlan,
 	})
 }
-
-func IsAuthenticated(c *fiber.Ctx) error {
-	_, err := middleware.IsAuth(c)
-
-	if err != nil {
-		fmt.Println("Unauthorized access")
-		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-			"isSuccess": false,
-			"error":     "unauthorized",
-		})
-	}
-
-	return c.SendStatus(fiber.StatusOK)
-}

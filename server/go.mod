@@ -10,6 +10,8 @@ require (
 	golang.org/x/crypto v0.1.0 // direct
 )
 
+require github.com/gofiber/jwt/v3 v3.3.3
+
 require (
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/klauspost/compress v1.15.12 // indirect

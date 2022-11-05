@@ -5,7 +5,7 @@ import { ApiResponse } from "../../types";
 
 export const handleLogin = async (email: string, password: string) => {
   const { data: auth } = await axios.post<ApiResponse>(
-    `${SERVER_BASE_URL}/login`,
+    `${SERVER_BASE_URL}/auth/login`,
     {
       email,
       password,
