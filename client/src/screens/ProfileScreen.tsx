@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 
@@ -7,7 +7,6 @@ import { AppWrapper } from "../components/ui/AppWrapper";
 import { UnauthorizedError } from "../components/common/UnauthorizedError";
 import { UnknownError } from "../components/common/UnknownError";
 import { NetflixPlan } from "../components/NetflixPlan";
-import { useLogout } from "../hooks/auth/useLogout";
 import { useUserProfileData } from "../hooks/useUserProfileData";
 import {
   netflixBasicItem,
@@ -15,66 +14,47 @@ import {
   netflixStandardItem,
 } from "../stripe/assets";
 import { handleSubscribe } from "../stripe/handleSubscribe";
+import { LogoutModal } from "../components/LogoutModal";
 
 const ProfileScreen: React.FC = () => {
+  const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
+
   const {
-    isLoading: userProfileDataLoading,
-    isError: userProfileDataError,
-    isSuccess: userProfileDataSuccess,
+    isLoading,
+    isError,
+    isSuccess,
     error,
     data: user,
   } = useUserProfileData();
 
-  const {
-    refetch,
-    isLoading: logoutLoading,
-    isError: logoutError,
-    isSuccess: logoutSuccess,
-  } = useLogout();
-
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    await refetch();
-
-    if (logoutSuccess) {
-      navigate("/");
-    }
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
   };
 
   useEffect(() => {
     let redirectUser: NodeJS.Timeout;
 
-    if (userProfileDataError && error.response?.status === 401) {
+    if (isError && error.response?.status === 401) {
       redirectUser = setTimeout(() => navigate("/"), 5000);
     }
 
     return () => clearTimeout(redirectUser);
-  }, [userProfileDataError, error, navigate]);
-
-  if (logoutError) {
-    return (
-      <AppWrapper>
-        <UnknownError />
-      </AppWrapper>
-    );
-  }
+  }, [isError, error, navigate]);
 
   return (
     <AppWrapper>
-      {userProfileDataLoading ? (
+      {isLoading ? (
         <ClipLoader color="red" size={50} speedMultiplier={0.7} />
       ) : null}
 
-      {userProfileDataError && error.response?.status === 401 ? (
-        <UnauthorizedError />
-      ) : null}
+      {isError && error.response?.status === 401 ? <UnauthorizedError /> : null}
 
-      {userProfileDataError && error.response?.status !== 401 ? (
-        <UnknownError />
-      ) : null}
+      {isError && error.response?.status !== 401 ? <UnknownError /> : null}
 
-      {userProfileDataSuccess ? (
+      {isSuccess ? (
         <div className="flex-1">
           <h1 className="text-white text-5xl mb-7">Edit Profile</h1>
           <div className="flex">
@@ -138,14 +118,16 @@ const ProfileScreen: React.FC = () => {
               />
               <button
                 className="flex justify-center items-center h-11 text-white font-semibold bg-red-netflix  rounded transition hover:bg-red-600"
-                onClick={handleLogout}
+                onClick={() => setShowLogoutModal(true)}
               >
-                {logoutLoading ? (
-                  <ClipLoader color="white" size={20} speedMultiplier={0.7} />
-                ) : (
-                  <>Logout</>
-                )}
+                Logout
               </button>
+              {showLogoutModal ? (
+                <LogoutModal
+                  handleCancel={setShowLogoutModal}
+                  handleLogout={handleLogout}
+                />
+              ) : null}
             </div>
           </div>
         </div>

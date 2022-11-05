@@ -28,5 +28,4 @@ func Setup(app *fiber.App) {
 
 	app.Get("/auth/valid", controllers.ValidUserAuthentification)
 	app.Get("/user/profile", controllers.GetUserProfileData)
-	app.Get("/auth/logout", controllers.Logout)
 }

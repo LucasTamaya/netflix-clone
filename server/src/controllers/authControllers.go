@@ -121,13 +121,6 @@ func Login(c *fiber.Ctx) error {
 	})
 }
 
-func Logout(c *fiber.Ctx) error {
-	c.ClearCookie()
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"isSuccess": true,
-	})
-}
-
 func ValidUserAuthentification(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"isSucces": true,
