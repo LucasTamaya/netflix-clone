@@ -9,8 +9,6 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
-	"github.com/joho/godotenv"
-
 	"github.com/gofiber/fiber/v2/middleware/logger"
 
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -21,12 +19,6 @@ import (
 )
 
 func main() {
-	if err := godotenv.Load(); err != nil {
-		log.Fatal("Error loading db credentials")
-	}
-
-	fmt.Println("Env variables correctly loaded!")
-
 	err := config.DbConnection()
 
 	if err != nil {
