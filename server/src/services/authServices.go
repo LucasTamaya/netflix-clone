@@ -40,6 +40,7 @@ func SendCookiesOnAuth(c *fiber.Ctx, token string) {
 		Name:     "isAuth",
 		Value:    "true",
 		Expires:  time.Now().Add(time.Hour * 24),
+		Secure:   true,
 		SameSite: "None",
 	})
 }
