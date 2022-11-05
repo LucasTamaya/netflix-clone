@@ -5,8 +5,6 @@ import (
 
 	"time"
 
-	"github.com/gofiber/fiber/v2"
-
 	"github.com/golang-jwt/jwt/v4"
 )
 
@@ -22,25 +20,4 @@ func CreateJWT(email string) (string, error) {
 	}
 
 	return token, nil
-}
-
-func SendCookiesOnAuth(c *fiber.Ctx, token string) {
-	// JWT to secure my API
-	c.Cookie(&fiber.Cookie{
-		Name:     "token",
-		Value:    token,
-		Expires:  time.Now().Add(time.Hour * 24), // 1 day
-		HTTPOnly: true,
-		Secure:   true,
-		SameSite: "None",
-	})
-
-	// to keep track if the user is auth on the client
-	c.Cookie(&fiber.Cookie{
-		Name:     "isAuth",
-		Value:    "true",
-		Expires:  time.Now().Add(time.Hour * 24),
-		Secure:   true,
-		SameSite: "None",
-	})
 }
