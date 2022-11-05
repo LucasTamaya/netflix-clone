@@ -26,7 +26,9 @@ export interface TmdbApiMovieResponse {
 
 export interface ApiResponse {
   isSuccess: boolean;
-  error?: string;
+  isError: boolean;
+  token: string;
+  error: string;
 }
 
 export interface StripeItem {

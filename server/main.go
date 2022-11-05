@@ -41,7 +41,6 @@ func main() {
 	// middleware to handle CORS error + enable cookies sending to the client
 	app.Use(cors.New(cors.Config{
 		AllowCredentials: true,
-		AllowOrigins:     "https://netflix-clone-plum-psi.vercel.app, https://netflix-clone-lucastamaya.vercel.app, https://netflix-clone-git-master-lucastamaya.vercel.app",
 	}))
 
 	routes.Setup(app)
