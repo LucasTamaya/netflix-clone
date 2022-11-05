@@ -1,10 +1,10 @@
 import axios from "axios";
 
 import { SERVER_BASE_URL } from "../../constants/server";
-import { ApiResponse } from "../../types";
+import { ApiAuthResponse } from "../../types";
 
 export const handleRegister = async (email: string, password: string) => {
-  const { data: auth } = await axios.post<ApiResponse>(
+  const { data: auth } = await axios.post<ApiAuthResponse>(
     `${SERVER_BASE_URL}/auth/register`,
     {
       email,
@@ -16,7 +16,7 @@ export const handleRegister = async (email: string, password: string) => {
     throw new Error(auth.error);
   }
 
-  if (auth.isSuccess) {
-    localStorage.setItem("token", auth.token);
-  }
+  localStorage.setItem("token", auth.token);
+
+  return auth;
 };

@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 import { NETFLIX_ICON_URL, PROFILE_ICON_URL } from "../../assets/icons";
 
 export const Nav: React.FC = () => {
   const [showNavBackground, setShowNavBackground] = useState<boolean>(false);
 
-  const isAuth = Cookies.get("isAuth");
+  const jwt = localStorage.getItem("token");
 
   const navigate = useNavigate();
 
@@ -39,7 +38,7 @@ export const Nav: React.FC = () => {
         className="w-28 sm:w-36 cursor-pointer"
         onClick={() => navigate("/")}
       />
-      {isAuth ? (
+      {jwt ? (
         <img
           src={PROFILE_ICON_URL}
           alt="profile icon"

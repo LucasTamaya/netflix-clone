@@ -1,6 +1,7 @@
 import { UseMutateFunction } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+import { ApiAuthResponse } from "../../types";
 
 interface Props {
   title: "Login" | "Register";
@@ -8,7 +9,7 @@ interface Props {
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   password: string;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
-  handleAuth: UseMutateFunction<void, Error, void, unknown>;
+  handleAuth: UseMutateFunction<ApiAuthResponse, Error, void, unknown>;
   isLoading: boolean;
   authError: Error | null;
   changeAuthMethodPath: "/login" | "/register";

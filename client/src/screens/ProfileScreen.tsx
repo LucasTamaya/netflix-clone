@@ -16,7 +16,7 @@ import {
 } from "../stripe/assets";
 import { handleSubscribe } from "../stripe/handleSubscribe";
 
-export const ProfileScreen: React.FC = () => {
+const ProfileScreen: React.FC = () => {
   const {
     isLoading: userProfileDataLoading,
     isError: userProfileDataError,
@@ -153,3 +153,5 @@ export const ProfileScreen: React.FC = () => {
     </AppWrapper>
   );
 };
+
+export default ProfileScreen;

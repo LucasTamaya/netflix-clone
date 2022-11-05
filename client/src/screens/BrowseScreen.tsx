@@ -8,7 +8,7 @@ import { MoviesCatalog } from "../components/MoviesCatalog";
 import { AppWrapper } from "../components/ui/AppWrapper";
 import { useValidAuth } from "../hooks/auth/useValidAuth";
 
-export const BrowseScreen: React.FC = () => {
+const BrowseScreen: React.FC = () => {
   const { isError, isSuccess } = useValidAuth();
 
   const navigate = useNavigate();
@@ -49,3 +49,5 @@ export const BrowseScreen: React.FC = () => {
     </div>
   );
 };
+
+export default BrowseScreen;
