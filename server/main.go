@@ -9,9 +9,8 @@ import (
 
 	"github.com/joho/godotenv"
 
-	"github.com/gofiber/fiber/v2/middleware/logger"
-
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 
 	"netflix-clone/src/config"
 
@@ -38,10 +37,8 @@ func main() {
 	// get request logs
 	app.Use(logger.New())
 
-	// middleware to handle CORS error + enable cookies sending to the client
-	app.Use(cors.New(cors.Config{
-		AllowCredentials: true,
-	}))
+	// handle CORS error
+	app.Use(cors.New())
 
 	routes.Setup(app)
 

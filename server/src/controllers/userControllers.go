@@ -5,9 +5,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
-	"github.com/golang-jwt/jwt/v4"
-
-	"netflix-clone/src/middleware"
+	// "github.com/golang-jwt/jwt/v4"
 
 	"netflix-clone/src/models"
 
@@ -39,19 +37,7 @@ func UpdateUserNetflixPlan(c *fiber.Ctx) error {
 }
 
 func GetUserProfileData(c *fiber.Ctx) error {
-	token, err := middleware.IsAuth(c)
-
-	if err != nil {
-		fmt.Println("Unauthorized access")
-		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-			"isSuccess": false,
-			"error":     "unauthorized",
-		})
-	}
-
-	claims := token.Claims.(*jwt.StandardClaims)
-	email := claims.Issuer
-
+	email := services.GetJWTPayload(c, "email")
 	user := models.User{}
 
 	if err := services.QueryUserProfileData(email, &user); err != nil {
