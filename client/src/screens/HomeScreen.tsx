@@ -18,8 +18,8 @@ export const HomeScreen: React.FC = () => {
   return (
     <NetflixBackground>
       <Nav />
-      <div className="w-full h-screen flex flex-col justify-center items-center gap-y-8 px-10">
-        <h1 className="text-white text-center text-4xl sm:text-6xl font-bold">
+      <div className="w-full h-screen flex flex-col justify-center items-center gap-y-4 px-5 sm:gap-y-8 sm:px-10">
+        <h1 className="text-white text-center text-3xl sm:text-6xl font-bold">
           Unlimited films, TV programmes and more.
         </h1>
         <h2 className="text-white text-center text-2xl sm:text-3xl">

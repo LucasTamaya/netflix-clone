@@ -29,7 +29,7 @@ export const AuthForm: React.FC<Props> = ({
   const navigate = useNavigate();
 
   return (
-    <div className="w-full h-screen flex justify-center items-center px-10">
+    <div className="w-full h-screen flex justify-center items-center px-5 sm:px-10">
       <form className="bg-black/80 rounded w-full max-w-md p-10 sm:p-14">
         <h1 className="text-white text-3xl mb-8">{title}</h1>
         <div className="flex flex-col gap-y-4">

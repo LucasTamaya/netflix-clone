@@ -56,18 +56,18 @@ const ProfileScreen: React.FC = () => {
 
       {isSuccess ? (
         <div className="flex-1">
-          <h1 className="text-white text-5xl mb-7">Edit Profile</h1>
+          <h1 className="text-white text-3xl sm:text-5xl mb-7">Edit Profile</h1>
           <div className="flex">
             <img
               src={PROFILE_ICON_URL}
               alt="profile icon"
-              className="w-24 h-24 mr-7"
+              className="hidden sm:block w-24 h-24 mr-7"
             />
             <div className="w-full flex flex-col gap-y-5">
               <p className="text-white font-semibold p-3 rounded bg-zinc-500">
                 {user.email}
               </p>
-              <h2 className="text-white text-xl font-bold">
+              <h2 className="text-white text-lg sm:text-xl font-bold">
                 Plans (Current Plan: {user.netflixPlan})
               </h2>
               <NetflixPlan
