@@ -7,6 +7,7 @@ import { LoginScreen } from "./screens/LoginScreen";
 import { RegisterScreen } from "./screens/RegisterScreen";
 import { SelectPlansScreen } from "./screens/SelectPlansScreen";
 import { CheckoutSuccessScreen } from "./screens/CheckoutSuccessScreen";
+import { LostScreen } from "./screens/LostScreen";
 
 // lazy load components that are used when the user has logged in
 const BrowseScreen = lazy(() => import("./screens/BrowseScreen"));
@@ -23,6 +24,7 @@ const App: React.FC = () => {
         <Route path="/checkout-success" element={<CheckoutSuccessScreen />} />
         <Route path="/browse" element={<BrowseScreen />} />
         <Route path="/profile" element={<ProfileScreen />} />
+        <Route path="*" element={<LostScreen />} />
       </Routes>
     </Suspense>
   );
