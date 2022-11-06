@@ -3,13 +3,16 @@ package main
 import (
 	"fmt"
 
+	"os"
+
 	"log"
 
 	"github.com/gofiber/fiber/v2"
 
-	"github.com/joho/godotenv"
+	// "github.com/joho/godotenv"
 
 	"github.com/gofiber/fiber/v2/middleware/cors"
+
 	"github.com/gofiber/fiber/v2/middleware/logger"
 
 	"netflix-clone/src/config"
@@ -18,11 +21,11 @@ import (
 )
 
 func main() {
-	if err := godotenv.Load(); err != nil {
-		log.Fatal("Error loading db credentials")
-	}
+	// if err := godotenv.Load(); err != nil {
+	// 	log.Fatal("Error loading db credentials")
+	// }
 
-	fmt.Println("Env variables correctly loaded!")
+	// fmt.Println("Env variables correctly loaded!")
 
 	err := config.DbConnection()
 
@@ -38,12 +41,14 @@ func main() {
 	app.Use(logger.New())
 
 	// handle CORS error
-	app.Use(cors.New())
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "https://netflix-clone-plum-psi.vercel.app, https://netflix-clone-lucastamaya.vercel.app, https://netflix-clone-git-master-lucastamaya.vercel.app",
+	}))
 
 	routes.Setup(app)
 
-	// url := fmt.Sprintf("0.0.0.0:%v", os.Getenv("PORT"))
-	url := ":8080"
+	url := fmt.Sprintf("0.0.0.0:%v", os.Getenv("PORT"))
+	// url := ":8080"
 
 	log.Fatal(app.Listen(url))
 }

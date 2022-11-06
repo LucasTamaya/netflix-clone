@@ -5,8 +5,6 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
-	// "github.com/golang-jwt/jwt/v4"
-
 	"netflix-clone/src/models"
 
 	"netflix-clone/src/services"

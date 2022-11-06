@@ -42,3 +42,9 @@ export interface ApiUserProfileDataResponse {
   email: string;
   netflixPlan: "Basic" | "Standard" | "Premium";
 }
+
+export interface ApiUpdateNetflixPlanResponse {
+  isSuccess: boolean;
+  isError: boolean;
+  error: string;
+}

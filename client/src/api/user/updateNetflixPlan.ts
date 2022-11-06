@@ -1,12 +1,13 @@
 import axios from "axios";
 
 import { SERVER_BASE_URL } from "../../constants/server";
+import { ApiUpdateNetflixPlanResponse } from "../../types";
 
 export const handleUpdateNetflixPlan = async (
   email: string | null,
   netflixPlan: string | null
 ) => {
-  const { data: update } = await axios.patch(
+  const { data: update } = await axios.patch<ApiUpdateNetflixPlanResponse>(
     `${SERVER_BASE_URL}/user/netflix-plan`,
     {
       email,
@@ -14,7 +15,7 @@ export const handleUpdateNetflixPlan = async (
     }
   );
 
-  if (!update.isSuccess) {
+  if (update.isError) {
     throw new Error(update.error);
   }
 };
