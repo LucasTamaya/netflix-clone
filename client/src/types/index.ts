@@ -1,6 +1,6 @@
 export interface MovieResult {
   adult: boolean;
-  backdrop_path: string;
+  backdrop_path?: string;
   first_air_date: string;
   genre_ids: number[];
   id: number;

@@ -15,7 +15,7 @@ export const LogoutModal: React.FC<Props> = ({
         </h3>
         <div className="flex flex-col sm:flex-row justify-between items-center">
           <button
-            className="w-full sm:w-44 h-11 text-white font-semibold mb-5 bg-zinc-500 rounded hover:bg-zinc-600"
+            className="w-full sm:w-44 h-11 text-white font-semibold mb-5 sm:mb-0 bg-zinc-500 rounded hover:bg-zinc-600"
             onClick={() => handleCancel(false)}
           >
             Cancel

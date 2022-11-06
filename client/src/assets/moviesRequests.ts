@@ -35,7 +35,7 @@ export const moviesRequests: IMoviesRequests[] = [
     url: `${TMDB_BASE_URL}/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_genres=10749`,
   },
   {
-    category: "Documentary",
-    url: `${TMDB_BASE_URL}/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_genres=99`,
+    category: "Mystery",
+    url: `${TMDB_BASE_URL}/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&with_genres=9648`,
   },
 ];

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { NetflixBackground } from "../components/common/NetflixBackground";
@@ -14,6 +14,13 @@ export const HomeScreen: React.FC = () => {
     localStorage.setItem("email", email);
     navigate("/login");
   };
+
+  // if user already auth
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/browse");
+    }
+  }, [navigate]);
 
   return (
     <NetflixBackground>
