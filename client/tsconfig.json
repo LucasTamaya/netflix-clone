@@ -18,7 +18,8 @@
     "baseUrl": ".",
     "paths": {
       "@screens/*": ["src/screens/*"],
-      "@components/*": ["src/components/*"]
+      "@components/*": ["src/components/*"],
+      "@mocks/*": ["tests/mocks/*"]
     }
   },
   "include": ["src", "tests"]

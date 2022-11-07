@@ -58,7 +58,8 @@
     "clearMocks": true,
     "moduleNameMapper": {
       "^@screens(.*)$": "<rootDir>/src/screens/$1",
-      "^@components(.*)$": "<rootDir>/src/components/$1"
+      "^@components(.*)$": "<rootDir>/src/components/$1",
+      "^@mocks(.*)$": "<rootDir>/tests/mocks/$1"
     },
     "collectCoverage": true,
     "coverageDirectory": "coverage",

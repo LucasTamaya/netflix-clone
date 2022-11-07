@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 
 import { Nav } from "@components/common/Nav";
-import { RouterWrapper } from "../../mocks/RouterWrapper";
+import { RouterWrapper } from "@mocks/RouterWrapper";
 
 const mockedSetState = jest.fn();
 const mockedUseState: any = (useState: any) => [useState, mockedSetState];

@@ -1,7 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 
 import { AuthForm } from "@components/common/AuthForm";
-import { RouterWrapper } from "../../mocks/RouterWrapper";
+import { RouterWrapper } from "@mocks/RouterWrapper";
+import { authMethods } from "@mocks/authMethods";
 
 jest.mock("react-router-dom", () => ({
   ...(jest.requireActual("react-router-dom") as any),
@@ -42,54 +43,33 @@ const MockedComponent: React.FC<Props> = ({
 };
 
 describe("AuthForm component", () => {
-  it("should renders the component correctly for login", () => {
-    render(
-      <MockedComponent
-        title="Login"
-        isLoading={false}
-        error={undefined}
-        changeAuthMethodPath="/register"
-      />
-    );
+  authMethods.forEach((method) => {
+    it(`should renders the component correctly for ${method.initialTitle}`, () => {
+      render(
+        <MockedComponent
+          title={method.initialTitle}
+          isLoading={false}
+          error={undefined}
+          changeAuthMethodPath={method.changePath}
+        />
+      );
 
-    const title = screen.getByRole("heading", { name: /login/i });
-    const emailInput = screen.getByPlaceholderText(/email address/i);
-    const pwdInput = screen.getByPlaceholderText(/password/i);
-    const loginBtn = screen.getByRole("button", { name: /login/i });
-    const para = screen.getByText(/first visit on netflix?/i);
-    const registerBtn = screen.getByRole("button", { name: /register/i });
+      const title = screen.getByRole("heading", { name: method.initialTitle });
+      const emailInput = screen.getByPlaceholderText(/email address/i);
+      const pwdInput = screen.getByPlaceholderText(/password/i);
+      const submitBtn = screen.getByRole("button", {
+        name: method.initialTitle,
+      });
+      const changeAuthMethodBtn = screen.getByRole("button", {
+        name: method.reverseTitle,
+      });
 
-    expect(title).toBeInTheDocument();
-    expect(emailInput).toBeInTheDocument();
-    expect(pwdInput).toBeInTheDocument();
-    expect(loginBtn).toBeInTheDocument();
-    expect(para).toBeInTheDocument();
-    expect(registerBtn).toBeInTheDocument();
-  });
-
-  it("should renders the component correctly for register", () => {
-    render(
-      <MockedComponent
-        title="Register"
-        isLoading={false}
-        error={undefined}
-        changeAuthMethodPath="/login"
-      />
-    );
-
-    const title = screen.getByRole("heading", { name: /register/i });
-    const emailInput = screen.getByPlaceholderText(/email address/i);
-    const pwdInput = screen.getByPlaceholderText(/password/i);
-    const registerBtn = screen.getByRole("button", { name: /register/i });
-    const para = screen.getByText(/first visit on netflix?/i);
-    const loginBtn = screen.getByRole("button", { name: /login/i });
-
-    expect(title).toBeInTheDocument();
-    expect(emailInput).toBeInTheDocument();
-    expect(pwdInput).toBeInTheDocument();
-    expect(registerBtn).toBeInTheDocument();
-    expect(loginBtn).toBeInTheDocument();
-    expect(para).toBeInTheDocument();
+      expect(title).toBeInTheDocument();
+      expect(emailInput).toBeInTheDocument();
+      expect(pwdInput).toBeInTheDocument();
+      expect(submitBtn).toBeInTheDocument();
+      expect(changeAuthMethodBtn).toBeInTheDocument();
+    });
   });
 
   it("should calls handleAuth function if the user clicks on Login button", () => {
