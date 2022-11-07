@@ -63,8 +63,7 @@ describe("Browse Screen", () => {
 
   it("should redirects the user to '/browse' if he is already authenticated", () => {
     // when a user is auth, he has token value in localStorage
-    const token = "fae889hnjaig";
-    localStorage.setItem("token", token);
+    localStorage.setItem("token", "fae889hnjaig");
 
     render(<MockedComponent />);
 
