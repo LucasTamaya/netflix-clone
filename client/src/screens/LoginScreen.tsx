@@ -33,7 +33,7 @@ export const LoginScreen: React.FC = () => {
         setPassword={setPassword}
         handleAuth={mutate}
         isLoading={isLoading}
-        authError={error}
+        error={error?.message}
         changeAuthMethodPath="/register"
       />
     </NetflixBackground>

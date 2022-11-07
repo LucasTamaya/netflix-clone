@@ -1,7 +1,5 @@
-import { UseMutateFunction } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import { ApiAuthResponse } from "../../types";
 
 interface Props {
   title: "Login" | "Register";
@@ -9,9 +7,9 @@ interface Props {
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   password: string;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
-  handleAuth: UseMutateFunction<ApiAuthResponse, Error, void, unknown>;
+  handleAuth: () => any;
   isLoading: boolean;
-  authError: Error | null;
+  error: string | undefined;
   changeAuthMethodPath: "/login" | "/register";
 }
 
@@ -23,19 +21,22 @@ export const AuthForm: React.FC<Props> = ({
   setPassword,
   handleAuth,
   isLoading,
-  authError,
+  error,
   changeAuthMethodPath,
 }) => {
   const navigate = useNavigate();
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    handleAuth();
+  };
 
   return (
     <div className="w-full h-screen flex justify-center items-center px-5 sm:px-10">
       <form className="bg-black/80 rounded w-full max-w-md p-10 sm:p-14">
         <h1 className="text-white text-3xl mb-8">{title}</h1>
         <div className="flex flex-col gap-y-4">
-          {authError ? (
-            <p className="text-red-500">{authError.message}</p>
-          ) : null}
+          {error ? <p className="text-red-500">{error}</p> : null}
           <input
             className="text-white outline-none rounded w-full bg-zinc-700 px-5 py-3"
             type="email"
@@ -53,13 +54,15 @@ export const AuthForm: React.FC<Props> = ({
         </div>
         <button
           className="w-full text-white font-semibold h-12 rounded bg-red-netflix mt-10"
-          onClick={(e) => {
-            e.preventDefault();
-            handleAuth();
-          }}
+          onClick={handleClick}
         >
           {isLoading ? (
-            <ClipLoader color="white" size={20} speedMultiplier={0.7} />
+            <ClipLoader
+              role="loader"
+              color="white"
+              size={20}
+              speedMultiplier={0.7}
+            />
           ) : (
             <>{title}</>
           )}
@@ -70,12 +73,12 @@ export const AuthForm: React.FC<Props> = ({
           ) : (
             <>Already have an account? </>
           )}
-          <span
+          <button
             className="text-white font-semibold cursor-pointer"
             onClick={() => navigate(changeAuthMethodPath)}
           >
             {title === "Login" ? <>Register</> : <>Login</>}
-          </span>
+          </button>
         </p>
       </form>
     </div>

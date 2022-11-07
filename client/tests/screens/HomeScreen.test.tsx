@@ -1,5 +1,4 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 
 import { HomeScreen } from "@screens/HomeScreen";
 import { RouterWrapper } from "../mocks/RouterWrapper";
@@ -9,10 +8,10 @@ jest.spyOn(Storage.prototype, "setItem");
 
 jest.mock("react-router-dom", () => ({
   ...(jest.requireActual("react-router-dom") as any),
-  useNavigate: () => mockedUsedNavigate,
+  useNavigate: () => mockedUseNavigate,
 }));
 
-const mockedUsedNavigate = jest.fn();
+const mockedUseNavigate = jest.fn();
 
 const MockedComponent = () => {
   return (
@@ -57,8 +56,8 @@ describe("Browse Screen", () => {
 
     fireEvent.click(button);
 
-    expect(mockedUsedNavigate).toHaveBeenCalledTimes(1);
-    expect(mockedUsedNavigate).toHaveBeenCalledWith("/login");
+    expect(mockedUseNavigate).toHaveBeenCalledTimes(1);
+    expect(mockedUseNavigate).toHaveBeenCalledWith("/login");
   });
 
   it("should redirects the user to '/browse' if he is already authenticated", () => {
@@ -67,7 +66,7 @@ describe("Browse Screen", () => {
 
     render(<MockedComponent />);
 
-    expect(mockedUsedNavigate).toHaveBeenCalledTimes(1);
-    expect(mockedUsedNavigate).toHaveBeenCalledWith("/browse");
+    expect(mockedUseNavigate).toHaveBeenCalledTimes(1);
+    expect(mockedUseNavigate).toHaveBeenCalledWith("/browse");
   });
 });
