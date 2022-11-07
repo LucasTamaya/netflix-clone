@@ -5,7 +5,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "dependencies": {
@@ -31,7 +31,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
-    "@types/jest": "^29.1.1",
+    "@types/jest": "^29.2.2",
     "@types/node": "^18.7.23",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
@@ -41,7 +41,20 @@
     "eslint-config-prettier": "^8.5.0",
     "postcss": "^8.4.17",
     "prettier": "^2.7.1",
-    "tailwindcss": "^3.1.8"
+    "tailwindcss": "^3.1.8",
+    "ts-jest": "^29.0.3"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "jsdom",
+    "clearMocks": true,
+    "moduleNameMapper": {
+      "^@screens(.*)$": "<rootDir>/src/screens/$1",
+      "^@components(.*)$": "<rootDir>/src/components/$1"
+    },
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "coverageProvider": "v8"
   },
   "browserslist": {
     "production": [
