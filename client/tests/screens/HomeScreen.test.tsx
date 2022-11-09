@@ -2,16 +2,10 @@ import { fireEvent, render, screen } from "@testing-library/react";
 
 import { HomeScreen } from "@screens/HomeScreen";
 import { RouterWrapper } from "@mocks/RouterWrapper";
+import { mockedUseNavigate } from "@mocks/useNavigate";
 
 // mock localStorage setItem fn
 jest.spyOn(Storage.prototype, "setItem");
-
-jest.mock("react-router-dom", () => ({
-  ...(jest.requireActual("react-router-dom") as any),
-  useNavigate: () => mockedUseNavigate,
-}));
-
-const mockedUseNavigate = jest.fn();
 
 const MockedComponent = () => {
   return (

@@ -5,12 +5,20 @@ import { rest } from "msw";
 import * as React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+const fakeToken = "eag54gaeg";
+
 export const handlers = [
   rest.post("*/login", (_, res, ctx) => {
-    console.log("je suis appelé iciii");
     return res(
       ctx.status(200),
-      ctx.json({ isSuccess: true, token: "eag54gaeg" })
+      ctx.json({ isSuccess: true, token: fakeToken })
+    );
+  }),
+
+  rest.post("*/register", (_, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({ isSuccess: true, token: fakeToken })
     );
   }),
 ];

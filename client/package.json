@@ -55,7 +55,7 @@
       "<rootDir>/node_modules"
     ],
     "setupFilesAfterEnv": [
-      "<rootDir>/jest.setup.ts"
+      "<rootDir>/tests/jest.setup.ts"
     ],
     "clearMocks": true,
     "moduleNameMapper": {

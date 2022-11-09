@@ -3,13 +3,8 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { AuthForm } from "@components/common/AuthForm";
 import { RouterWrapper } from "@mocks/RouterWrapper";
 import { authMethods } from "@mocks/authMethods";
+import { mockedUseNavigate } from "@mocks/useNavigate";
 
-jest.mock("react-router-dom", () => ({
-  ...(jest.requireActual("react-router-dom") as any),
-  useNavigate: () => mockedUseNavigate,
-}));
-
-const mockedUseNavigate = jest.fn();
 const mockedHandleAuth = jest.fn();
 
 interface Props {

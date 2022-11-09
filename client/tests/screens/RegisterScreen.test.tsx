@@ -1,26 +1,26 @@
 import { fireEvent, screen } from "@testing-library/react";
 
 import { RouterWrapper } from "@mocks/RouterWrapper";
-import { LoginScreen } from "@screens/LoginScreen";
 import { renderWithClient } from "../config/mswUtils";
+import { RegisterScreen } from "@screens/RegisterScreen";
 import { mockedUseNavigate } from "@mocks/useNavigate";
 
 const MockedComponent = () => {
   return (
     <RouterWrapper>
-      <LoginScreen />
+      <RegisterScreen />
     </RouterWrapper>
   );
 };
 
-describe("LoginScreen", () => {
+describe("RegisterScreen", () => {
   it("should renders the screen correctly", async () => {
     renderWithClient(<MockedComponent />);
 
     const emailInput = screen.getByPlaceholderText(/email address/i);
     const pwdInput = screen.getByPlaceholderText(/password/i);
     const submitBtn = screen.getByRole("button", {
-      name: /login/i,
+      name: /register/i,
     });
 
     fireEvent.change(emailInput, { target: { value: "john.doe@gmail.com" } });
@@ -31,6 +31,6 @@ describe("LoginScreen", () => {
 
     expect(profileIcon).toBeInTheDocument();
     expect(mockedUseNavigate).toHaveBeenCalledTimes(1);
-    expect(mockedUseNavigate).toHaveBeenCalledWith("/browse");
+    expect(mockedUseNavigate).toHaveBeenCalledWith("/select-plans");
   });
 });
