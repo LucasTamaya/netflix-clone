@@ -1,5 +1,5 @@
 import { Nav } from "../components/common/Nav";
-import { NetflixPlan } from "../components/NetflixPlan";
+import { NetflixPlan } from "../components/other/NetflixPlan";
 import {
   netflixBasicItem,
   netflixPremiumItem,
@@ -17,9 +17,9 @@ export const SelectPlansScreen: React.FC = () => {
           <NetflixPlan
             title="Netflix Basic"
             price={9.99}
-            resolution="780p"
+            resolution="720p"
             buttonTitle="Subscribe"
-            isActive={false}
+            canSubscribeToPlan={true}
             subscribe={() => handleSubscribe(netflixBasicItem, "Basic")}
           />
           <NetflixPlan
@@ -27,7 +27,7 @@ export const SelectPlansScreen: React.FC = () => {
             price={19.99}
             resolution="1080p"
             buttonTitle="Subscribe"
-            isActive={false}
+            canSubscribeToPlan={true}
             subscribe={() => handleSubscribe(netflixStandardItem, "Standard")}
           />
           <NetflixPlan
@@ -35,7 +35,7 @@ export const SelectPlansScreen: React.FC = () => {
             price={29.99}
             resolution="4K"
             buttonTitle="Subscribe"
-            isActive={false}
+            canSubscribeToPlan={true}
             subscribe={() => handleSubscribe(netflixPremiumItem, "Premium")}
           />
         </div>

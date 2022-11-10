@@ -1,5 +1,5 @@
-import { moviesRequests } from "../assets/moviesRequests";
-import { MovieRow } from "./MovieRow/MovieRow";
+import { moviesRequests } from "../../assets/moviesRequests";
+import { MovieRow } from "./MovieRow";
 
 export const MoviesCatalog: React.FC = () => {
   return (

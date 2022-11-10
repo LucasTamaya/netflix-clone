@@ -5,7 +5,7 @@ interface Props {
   price: number;
   resolution: string;
   buttonTitle: "Subscribe" | "Current Package";
-  isActive: boolean;
+  canSubscribeToPlan: boolean;
   subscribe: () => void;
 }
 
@@ -14,13 +14,13 @@ export const NetflixPlan: React.FC<Props> = ({
   price,
   resolution,
   buttonTitle,
-  isActive,
+  canSubscribeToPlan,
   subscribe,
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleClick = () => {
-    if (!isActive) {
+    if (canSubscribeToPlan) {
       setIsLoading(true);
       subscribe();
     }
@@ -37,9 +37,9 @@ export const NetflixPlan: React.FC<Props> = ({
       <button
         onClick={handleClick}
         className={`text-white text-xs sm:text-base font-semibold w-32 sm:w-44 h-9 sm:h-11 flex justify-center items-center rounded ${
-          isActive
-            ? "bg-zinc-500 transition hover:bg-zinc-600"
-            : "bg-red-netflix transition hover:bg-red-600"
+          canSubscribeToPlan
+            ? "bg-red-netflix transition hover:bg-red-600"
+            : "bg-zinc-500 transition hover:bg-zinc-600"
         }`}
       >
         {isLoading ? (

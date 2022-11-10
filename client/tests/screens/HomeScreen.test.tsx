@@ -15,7 +15,7 @@ const MockedComponent = () => {
   );
 };
 
-describe("Browse Screen", () => {
+describe("Home Screen", () => {
   it("should renders the screen correctly", () => {
     render(<MockedComponent />);
 
