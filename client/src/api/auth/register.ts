@@ -3,7 +3,10 @@ import axios from "axios";
 import { SERVER_BASE_URL } from "../../constants/server";
 import { ApiAuthResponse } from "../../types";
 
-export const handleRegister = async (email: string, password: string) => {
+export const handleRegister = async (
+  email: string | undefined,
+  password: string | undefined
+) => {
   const { data: auth } = await axios.post<ApiAuthResponse>(
     `${SERVER_BASE_URL}/auth/register`,
     {

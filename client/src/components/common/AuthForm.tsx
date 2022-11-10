@@ -1,60 +1,107 @@
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { loginValidationSchema } from "../../validations/userValidation";
 
 interface Props {
   title: "Login" | "Register";
+  mutate: () => any;
   email: string;
-  setEmail: React.Dispatch<React.SetStateAction<string>>;
   password: string;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
-  handleAuth: () => any;
   isLoading: boolean;
   error: string | undefined;
   changeAuthMethodPath: "/login" | "/register";
 }
 
+interface FormValues {
+  email: string;
+  password: string;
+}
+
 export const AuthForm: React.FC<Props> = ({
   title,
+  mutate,
   email,
   setEmail,
   password,
   setPassword,
-  handleAuth,
   isLoading,
   error,
   changeAuthMethodPath,
 }) => {
   const navigate = useNavigate();
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    handleAuth();
-  };
+  const { control, handleSubmit } = useForm<FormValues>({
+    resolver: yupResolver(loginValidationSchema),
+  });
 
   return (
     <div className="w-full h-screen flex justify-center items-center px-5 sm:px-10">
-      <form className="bg-black/80 rounded w-full max-w-md p-10 sm:p-14">
+      <form
+        onSubmit={handleSubmit(mutate)}
+        className="bg-black/80 rounded w-full max-w-md p-10 sm:p-14"
+      >
         <h1 className="text-white text-3xl mb-8">{title}</h1>
         <div className="flex flex-col gap-y-4">
           {error ? <p className="text-red-500">{error}</p> : null}
-          <input
-            className="text-white outline-none rounded w-full bg-zinc-700 px-5 py-3"
-            type="email"
-            placeholder="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+
+          <Controller
+            control={control}
+            name="email"
+            render={({
+              field: { value = email, onChange },
+              fieldState: { error },
+            }) => (
+              <>
+                <input
+                  className="text-white outline-none rounded w-full bg-zinc-700 px-5 py-3"
+                  type="text"
+                  placeholder="Email address"
+                  value={value}
+                  onChange={(e) => {
+                    onChange(e.target.value);
+                    setEmail(e.target.value);
+                  }}
+                />
+                {error ? (
+                  <p className="text-red-500 text-xs">{error.message}</p>
+                ) : null}
+              </>
+            )}
           />
-          <input
-            className="text-white outline-none rounded w-full bg-zinc-700 px-5 py-3"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+
+          <Controller
+            control={control}
+            name="password"
+            render={({
+              field: { value = password, onChange },
+              fieldState: { error },
+            }) => (
+              <>
+                <input
+                  className="text-white outline-none rounded w-full bg-zinc-700 px-5 py-3"
+                  type="password"
+                  placeholder="Password"
+                  value={value}
+                  onChange={(e) => {
+                    onChange(e.target.value);
+                    setPassword(e.target.value);
+                  }}
+                />
+                {error ? (
+                  <p className="text-red-500 text-xs">{error.message}</p>
+                ) : null}
+              </>
+            )}
           />
         </div>
         <button
           className="w-full text-white font-semibold h-12 rounded bg-red-netflix mt-10"
-          onClick={handleClick}
+          type="submit"
         >
           {isLoading ? (
             <ClipLoader

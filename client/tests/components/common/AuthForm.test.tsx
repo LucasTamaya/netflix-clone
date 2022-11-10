@@ -1,11 +1,15 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 import { AuthForm } from "@components/common/AuthForm";
 import { RouterWrapper } from "@mocks/RouterWrapper";
 import { authMethods } from "@mocks/authMethods";
 import { mockedUseNavigate } from "@mocks/useNavigate";
-
-const mockedHandleAuth = jest.fn();
+import {
+  MOCKED_INVALID_EMAIL,
+  MOCKED_EMAIL,
+  MOCKED_PWD,
+  MOCKED_INVALID_PWD,
+} from "@mocks/data";
 
 interface Props {
   title: "Login" | "Register";
@@ -13,6 +17,8 @@ interface Props {
   error: string | undefined;
   changeAuthMethodPath: "/login" | "/register";
 }
+
+const mockedMutate = jest.fn();
 
 const MockedComponent: React.FC<Props> = ({
   title,
@@ -24,11 +30,11 @@ const MockedComponent: React.FC<Props> = ({
     <RouterWrapper>
       <AuthForm
         title={title}
-        email="john.doe@orange.fr"
+        email=""
         setEmail={jest.fn()}
-        password="123456"
+        password=""
         setPassword={jest.fn()}
-        handleAuth={mockedHandleAuth}
+        mutate={mockedMutate}
         isLoading={isLoading}
         error={error}
         changeAuthMethodPath={changeAuthMethodPath}
@@ -67,7 +73,7 @@ describe("AuthForm component", () => {
     });
   });
 
-  it("should calls handleAuth function if the user clicks on Login button", () => {
+  it("should renders 2 error messages if the user submits the form with empty fields", async () => {
     render(
       <MockedComponent
         title="Login"
@@ -77,11 +83,71 @@ describe("AuthForm component", () => {
       />
     );
 
-    const loginBtn = screen.getByRole("button", { name: /login/i });
+    const submitBtn = screen.getByRole("button", {
+      name: /login/i,
+    });
 
-    fireEvent.click(loginBtn);
+    fireEvent.click(submitBtn);
 
-    expect(mockedHandleAuth).toHaveBeenCalledTimes(1);
+    const requiredErrMsg = await screen.findAllByText(/required/i);
+
+    expect(requiredErrMsg).toHaveLength(2);
+  });
+
+  it("should renders 2 error messages if the user submits the form with bad information", async () => {
+    render(
+      <MockedComponent
+        title="Login"
+        isLoading={false}
+        error={undefined}
+        changeAuthMethodPath="/register"
+      />
+    );
+
+    const emailInput = screen.getByPlaceholderText(/email address/i);
+    const pwdInput = screen.getByPlaceholderText(/password/i);
+    const submitBtn = screen.getByRole("button", {
+      name: /login/i,
+    });
+
+    fireEvent.change(emailInput, { target: { value: MOCKED_INVALID_EMAIL } });
+    fireEvent.change(pwdInput, { target: { value: MOCKED_INVALID_PWD } });
+    fireEvent.click(submitBtn);
+
+    const invalidEmailErrMsg = await screen.findByText(
+      /this email address is invalid/i
+    );
+    const invalidPwdErrMsg = await screen.findByText(
+      /password must be at least 5 characters/i
+    );
+
+    expect(invalidEmailErrMsg).toBeInTheDocument();
+    expect(invalidPwdErrMsg).toBeInTheDocument();
+  });
+
+  it("should calls mutate function if the user fills in the form with good information and clicks on Login button", async () => {
+    render(
+      <MockedComponent
+        title="Login"
+        isLoading={false}
+        error={undefined}
+        changeAuthMethodPath="/register"
+      />
+    );
+
+    const emailInput = screen.getByPlaceholderText(/email address/i);
+    const pwdInput = screen.getByPlaceholderText(/password/i);
+    const submitBtn = screen.getByRole("button", {
+      name: /login/i,
+    });
+
+    fireEvent.change(emailInput, { target: { value: MOCKED_EMAIL } });
+    fireEvent.change(pwdInput, { target: { value: MOCKED_PWD } });
+    fireEvent.click(submitBtn);
+
+    await waitFor(() => {
+      expect(mockedMutate).toHaveBeenCalledTimes(1);
+    });
   });
 
   it("should redirects the user to '/register' if he clicks on Register button", () => {
@@ -102,7 +168,7 @@ describe("AuthForm component", () => {
     expect(mockedUseNavigate).toHaveBeenCalledWith("/register");
   });
 
-  it("should renders an error message if there is an error during the login proccess", () => {
+  it("should renders an error message if there is an error during the auth proccess", () => {
     render(
       <MockedComponent
         title="Login"

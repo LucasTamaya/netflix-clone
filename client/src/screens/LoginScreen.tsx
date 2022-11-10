@@ -31,7 +31,7 @@ export const LoginScreen: React.FC = () => {
         setEmail={setEmail}
         password={password}
         setPassword={setPassword}
-        handleAuth={mutate}
+        mutate={mutate}
         isLoading={isLoading}
         error={error?.message}
         changeAuthMethodPath="/register"

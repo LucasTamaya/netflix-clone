@@ -20,7 +20,7 @@ export const RegisterScreen: React.FC = () => {
     if (isSuccess) {
       navigate("/select-plans");
     }
-  }, [isSuccess, navigate, email]);
+  }, [isSuccess, navigate]);
 
   return (
     <NetflixBackground>
@@ -31,7 +31,7 @@ export const RegisterScreen: React.FC = () => {
         setEmail={setEmail}
         password={password}
         setPassword={setPassword}
-        handleAuth={mutate}
+        mutate={mutate}
         isLoading={isLoading}
         error={error?.message}
         changeAuthMethodPath="/login"
