@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import { NetflixBackground } from "../components/common/NetflixBackground";
 import { Nav } from "../components/common/Nav";
@@ -14,14 +13,6 @@ export const LoginScreen: React.FC = () => {
 
   const { mutate, isLoading, isSuccess, error } = useLogin(email, password);
 
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isSuccess) {
-      navigate("/browse");
-    }
-  }, [isSuccess, navigate]);
-
   return (
     <NetflixBackground>
       <Nav />
@@ -33,8 +24,9 @@ export const LoginScreen: React.FC = () => {
         setPassword={setPassword}
         mutate={mutate}
         isLoading={isLoading}
+        isSuccess={isSuccess}
         error={error?.message}
-        changeAuthMethodPath="/register"
+        successUrl="/browse"
       />
     </NetflixBackground>
   );

@@ -4,11 +4,11 @@ export const authMethods: AuthMethodsProps[] = [
   {
     initialTitle: "Login",
     reverseTitle: "Register",
-    changePath: "/register",
+    successUrl: "/browse",
   },
   {
     initialTitle: "Register",
     reverseTitle: "Login",
-    changePath: "/login",
+    successUrl: "/select-plans",
   },
 ];

@@ -14,8 +14,9 @@ import {
 interface Props {
   title: "Login" | "Register";
   isLoading: boolean;
+  isSuccess: boolean;
   error: string | undefined;
-  changeAuthMethodPath: "/login" | "/register";
+  successUrl: "/browse" | "/select-plans";
 }
 
 const mockedMutate = jest.fn();
@@ -23,8 +24,9 @@ const mockedMutate = jest.fn();
 const MockedComponent: React.FC<Props> = ({
   title,
   isLoading,
+  isSuccess,
   error,
-  changeAuthMethodPath,
+  successUrl,
 }) => {
   return (
     <RouterWrapper>
@@ -36,8 +38,9 @@ const MockedComponent: React.FC<Props> = ({
         setPassword={jest.fn()}
         mutate={mockedMutate}
         isLoading={isLoading}
+        isSuccess={isSuccess}
         error={error}
-        changeAuthMethodPath={changeAuthMethodPath}
+        successUrl={successUrl}
       />
     </RouterWrapper>
   );
@@ -50,8 +53,9 @@ describe("AuthForm component", () => {
         <MockedComponent
           title={method.initialTitle}
           isLoading={false}
+          isSuccess={false}
           error={undefined}
-          changeAuthMethodPath={method.changePath}
+          successUrl={method.successUrl}
         />
       );
 
@@ -78,8 +82,9 @@ describe("AuthForm component", () => {
       <MockedComponent
         title="Login"
         isLoading={false}
+        isSuccess={false}
         error={undefined}
-        changeAuthMethodPath="/register"
+        successUrl="/browse"
       />
     );
 
@@ -99,8 +104,9 @@ describe("AuthForm component", () => {
       <MockedComponent
         title="Login"
         isLoading={false}
+        isSuccess={false}
         error={undefined}
-        changeAuthMethodPath="/register"
+        successUrl="/browse"
       />
     );
 
@@ -130,8 +136,9 @@ describe("AuthForm component", () => {
       <MockedComponent
         title="Login"
         isLoading={false}
+        isSuccess={false}
         error={undefined}
-        changeAuthMethodPath="/register"
+        successUrl="/browse"
       />
     );
 
@@ -150,13 +157,29 @@ describe("AuthForm component", () => {
     });
   });
 
+  it("should redirects the user to the successUrl if the auth proccess went good", async () => {
+    render(
+      <MockedComponent
+        title="Login"
+        isLoading={false}
+        isSuccess={true}
+        error={undefined}
+        successUrl="/browse"
+      />
+    );
+
+    expect(mockedUseNavigate).toHaveBeenCalledTimes(1);
+    expect(mockedUseNavigate).toHaveBeenCalledWith("/browse");
+  });
+
   it("should redirects the user to '/register' if he clicks on Register button", () => {
     render(
       <MockedComponent
         title="Login"
         isLoading={false}
+        isSuccess={false}
         error={undefined}
-        changeAuthMethodPath="/register"
+        successUrl="/browse"
       />
     );
 
@@ -173,8 +196,9 @@ describe("AuthForm component", () => {
       <MockedComponent
         title="Login"
         isLoading={false}
+        isSuccess={false}
         error="Error message"
-        changeAuthMethodPath="/register"
+        successUrl="/browse"
       />
     );
 
@@ -188,8 +212,9 @@ describe("AuthForm component", () => {
       <MockedComponent
         title="Login"
         isLoading={true}
+        isSuccess={false}
         error={undefined}
-        changeAuthMethodPath="/register"
+        successUrl="/browse"
       />
     );
 

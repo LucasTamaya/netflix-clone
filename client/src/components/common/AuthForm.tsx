@@ -4,6 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { loginValidationSchema } from "../../validations/userValidation";
+import { useEffect } from "react";
 
 interface Props {
   title: "Login" | "Register";
@@ -13,8 +14,9 @@ interface Props {
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   isLoading: boolean;
+  isSuccess: boolean;
   error: string | undefined;
-  changeAuthMethodPath: "/login" | "/register";
+  successUrl: "/browse" | "/select-plans";
 }
 
 interface FormValues {
@@ -30,14 +32,21 @@ export const AuthForm: React.FC<Props> = ({
   password,
   setPassword,
   isLoading,
+  isSuccess,
   error,
-  changeAuthMethodPath,
+  successUrl,
 }) => {
-  const navigate = useNavigate();
-
   const { control, handleSubmit } = useForm<FormValues>({
     resolver: yupResolver(loginValidationSchema),
   });
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(successUrl);
+    }
+  }, [isSuccess, navigate, successUrl]);
 
   return (
     <div className="w-full h-screen flex justify-center items-center px-5 sm:px-10">
@@ -48,7 +57,6 @@ export const AuthForm: React.FC<Props> = ({
         <h1 className="text-white text-3xl mb-8">{title}</h1>
         <div className="flex flex-col gap-y-4">
           {error ? <p className="text-red-500">{error}</p> : null}
-
           <Controller
             control={control}
             name="email"
@@ -122,7 +130,7 @@ export const AuthForm: React.FC<Props> = ({
           )}
           <button
             className="text-white font-semibold cursor-pointer"
-            onClick={() => navigate(changeAuthMethodPath)}
+            onClick={() => navigate(title === "Login" ? "/register" : "/login")}
           >
             {title === "Login" ? <>Register</> : <>Login</>}
           </button>
