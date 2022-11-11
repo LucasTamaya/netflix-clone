@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Banner } from "../components/Banner/Banner";
+import { Banner } from "../components/banner/Banner";
 import { Nav } from "../components/common/Nav";
 import { UnauthorizedError } from "../components/common/UnauthorizedError";
-import { MoviesCatalog } from "../components/Movie/MoviesCatalog";
+import { MoviesCatalog } from "../components/movie/MoviesCatalog";
 import { AppWrapper } from "../components/ui/AppWrapper";
 import { useValidAuth } from "../hooks/auth/useValidAuth";
 

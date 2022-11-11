@@ -1,6 +1,7 @@
 export const BannerFilter: React.FC = () => {
   return (
     <div
+      role="filter"
       className="absolute top-0 left-0 w-full h-full"
       style={{
         backgroundImage:

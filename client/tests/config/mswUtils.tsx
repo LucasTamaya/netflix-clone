@@ -25,6 +25,18 @@ export const handlers = [
   rest.get("*/auth/valid", (_, res, ctx) => {
     return res(ctx.status(200), ctx.json({ isSuccess: true }));
   }),
+
+  rest.get("*/trending*", (_, res, ctx) => {
+    console.log("herrreeee");
+    return res(
+      ctx.status(200),
+      ctx.json({
+        backdrop_path: "banner-url.jpg",
+        title: "Spiderman",
+        overview: "Spiderman, the comeback!",
+      })
+    );
+  }),
 ];
 
 const createTestQueryClient = () =>
