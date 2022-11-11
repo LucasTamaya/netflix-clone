@@ -5,7 +5,7 @@ import {
   netflixPremiumItem,
   netflixStandardItem,
 } from "../stripe/assets";
-import { handleSubscribe } from "../stripe/handleSubscribe";
+import { handleSubscribe } from "../stripe/utils";
 
 export const SelectPlansScreen: React.FC = () => {
   return (

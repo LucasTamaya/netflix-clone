@@ -13,7 +13,7 @@ import {
   netflixPremiumItem,
   netflixStandardItem,
 } from "../stripe/assets";
-import { handleSubscribe } from "../stripe/handleSubscribe";
+import { handleSubscribe } from "../stripe/utils";
 import { LogoutModal } from "../components/other/LogoutModal";
 
 const ProfileScreen: React.FC = () => {
@@ -77,7 +77,7 @@ const ProfileScreen: React.FC = () => {
                 buttonTitle={
                   user.netflixPlan === "Basic" ? "Current Package" : "Subscribe"
                 }
-                isActive={user.netflixPlan === "Basic" ? true : false}
+                canSubscribeToPlan={user.netflixPlan === "Basic" ? true : false}
                 subscribe={() => {
                   if (user.netflixPlan !== "Basic") {
                     handleSubscribe(netflixBasicItem, "Basic");
@@ -93,7 +93,9 @@ const ProfileScreen: React.FC = () => {
                     ? "Current Package"
                     : "Subscribe"
                 }
-                isActive={user.netflixPlan === "Standard" ? true : false}
+                canSubscribeToPlan={
+                  user.netflixPlan === "Standard" ? true : false
+                }
                 subscribe={() => {
                   if (user.netflixPlan !== "Standard") {
                     handleSubscribe(netflixStandardItem, "Standard");
@@ -109,7 +111,9 @@ const ProfileScreen: React.FC = () => {
                     ? "Current Package"
                     : "Subscribe"
                 }
-                isActive={user.netflixPlan === "Premium" ? true : false}
+                canSubscribeToPlan={
+                  user.netflixPlan === "Premium" ? true : false
+                }
                 subscribe={() => {
                   if (user.netflixPlan !== "Premium") {
                     handleSubscribe(netflixPremiumItem, "Premium");

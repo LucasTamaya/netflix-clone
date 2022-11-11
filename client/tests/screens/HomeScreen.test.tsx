@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 
-import { HomeScreen } from "@screens/HomeScreen";
-import { RouterWrapper } from "@mocks/RouterWrapper";
-import { mockedUseNavigate } from "@mocks/useNavigate";
+import { HomeScreen } from "~src/screens/HomeScreen";
+import { RouterWrapper } from "~tests/mocks/RouterWrapper";
+import { mockedUseNavigate } from "~tests/mocks/useNavigate";
 
 // mock localStorage setItem fn
 jest.spyOn(Storage.prototype, "setItem");

@@ -19,7 +19,7 @@ const BrowseScreen: React.FC = () => {
     if (isError) {
       // make sure we clear any invalid token
       localStorage.clear();
-      redirectUser = setTimeout(() => navigate("/"), 5000);
+      redirectUser = setTimeout(() => navigate("/"), 3000);
     }
 
     return () => clearTimeout(redirectUser);

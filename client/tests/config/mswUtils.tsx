@@ -8,18 +8,22 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const fakeToken = "eag54gaeg";
 
 export const handlers = [
-  rest.post("*/login", (_, res, ctx) => {
+  rest.post("*/auth/login", (_, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({ isSuccess: true, token: fakeToken })
     );
   }),
 
-  rest.post("*/register", (_, res, ctx) => {
+  rest.post("*/auth/register", (_, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({ isSuccess: true, token: fakeToken })
     );
+  }),
+
+  rest.get("*/auth/valid", (_, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ isSuccess: true }));
   }),
 ];
 

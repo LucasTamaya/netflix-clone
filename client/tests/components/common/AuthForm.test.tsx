@@ -1,15 +1,15 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
-import { AuthForm } from "@components/common/AuthForm";
-import { RouterWrapper } from "@mocks/RouterWrapper";
-import { authMethods } from "@mocks/authMethods";
-import { mockedUseNavigate } from "@mocks/useNavigate";
+import { AuthForm } from "~src/components/common/AuthForm";
+import { RouterWrapper } from "~tests/mocks/RouterWrapper";
+import { authMethods } from "~tests/mocks/authMethods";
+import { mockedUseNavigate } from "~tests/mocks/useNavigate";
 import {
   MOCKED_INVALID_EMAIL,
   MOCKED_EMAIL,
   MOCKED_PWD,
   MOCKED_INVALID_PWD,
-} from "@mocks/data";
+} from "~tests/mocks/data";
 
 interface Props {
   title: "Login" | "Register";
