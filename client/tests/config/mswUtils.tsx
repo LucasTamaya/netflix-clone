@@ -1,5 +1,5 @@
-import { render } from "@testing-library/react";
 // Mock Service Worker => mock api requests
+import { render } from "@testing-library/react";
 
 import { rest } from "msw";
 import * as React from "react";
@@ -26,18 +26,22 @@ export const handlers = [
     return res(ctx.status(200), ctx.json({ isSuccess: true }));
   }),
 
-  // rest.get("*/trending*", (_, res, ctx) => {
-  //   return res(
-  //     ctx.status(200),
-  //     ctx.json({
-  //       backdrop_path: "banner-url.jpg",
-  //       title: "Spiderman",
-  //       overview: "Spiderman, the comeback!",
-  //     })
-  //   );
-  // }),
+  rest.get("*/trending*", (_, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        results: [
+          {
+            backdrop_path: "/movie.jpg",
+            title: "Spiderman",
+            overview: "Spiderman, the comeback!",
+          },
+        ],
+      })
+    );
+  }),
 
-  rest.get("*/top_rated?*", (_, res, ctx) => {
+  rest.get("*/top_rated*", (_, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({

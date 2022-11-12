@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { TmdbApiMovieResponse } from "../../types";
+import { TmdbApiMovieResponse } from "~src/types";
 
 export const getMovieData = async (
   url: string

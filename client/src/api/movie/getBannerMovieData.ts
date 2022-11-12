@@ -1,17 +1,12 @@
-import { moviesRequests } from "../../assets/moviesRequests";
-import { MovieResult } from "../../types";
-import { getRandomMovieData } from "./getRandomMovieData";
+import axios from "axios";
 
-let trendingMoviesUrl: string;
+import { TmdbApiMovieResponse } from "~src/types";
+import { moviesRequests } from "~src/assets/moviesRequests";
 
-export const getBannerMovieData = async (): Promise<MovieResult> => {
-  moviesRequests.every((movie) => {
-    if (movie.category === "Trending") {
-      trendingMoviesUrl = movie.url;
-      return true; // return true and exist the loop
-    }
-    return false;
-  });
-  const bannerMovieData = await getRandomMovieData(trendingMoviesUrl);
-  return bannerMovieData;
+const trendingMoviesUrl = moviesRequests[0].url;
+
+export const getBannerMovieData = async (): Promise<TmdbApiMovieResponse> => {
+  const { data } = await axios.get<TmdbApiMovieResponse>(trendingMoviesUrl);
+
+  return data;
 };

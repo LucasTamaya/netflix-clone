@@ -6,14 +6,19 @@ import { renderWithClient } from "~tests/config/mswUtils";
 import { server } from "~tests/config/server";
 
 describe("Banner Component", () => {
-  // TO UPDATE
-  //   it("should renders a banner with movie data if there is no error during the request", async () => {
-  //     renderWithClient(<Banner />);
+  it("should renders a banner with movie data if there is no error during the request", async () => {
+    renderWithClient(<Banner />);
 
-  //     const title = await screen.findByRole("heading", { name: /spiderman/i });
+    const bannerBg = await screen.findByRole("banner");
+    const bannerTitle = await screen.findByRole("heading", {
+      name: /spiderman/i,
+    });
+    const bannerOverview = await screen.findByText(/spiderman, the comeback!/i);
 
-  //     expect(title).toBeInTheDocument();
-  //   });
+    expect(bannerBg).toBeInTheDocument();
+    expect(bannerTitle).toBeInTheDocument();
+    expect(bannerOverview).toBeInTheDocument();
+  });
 
   it("should renders an error message if there is an error during the request", async () => {
     server.use(

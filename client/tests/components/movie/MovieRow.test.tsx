@@ -4,7 +4,7 @@ import { moviesRequests } from "~src/assets/moviesRequests";
 
 import { MovieRow } from "~src/components/movie/MovieRow";
 import { server } from "~tests/config/server";
-import { renderWithClient } from "../../config/mswUtils";
+import { renderWithClient } from "~tests/config/mswUtils";
 
 // top rated url
 const url = moviesRequests[2].url;
