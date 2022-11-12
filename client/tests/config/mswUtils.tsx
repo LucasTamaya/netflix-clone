@@ -26,14 +26,26 @@ export const handlers = [
     return res(ctx.status(200), ctx.json({ isSuccess: true }));
   }),
 
-  rest.get("*/trending*", (_, res, ctx) => {
-    console.log("herrreeee");
+  // rest.get("*/trending*", (_, res, ctx) => {
+  //   return res(
+  //     ctx.status(200),
+  //     ctx.json({
+  //       backdrop_path: "banner-url.jpg",
+  //       title: "Spiderman",
+  //       overview: "Spiderman, the comeback!",
+  //     })
+  //   );
+  // }),
+
+  rest.get("*/top_rated?*", (_, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({
-        backdrop_path: "banner-url.jpg",
-        title: "Spiderman",
-        overview: "Spiderman, the comeback!",
+        results: [
+          { backdrop_path: "/movie.jpg" },
+          { backdrop_path: "/movie.jpg" },
+          { backdrop_path: "/movie.jpg" },
+        ],
       })
     );
   }),

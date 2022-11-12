@@ -3,7 +3,9 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import { TMDB_BASE_IMG_URL } from "../../constants/tmdb";
 import { MovieRowLoading } from "./MovieRowLoading";
-import { useMoviesPosters } from "../../hooks/movie/useMoviesPosters";
+import { useMovieData } from "../../hooks/movie/useMovieData";
+import { useEffect, useState } from "react";
+import { TmdbApiMovieResponse } from "~src/types";
 
 interface Props {
   category: string;
@@ -11,10 +13,24 @@ interface Props {
 }
 
 export const MovieRow: React.FC<Props> = ({ category, url }) => {
-  const { isLoading, isError, isSuccess, data } = useMoviesPosters(
-    category,
-    url
-  );
+  const [moviePosters, setMoviePosters] = useState<(string | undefined)[]>();
+
+  const { isLoading, isError, isSuccess, data } = useMovieData(category, url);
+
+  const filterByPosters = (data: TmdbApiMovieResponse) => {
+    const posters = data.results.map((movie) => {
+      if (movie.backdrop_path) return movie.backdrop_path;
+    });
+
+    return posters;
+  };
+
+  useEffect(() => {
+    if (data) {
+      const posters = filterByPosters(data);
+      setMoviePosters(posters);
+    }
+  }, [data]);
 
   return (
     <div className="overflow-x-hidden">
@@ -25,17 +41,17 @@ export const MovieRow: React.FC<Props> = ({ category, url }) => {
       {isLoading ? <MovieRowLoading /> : null}
 
       {isError ? (
-        <p className="text-white text-lg font-semibold">
+        <h3 className="text-white text-lg font-semibold">
           Oops, something went wrong on the server...
-        </p>
+        </h3>
       ) : null}
 
       {isSuccess ? (
         <div className="flex flex-row gap-x-3 overflow-x-auto pb-16 scrollbar-hide">
-          {data.map((moviePosterUrl) => (
+          {moviePosters?.map((posterUrl) => (
             <LazyLoadImage
               key={uuidv4()}
-              src={`${TMDB_BASE_IMG_URL}${moviePosterUrl}`}
+              src={`${TMDB_BASE_IMG_URL}${posterUrl}`}
               alt="movie poster"
               className="w-72 h-36 object-cover cursor-pointer transition duration-150 hover:scale-105"
             />
