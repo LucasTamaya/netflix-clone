@@ -27,12 +27,12 @@ describe("Browse Screen", () => {
     renderWithClient(<MockedComponent />);
 
     const nav = await screen.findByRole("navigation");
-    const bannerLoading = await screen.findByRole("bannerLoading");
-    const moviesRowsLoading = await screen.findAllByRole("movieRowLoading");
+    const bannerLoading = await screen.findByRole("banner");
+    const moviesCatalog = await screen.findByTestId("moviesCatalog");
 
     expect(nav).toBeInTheDocument();
     expect(bannerLoading).toBeInTheDocument();
-    expect(moviesRowsLoading).toHaveLength(8);
+    expect(moviesCatalog).toBeInTheDocument();
   });
 
   it("should renders an error message if the user is not auth", async () => {

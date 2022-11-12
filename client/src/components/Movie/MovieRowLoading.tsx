@@ -17,7 +17,6 @@ export const MovieRowLoading: React.FC = () => {
 
   return (
     <ContentLoader
-      role="movieRowLoading"
       speed={2}
       width={width}
       height={144}

@@ -41,7 +41,20 @@ export const handlers = [
     );
   }),
 
-  rest.get("*/top_rated*", (_, res, ctx) => {
+  rest.get("*/discover*", (_, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        results: [
+          { backdrop_path: "/movie.jpg" },
+          { backdrop_path: "/movie.jpg" },
+          { backdrop_path: "/movie.jpg" },
+        ],
+      })
+    );
+  }),
+
+  rest.get("*/movie*", (_, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({
