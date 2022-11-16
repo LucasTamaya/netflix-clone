@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 
-import { Nav } from "~src/components/common/Nav";
+import { Nav } from "~src/components/Common/Nav";
 import { RouterWrapper } from "~tests/mocks/RouterWrapper";
 
 const mockedSetState = jest.fn();

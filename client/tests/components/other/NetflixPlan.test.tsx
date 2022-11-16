@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 
-import { NetflixPlan } from "~src/components/other/NetflixPlan";
+import { NetflixPlan } from "~src/components/Other/NetflixPlan";
 
 const mockedSubscribe = jest.fn();
 

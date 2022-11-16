@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import { NetflixBackground } from "../components/common/NetflixBackground";
-import { Nav } from "../components/common/Nav";
-import { AuthForm } from "../components/common/AuthForm";
+import { NetflixBackground } from "../components/Common/NetflixBackground";
+import { Nav } from "../components/Common/Nav";
+import { AuthForm } from "../components/Common/AuthForm";
 import { useRegister } from "../hooks/auth/useRegister";
 
 export const RegisterScreen: React.FC = () => {

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { Nav } from "../common/Nav";
+import { Nav } from "../Common/Nav";
 
 export const AppWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (

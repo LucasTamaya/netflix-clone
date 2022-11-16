@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Banner } from "../components/banner/Banner";
-import { Nav } from "../components/common/Nav";
-import { UnauthorizedError } from "../components/common/UnauthorizedError";
-import { MoviesCatalog } from "../components/movie/MoviesCatalog";
-import { AppWrapper } from "../components/ui/AppWrapper";
+import { Banner } from "../components/Banner/Banner";
+import { Nav } from "../components/Common/Nav";
+import { UnauthorizedError } from "../components/Common/UnauthorizedError";
+import { MoviesCatalog } from "../components/Movie/MoviesCatalog";
+import { AppWrapper } from "../components/Ui/AppWrapper";
 import { useValidAuth } from "../hooks/auth/useValidAuth";
 
 const BrowseScreen: React.FC = () => {

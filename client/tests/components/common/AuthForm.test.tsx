@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
-import { AuthForm } from "~src/components/common/AuthForm";
+import { AuthForm } from "~src/components/Common/AuthForm";
 import { RouterWrapper } from "~tests/mocks/RouterWrapper";
 import { authMethods } from "~tests/mocks/authMethods";
 import { mockedUseNavigate } from "~tests/mocks/useNavigate";
