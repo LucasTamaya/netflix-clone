@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { NetflixBackground } from "../components/Common/NetflixBackground";
+import { NetflixBackground } from "~src/components/Common/NetflixBackground";
 import { Nav } from "../components/Common/Nav";
 
 export const HomeScreen: React.FC = () => {
