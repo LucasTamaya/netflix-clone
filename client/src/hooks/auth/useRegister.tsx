@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { handleRegister } from "../../api/auth/register";
-import { ApiAuthResponse } from "../../types/index";
+import { handleRegister } from "~src/api/auth/register";
+import { ApiAuthResponse } from "~src/types/index";
 
 export const useRegister = (
   email: string | undefined,

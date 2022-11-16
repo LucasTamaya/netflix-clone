@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ClipLoader } from "react-spinners";
+
 interface Props {
   title: string;
   price: number;

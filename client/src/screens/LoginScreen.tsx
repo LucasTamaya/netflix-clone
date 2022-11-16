@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import { NetflixBackground } from "../components/Common/NetflixBackground";
-import { Nav } from "../components/Common/Nav";
-import { AuthForm } from "../components/Common/AuthForm";
-import { useLogin } from "../hooks/auth/useLogin";
+import { NetflixBackground } from "~src/components/Common/NetflixBackground";
+import { Nav } from "~src/components/Common/Nav";
+import { AuthForm } from "~src/components/Common/AuthForm";
+import { useLogin } from "~src/hooks/auth/useLogin";
 
 export const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState<string>(

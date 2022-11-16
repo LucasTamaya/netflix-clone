@@ -1,10 +1,10 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { loginValidationSchema } from "../../validations/userValidation";
-import { useEffect } from "react";
+import { loginValidationSchema } from "~src/validations/userValidation";
 
 interface Props {
   title: "Login" | "Register";

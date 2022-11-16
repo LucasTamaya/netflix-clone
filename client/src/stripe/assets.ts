@@ -1,6 +1,6 @@
 import { RedirectToCheckoutOptions } from "@stripe/stripe-js";
 
-import { StripeItem } from "../types";
+import { StripeItem } from "~src/types";
 
 export const checkoutOptions: RedirectToCheckoutOptions = {
   lineItems: [],

@@ -1,11 +1,11 @@
-import { Nav } from "../components/Common/Nav";
-import { NetflixPlan } from "../components/Other/NetflixPlan";
+import { Nav } from "~src/components/Common/Nav";
+import { NetflixPlan } from "~src/components/Other/NetflixPlan";
 import {
   netflixBasicItem,
   netflixPremiumItem,
   netflixStandardItem,
-} from "../stripe/assets";
-import { handleSubscribe } from "../stripe/utils";
+} from "~src/stripe/assets";
+import { handleSubscribe } from "~src/stripe/utils";
 
 export const SelectPlansScreen: React.FC = () => {
   return (

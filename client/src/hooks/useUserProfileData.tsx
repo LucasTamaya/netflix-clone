@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-import { getUserProfileData } from "../api/user/getUserProfileData";
-import { ApiUserProfileDataResponse } from "../types";
+import { getUserProfileData } from "~src/api/user/getUserProfileData";
+import { ApiUserProfileDataResponse } from "~src/types";
 
 export const useUserProfileData = () => {
   return useQuery<ApiUserProfileDataResponse, AxiosError>(

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import { SERVER_BASE_URL } from "../../constants/server";
-import { ApiUpdateNetflixPlanResponse } from "../../types";
+import { SERVER_BASE_URL } from "~src/constants/server";
+import { ApiUpdateNetflixPlanResponse } from "~src/types";
 
 export const handleUpdateNetflixPlan = async (
   email: string | null,

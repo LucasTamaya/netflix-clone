@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { NETFLIX_ICON_URL, PROFILE_ICON_URL } from "../../assets/icons";
+import { NETFLIX_ICON_URL, PROFILE_ICON_URL } from "~src/assets/icons";
 
 export const Nav: React.FC = () => {
   const [showNavBackground, setShowNavBackground] = useState<boolean>(false);
