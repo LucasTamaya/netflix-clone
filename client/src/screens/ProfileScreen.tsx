@@ -12,9 +12,9 @@ import {
   netflixBasicItem,
   netflixPremiumItem,
   netflixStandardItem,
-} from "../stripe/assets";
-import { handleSubscribe } from "../stripe/utils";
-import { LogoutModal } from "../components/Other/LogoutModal";
+} from "~src/stripe/assets";
+import { handleSubscribe } from "~src/stripe/utils";
+import { LogoutModal } from "~src/components/Other/LogoutModal";
 
 const ProfileScreen: React.FC = () => {
   const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
