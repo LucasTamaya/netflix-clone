@@ -2,7 +2,7 @@ import { screen } from "@testing-library/react";
 import { rest } from "msw";
 import { moviesRequests } from "~src/assets/moviesRequests";
 
-import { MovieRow } from "~src/components/movie/MovieRow";
+import { MovieRow } from "~src/components/Movie/MovieRow";
 import { server } from "~tests/config/server";
 import { renderWithClient } from "~tests/config/mswUtils";
 
