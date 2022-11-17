@@ -4,6 +4,7 @@ import { render } from "@testing-library/react";
 import { rest } from "msw";
 import * as React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { MOCKED_EMAIL, MOCKED_NETFLIX_PLAN } from "../mocks/data";
 
 const fakeToken = "eag54gaeg";
 
@@ -63,6 +64,17 @@ export const handlers = [
           { backdrop_path: "/movie.jpg" },
           { backdrop_path: "/movie.jpg" },
         ],
+      })
+    );
+  }),
+
+  rest.get("*/user/profile", (_, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        isSuccess: true,
+        email: MOCKED_EMAIL,
+        netflixPlan: MOCKED_NETFLIX_PLAN,
       })
     );
   }),

@@ -1,17 +1,14 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 
 import { LogoutModal } from "~src/components/other/LogoutModal";
+import { mockedUseNavigate } from "~tests/mocks/useNavigate";
+
+jest.spyOn(Storage.prototype, "clear");
 
 const mockedHandleCancel = jest.fn();
-const mockedHandleLogout = jest.fn();
 
 const MockedComponent = () => {
-  return (
-    <LogoutModal
-      handleCancel={mockedHandleCancel}
-      handleLogout={mockedHandleLogout}
-    />
-  );
+  return <LogoutModal handleCancel={mockedHandleCancel} />;
 };
 
 describe("LogoutModal Component", () => {
@@ -47,6 +44,8 @@ describe("LogoutModal Component", () => {
 
     fireEvent.click(logoutBtn);
 
-    expect(mockedHandleLogout).toHaveBeenCalledTimes(1);
+    expect(localStorage.clear).toHaveBeenCalledTimes(1);
+    expect(mockedUseNavigate).toHaveBeenCalledTimes(1);
+    expect(mockedUseNavigate).toHaveBeenCalledWith("/");
   });
 });

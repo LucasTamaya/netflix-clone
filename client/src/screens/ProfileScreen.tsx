@@ -29,11 +29,6 @@ const ProfileScreen: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate("/");
-  };
-
   useEffect(() => {
     let redirectUser: NodeJS.Timeout;
 
@@ -77,7 +72,7 @@ const ProfileScreen: React.FC = () => {
                 buttonTitle={
                   user.netflixPlan === "Basic" ? "Current Package" : "Subscribe"
                 }
-                canSubscribeToPlan={user.netflixPlan === "Basic" ? true : false}
+                canSubscribeToPlan={user.netflixPlan === "Basic" ? false : true}
                 subscribe={() => {
                   if (user.netflixPlan !== "Basic") {
                     handleSubscribe(netflixBasicItem, "Basic");
@@ -94,7 +89,7 @@ const ProfileScreen: React.FC = () => {
                     : "Subscribe"
                 }
                 canSubscribeToPlan={
-                  user.netflixPlan === "Standard" ? true : false
+                  user.netflixPlan === "Standard" ? false : true
                 }
                 subscribe={() => {
                   if (user.netflixPlan !== "Standard") {
@@ -112,7 +107,7 @@ const ProfileScreen: React.FC = () => {
                     : "Subscribe"
                 }
                 canSubscribeToPlan={
-                  user.netflixPlan === "Premium" ? true : false
+                  user.netflixPlan === "Premium" ? false : true
                 }
                 subscribe={() => {
                   if (user.netflixPlan !== "Premium") {
@@ -127,10 +122,7 @@ const ProfileScreen: React.FC = () => {
                 Logout
               </button>
               {showLogoutModal ? (
-                <LogoutModal
-                  handleCancel={setShowLogoutModal}
-                  handleLogout={handleLogout}
-                />
+                <LogoutModal handleCancel={setShowLogoutModal} />
               ) : null}
             </div>
           </div>

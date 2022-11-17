@@ -1,12 +1,17 @@
+import { useNavigate } from "react-router-dom";
+
 interface Props {
   handleCancel: React.Dispatch<React.SetStateAction<boolean>>;
-  handleLogout: () => void;
 }
 
-export const LogoutModal: React.FC<Props> = ({
-  handleCancel,
-  handleLogout,
-}) => {
+export const LogoutModal: React.FC<Props> = ({ handleCancel }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
   return (
     <div className="absolute top-0 left-0 z-30 w-full h-screen flex justify-center items-center bg-black/50  px-5 sm:px-10">
       <div className="bg-zinc-900 p-10 rounded">
