@@ -4,10 +4,19 @@ import { rest } from "msw";
 import ProfileScreen from "~src/screens/ProfileScreen";
 import { renderWithClient } from "~tests/config/mswUtils";
 import { server } from "~tests/config/server";
+import { HelmetWrapper } from "~tests/mocks/HelmetWrapper";
+
+const MockedComponent = () => {
+  return (
+    <HelmetWrapper>
+      <ProfileScreen />
+    </HelmetWrapper>
+  );
+};
 
 describe("Profile Screen", () => {
   it("should renders user data if there is no error during the request", async () => {
-    renderWithClient(<ProfileScreen />);
+    renderWithClient(<MockedComponent />);
 
     const title = await screen.findByRole("heading", { name: /edit profile/i });
     const profileIcon = await screen.findByAltText(/profile icon/i);
@@ -39,7 +48,7 @@ describe("Profile Screen", () => {
       })
     );
 
-    renderWithClient(<ProfileScreen />);
+    renderWithClient(<MockedComponent />);
 
     const title = await screen.findByRole("heading", {
       name: /unauthorized access/i,
@@ -59,7 +68,7 @@ describe("Profile Screen", () => {
       })
     );
 
-    renderWithClient(<ProfileScreen />);
+    renderWithClient(<MockedComponent />);
 
     const title = await screen.findByRole("heading", {
       name: /oops, something went wrong.../i,
@@ -73,7 +82,7 @@ describe("Profile Screen", () => {
   });
 
   it("should opens the logoutModal if the user clicks on the logout button", async () => {
-    renderWithClient(<ProfileScreen />);
+    renderWithClient(<MockedComponent />);
 
     const logoutBtn = await screen.findByRole("button", { name: /logout/i });
 

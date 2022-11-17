@@ -1,7 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 import { AuthForm } from "~src/components/common/AuthForm";
-import { RouterWrapper } from "~tests/mocks/RouterWrapper";
 import { authMethods } from "~tests/mocks/authMethods";
 import { mockedUseNavigate } from "~tests/mocks/useNavigate";
 import {
@@ -29,20 +28,18 @@ const MockedComponent: React.FC<Props> = ({
   successUrl,
 }) => {
   return (
-    <RouterWrapper>
-      <AuthForm
-        title={title}
-        email=""
-        setEmail={jest.fn()}
-        password=""
-        setPassword={jest.fn()}
-        mutate={mockedMutate}
-        isLoading={isLoading}
-        isSuccess={isSuccess}
-        error={error}
-        successUrl={successUrl}
-      />
-    </RouterWrapper>
+    <AuthForm
+      title={title}
+      email=""
+      setEmail={jest.fn()}
+      password=""
+      setPassword={jest.fn()}
+      mutate={mockedMutate}
+      isLoading={isLoading}
+      isSuccess={isSuccess}
+      error={error}
+      successUrl={successUrl}
+    />
   );
 };
 

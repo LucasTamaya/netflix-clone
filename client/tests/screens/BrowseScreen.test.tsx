@@ -2,7 +2,7 @@ import { screen, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 
 import BrowseScreen from "~src/screens/BrowseScreen";
-import { RouterWrapper } from "~tests/mocks/RouterWrapper";
+import { HelmetWrapper } from "~tests/mocks/HelmetWrapper";
 import { renderWithClient } from "~tests/config/mswUtils";
 import { server } from "~tests/config/server";
 import { mockedUseNavigate } from "../mocks/useNavigate";
@@ -16,9 +16,9 @@ jest.useFakeTimers();
 
 const MockedComponent = () => {
   return (
-    <RouterWrapper>
+    <HelmetWrapper>
       <BrowseScreen />
-    </RouterWrapper>
+    </HelmetWrapper>
   );
 };
 

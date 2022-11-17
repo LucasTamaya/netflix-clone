@@ -14,6 +14,7 @@ const root = ReactDOM.createRoot(
 const queryClient = new QueryClient();
 
 const helmetContext = {};
+
 root.render(
   <React.StrictMode>
     <HelmetProvider context={helmetContext}>

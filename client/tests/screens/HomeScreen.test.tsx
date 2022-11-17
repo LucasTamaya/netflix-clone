@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 
 import { HomeScreen } from "~src/screens/HomeScreen";
-import { RouterWrapper } from "~tests/mocks/RouterWrapper";
+import { HelmetWrapper } from "~tests/mocks/HelmetWrapper";
 import { mockedUseNavigate } from "~tests/mocks/useNavigate";
 
 // mock localStorage setItem fn
@@ -9,9 +9,9 @@ jest.spyOn(Storage.prototype, "setItem");
 
 const MockedComponent = () => {
   return (
-    <RouterWrapper>
+    <HelmetWrapper>
       <HomeScreen />
-    </RouterWrapper>
+    </HelmetWrapper>
   );
 };
 
