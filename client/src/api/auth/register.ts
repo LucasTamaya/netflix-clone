@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import { SERVER_BASE_URL } from "~src/constants/server";
-import { ApiAuthResponse } from "~src/types";
+import { SERVER_BASE_URL } from "../../constants/server";
+import { ApiAuthResponse } from "../../types";
 
 export const handleRegister = async (
   email: string | undefined,

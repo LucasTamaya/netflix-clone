@@ -4,7 +4,7 @@ import { ClipLoader } from "react-spinners";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { loginValidationSchema } from "~src/validations/userValidation";
+import { loginValidationSchema } from "../../validations/userValidation";
 
 interface Props {
   title: "Login" | "Register";

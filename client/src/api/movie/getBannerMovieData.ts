@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import { TmdbApiMovieResponse } from "~src/types";
-import { moviesRequests } from "~src/assets/moviesRequests";
+import { TmdbApiMovieResponse } from "../../types";
+import { moviesRequests } from "../../assets/moviesRequests";
 
 const trendingMoviesUrl = moviesRequests[0].url;
 

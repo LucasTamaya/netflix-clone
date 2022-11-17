@@ -5,8 +5,8 @@ import {
   Stripe,
 } from "@stripe/stripe-js";
 
-import { StripeItem } from "~src/types";
-import { checkoutOptions } from "~src/stripe/assets";
+import { StripeItem } from "../types";
+import { checkoutOptions } from "./assets";
 
 export const handleSubscribe = async (
   productItem: StripeItem,

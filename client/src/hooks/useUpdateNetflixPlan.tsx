@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { handleUpdateNetflixPlan } from "~src/api/user/updateNetflixPlan";
+import { handleUpdateNetflixPlan } from "../api/user/updateNetflixPlan";
 
 export const useUpdateNetflixPlan = (
   email: string | null,

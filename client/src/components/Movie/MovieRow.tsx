@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-import { TMDB_BASE_IMG_URL } from "~src/constants/tmdb";
-import { MovieRowLoading } from "~src/components/Movie/MovieRowLoading";
-import { useMovieData } from "~src/hooks/movie/useMovieData";
-import { TmdbApiMovieResponse } from "~src/types";
+import { TMDB_BASE_IMG_URL } from "../../constants/tmdb";
+import { MovieRowLoading } from "./MovieRowLoading";
+import { useMovieData } from "../../hooks/movie/useMovieData";
+import { TmdbApiMovieResponse } from "../../types";
 
 interface Props {
   category: string;

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
-import { MovieResult, TmdbApiMovieResponse } from "~src/types";
-import { generateRandomInt } from "~src/utils/generateRandomNumber";
-import { TMDB_BASE_IMG_URL } from "~src/constants/tmdb";
-import { useBannerMovieData } from "~src/hooks/movie/useBannerMovieData";
-import { BannerError } from "~src/components/Banner/BannerError";
-import { BannerFilter } from "~src/components/Banner/BannerFilter";
-import { BannerLoading } from "~src/components/Banner/BannerLoading";
+import { MovieResult, TmdbApiMovieResponse } from "../../types";
+import { generateRandomInt } from "../../utils/generateRandomNumber";
+import { TMDB_BASE_IMG_URL } from "../../constants/tmdb";
+import { useBannerMovieData } from "../../hooks/movie/useBannerMovieData";
+import { BannerError } from "./BannerError";
+import { BannerFilter } from "./BannerFilter";
+import { BannerLoading } from "./BannerLoading";
 
 export const Banner: React.FC = () => {
   const [banner, setBanner] = useState<MovieResult>();

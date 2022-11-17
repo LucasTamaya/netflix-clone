@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { handleLogin } from "~src/api/auth/login";
-import { ApiAuthResponse } from "~src/types/index";
+import { handleLogin } from "../../api/auth/login";
+import { ApiAuthResponse } from "../../types/index";
 
 export const useLogin = (
   email: string | undefined,

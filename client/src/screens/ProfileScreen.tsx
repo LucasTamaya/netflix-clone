@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 
-import { PROFILE_ICON_URL } from "~src/assets/icons";
-import { AppWrapper } from "~src/components/Ui/AppWrapper";
-import { UnauthorizedError } from "~src/components/Common/UnauthorizedError";
-import { UnknownError } from "~src/components/Common/UnknownError";
-import { NetflixPlan } from "~src/components/Other/NetflixPlan";
-import { useUserProfileData } from "~src/hooks/useUserProfileData";
+import { PROFILE_ICON_URL } from "../assets/icons";
+import { AppWrapper } from "../components/Ui/AppWrapper";
+import { UnauthorizedError } from "../components/Common/UnauthorizedError";
+import { UnknownError } from "../components/Common/UnknownError";
+import { NetflixPlan } from "../components/Other/NetflixPlan";
+import { useUserProfileData } from "../hooks/useUserProfileData";
 import {
   netflixBasicItem,
   netflixPremiumItem,
   netflixStandardItem,
-} from "~src/stripe/assets";
-import { handleSubscribe } from "~src/stripe/utils";
-import { LogoutModal } from "~src/components/Other/LogoutModal";
+} from "../stripe/assets";
+import { handleSubscribe } from "../stripe/utils";
+import { LogoutModal } from "../components/Other/LogoutModal";
 
 const ProfileScreen: React.FC = () => {
   const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
