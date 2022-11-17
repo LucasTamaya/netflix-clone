@@ -6,7 +6,7 @@ describe("BannerFilter Component", () => {
   it("should renders the component correctly", () => {
     render(<BannerFilter />);
 
-    const filter = screen.getByRole("filter");
+    const filter = screen.getByTestId("filter");
 
     expect(filter).toBeInTheDocument();
   });
