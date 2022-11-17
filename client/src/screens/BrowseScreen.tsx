@@ -7,6 +7,7 @@ import { UnauthorizedError } from "../components/common/UnauthorizedError";
 import { MoviesCatalog } from "../components/Movie/MoviesCatalog";
 import { AppWrapper } from "../components/ui/AppWrapper";
 import { useValidAuth } from "../hooks/auth/useValidAuth";
+import Helmet from "../components/common/Helmet";
 
 const BrowseScreen: React.FC = () => {
   const { isError, isSuccess } = useValidAuth();
@@ -41,6 +42,11 @@ const BrowseScreen: React.FC = () => {
           "linear-gradient(0deg, transparent, rgba(14,14,14,0.61), #111)",
       }}
     >
+      <Helmet
+        title="Netflix Clone - Browse"
+        content="Welcome to the best Netflix Clone you have never seen! Build with some fresh technologies such as React, TypeScript, Tailwind and much more!"
+        path="/browse"
+      />
       {isSuccess ? (
         <>
           <Nav />
