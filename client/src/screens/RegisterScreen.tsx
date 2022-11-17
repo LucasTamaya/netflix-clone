@@ -7,9 +7,7 @@ import { useRegister } from "../hooks/auth/useRegister";
 import Helmet from "../components/common/Helmet";
 
 export const RegisterScreen: React.FC = () => {
-  const [email, setEmail] = useState<string>(
-    localStorage.getItem("email") || ""
-  );
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const { mutate, isLoading, isSuccess, error } = useRegister(email, password);

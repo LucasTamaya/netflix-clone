@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import { HelmetProvider } from "react-helmet-async";
 
 import { SelectPlansScreen } from "~src/screens/SelectPlansScreen";
 import { HelmetWrapper } from "~tests/mocks/HelmetWrapper";

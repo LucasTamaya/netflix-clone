@@ -7,9 +7,7 @@ import { useLogin } from "../hooks/auth/useLogin";
 import Helmet from "../components/common/Helmet";
 
 export const LoginScreen: React.FC = () => {
-  const [email, setEmail] = useState<string>(
-    localStorage.getItem("email") || ""
-  );
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const { mutate, isLoading, isSuccess, error } = useLogin(email, password);
