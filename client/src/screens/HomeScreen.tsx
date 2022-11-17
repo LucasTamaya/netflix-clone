@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { NetflixBackground } from "../components/Common/NetflixBackground";
-import { Nav } from "../components/Common/Nav";
+import { NetflixBackground } from "../components/common/NetflixBackground";
+import { Nav } from "../components/common/Nav";
 
 export const HomeScreen: React.FC = () => {
   const [email, setEmail] = useState<string>("");

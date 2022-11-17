@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 
-import { Nav } from "../components/Common/Nav";
+import { Nav } from "../components/common/Nav";
 import { useUpdateNetflixPlan } from "../hooks/useUpdateNetflixPlan";
-import { UnknownError } from "../components/Common/UnknownError";
+import { UnknownError } from "../components/common/UnknownError";
 
 export const CheckoutSuccessScreen: React.FC = () => {
   const navigate = useNavigate();

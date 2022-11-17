@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 
-import { LogoutModal } from "~src/components/Other/LogoutModal";
+import { LogoutModal } from "~src/components/other/LogoutModal";
 
 const mockedHandleCancel = jest.fn();
 const mockedHandleLogout = jest.fn();

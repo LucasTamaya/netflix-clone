@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import { AppWrapper } from "../components/Ui/AppWrapper";
+import { AppWrapper } from "../components/ui/AppWrapper";
 
 export const LostScreen: React.FC = () => {
   const navigate = useNavigate();

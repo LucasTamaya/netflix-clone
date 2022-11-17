@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import { BannerFilter } from "~src/components/Banner/BannerFilter";
+import { BannerFilter } from "~src/components/banner/BannerFilter";
 
 describe("BannerFilter Component", () => {
   it("should renders the component correctly", () => {

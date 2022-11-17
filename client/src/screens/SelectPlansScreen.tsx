@@ -1,5 +1,5 @@
-import { Nav } from "../components/Common/Nav";
-import { NetflixPlan } from "../components/Other/NetflixPlan";
+import { Nav } from "../components/common/Nav";
+import { NetflixPlan } from "../components/other/NetflixPlan";
 import {
   netflixBasicItem,
   netflixPremiumItem,

@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 
 import { PROFILE_ICON_URL } from "../assets/icons";
-import { AppWrapper } from "../components/Ui/AppWrapper";
-import { UnauthorizedError } from "../components/Common/UnauthorizedError";
-import { UnknownError } from "../components/Common/UnknownError";
-import { NetflixPlan } from "../components/Other/NetflixPlan";
+import { AppWrapper } from "../components/ui/AppWrapper";
+import { UnauthorizedError } from "../components/common/UnauthorizedError";
+import { UnknownError } from "../components/common/UnknownError";
+import { NetflixPlan } from "../components/other/NetflixPlan";
 import { useUserProfileData } from "../hooks/useUserProfileData";
 import {
   netflixBasicItem,
@@ -14,7 +14,7 @@ import {
   netflixStandardItem,
 } from "../stripe/assets";
 import { handleSubscribe } from "../stripe/utils";
-import { LogoutModal } from "../components/Other/LogoutModal";
+import { LogoutModal } from "../components/other/LogoutModal";
 
 const ProfileScreen: React.FC = () => {
   const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);

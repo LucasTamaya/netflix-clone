@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import { UnknownError } from "~src/components/Common/UnknownError";
+import { UnknownError } from "~src/components/common/UnknownError";
 
 describe("UnauthorizedError Component", () => {
   it("should renders the component correctly", () => {

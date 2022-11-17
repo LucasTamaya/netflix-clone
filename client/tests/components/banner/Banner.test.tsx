@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import { rest } from "msw";
 
-import { Banner } from "~src/components/Banner/Banner";
+import { Banner } from "~src/components/banner/Banner";
 import { renderWithClient } from "~tests/config/mswUtils";
 import { server } from "~tests/config/server";
 
