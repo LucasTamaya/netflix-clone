@@ -123,6 +123,6 @@ func Login(c *fiber.Ctx) error {
 
 func ValidUserAuthentification(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"isSucces": true,
+		"isSuccess": true,
 	})
 }
