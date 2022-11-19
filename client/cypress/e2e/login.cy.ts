@@ -6,28 +6,22 @@ describe("Login", () => {
     }).click();
   });
 
-  it("should be able to login and access to BrowseScreen", () => {
+  it("user can log in and access the BrowseScreen", () => {
     cy.findByPlaceholderText(/email address/i).type("hugo@orange.fr");
     cy.findByPlaceholderText(/password/i).type("123456");
     cy.findByRole("button", { name: /login/i }).click();
 
-    cy.intercept("POST", "/auth/login", {
-      fixture: "../fixtures/authFixture.json",
-    });
+    cy.intercept("POST", "/auth/login", { isSuccess: true });
 
-    cy.location("pathname").should("eq", "/browse");
-    cy.findByRole("img", {
-      name: /profile icon/i,
-    }).should("exist");
+    // simulate JWT token
+    cy.loggedIn();
 
-    cy.visit("/browse");
+    cy.intercept("GET", "/auth/valid", { isSuccess: true });
 
-    // cy.intercept("GET", "/auth/valid", {
-    //   fixture: "../fixtures/authFixture.json",
-    // });
+    cy.isOnBrowseScreen();
   });
 
-  it("should be able to navigate to the RegisterScreen", () => {
+  it("user can to navigate to the RegisterScreen", () => {
     cy.findByRole("button", {
       name: /register/i,
     }).click();
