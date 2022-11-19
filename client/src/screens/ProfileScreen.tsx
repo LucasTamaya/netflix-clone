@@ -34,7 +34,8 @@ const ProfileScreen: React.FC = () => {
     let redirectUser: NodeJS.Timeout;
 
     if (isError && error.response?.status === 401) {
-      redirectUser = setTimeout(() => navigate("/"), 5000);
+      localStorage.clear();
+      redirectUser = setTimeout(() => navigate("/"), 3000);
     }
 
     return () => clearTimeout(redirectUser);
