@@ -7,8 +7,10 @@ declare global {
     interface Chainable {
       navigateToRegister(): Chainable<Element>;
       register(): Chainable<Element>;
+      login(): Chainable<Element>;
       loggedIn(): Chainable<Element>;
       isOnBrowseScreen(): Chainable<Element>;
+      navigateToUserProfile(): Chainable<Element>;
     }
   }
 }
@@ -32,6 +34,15 @@ Cypress.Commands.add("register", () => {
   });
 });
 
+Cypress.Commands.add("login", () => {
+  cy.findByPlaceholderText(/email address/i).type("hugo@orange.fr");
+  cy.findByPlaceholderText(/password/i).type("123456");
+  cy.findByRole("button", { name: /register/i }).click();
+  cy.intercept("POST", "/auth/register", {
+    fixture: "../fixtures/authFixture.json",
+  });
+});
+
 Cypress.Commands.add("loggedIn", () => {
   window.localStorage.setItem("token", "jVUfYw92zjFCtGMTZilctw");
 });
@@ -44,4 +55,20 @@ Cypress.Commands.add("isOnBrowseScreen", () => {
   }).should("exist");
 
   cy.findAllByRole("heading").should("have.length", 9);
+});
+
+Cypress.Commands.add("navigateToUserProfile", () => {
+  cy.loggedIn();
+  cy.visit("/browse", {
+    headers: { Authorization: "Bearer faepko87faegeakngkak621eg97g" },
+  });
+  cy.intercept("GET", "/auth/valid", { isSuccess: true });
+  cy.findByRole("img", {
+    name: /profile icon/i,
+  }).click();
+  cy.intercept("GET", "/user/profile", {
+    isSuccess: true,
+    email: "hugo@orange.fr",
+    netflixPlan: "Basic",
+  });
 });

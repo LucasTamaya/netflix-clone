@@ -1,4 +1,4 @@
-describe("Already Logged In", () => {
+describe("User already logged in", () => {
   before(() => {
     cy.loggedIn();
   });

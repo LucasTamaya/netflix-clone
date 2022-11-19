@@ -26,6 +26,7 @@ export const LogoutModal: React.FC<Props> = ({ handleCancel }) => {
             Cancel
           </button>
           <button
+            data-testid="logoutConfirmBtn"
             className="w-full sm:w-44 h-11 text-white font-semibold bg-red-netflix rounded hover:bg-red-600"
             onClick={handleLogout}
           >
