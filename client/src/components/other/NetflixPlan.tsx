@@ -36,6 +36,7 @@ export const NetflixPlan: React.FC<Props> = ({
         <p className="text-white text-sm sm:text-base">{resolution}</p>
       </div>
       <button
+        data-testid="subscribeBtn"
         onClick={handleClick}
         className={`text-white text-xs sm:text-base font-semibold w-32 sm:w-44 h-9 sm:h-11 flex justify-center items-center rounded ${
           canSubscribeToPlan

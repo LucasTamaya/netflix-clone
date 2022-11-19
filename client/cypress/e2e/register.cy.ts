@@ -1,14 +1,6 @@
-import { mockedSuccessResponse } from "../fixtures/authFixture";
-
 describe("Register", () => {
   beforeEach(() => {
-    cy.visit("/");
-    cy.findByRole("button", {
-      name: /get started/i,
-    }).click();
-    cy.findByRole("button", {
-      name: /register/i,
-    }).click();
+    cy.navigateToRegister();
   });
 
   it("should be able to register and access to the SelectPlansScreen", () => {
@@ -16,7 +8,9 @@ describe("Register", () => {
     cy.findByPlaceholderText(/password/i).type("123456");
     cy.findByRole("button", { name: /register/i }).click();
 
-    cy.intercept("POST", "/auth/register", mockedSuccessResponse);
+    cy.intercept("POST", "/auth/register", {
+      fixture: "../fixtures/authFixture.json",
+    });
 
     cy.location("pathname").should("eq", "/select-plans");
   });
